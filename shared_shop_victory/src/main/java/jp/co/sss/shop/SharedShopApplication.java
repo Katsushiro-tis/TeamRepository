@@ -9,5 +9,4 @@ public class SharedShopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SharedShopApplication.class, args);
 	}
-
 }
