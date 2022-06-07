@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>トップ | シェアードショップ</title>
+<meta charset="UTF-8" />
+</head>
+<body class="user index">
+	<!-- 	<h2 class="title">売れ筋商品</h2>
+	<div class="item">
+		<div class="item_name"></div>
+	</div> -->
+	<h2 class="title">商品一覧</h2>
+
+	<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
+		<tr>
+			<th>ID</th>
+			<th>商品名</th>
+			<th>価格</th>
+			<th>カテゴリ</th>
+		</tr>
+		<!--/* 商品情報 */-->
+		<tr th:each="item: ${items}">
+			<td th:text="${item.id}"></td>
+			<td><a th:href="@{/item/detail/admin/{id}(id=${item.id})}"
+				th:text="${item.name}"></a></td>
+			<td th:text="${item.price}"></td>
+			<td th:text="${item.categoryName}"></td>
+		</tr>
+	</table>
+
+
+</body>
+</html>
