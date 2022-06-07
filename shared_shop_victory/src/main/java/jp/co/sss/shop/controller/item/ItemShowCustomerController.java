@@ -47,7 +47,7 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/admin/");
 		
-		return "item/list/item_list_user";
+		return "item/list/item_list";
 	}
 
 	
