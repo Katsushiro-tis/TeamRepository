@@ -69,7 +69,8 @@ public class LoginController {
 			Integer authority = ((UserBean) session.getAttribute("user")).getAuthority();
 			if (authority.intValue() == 2) {
 				// 一般会員ログインした場合、トップ画面に遷移
-				return "";
+				System.out.println("一般会員");
+				return "redirect:/";
 			}
 			else {
 				// 運用管理者、もしくはシステム管理者としてログインした場合、管理者用メニュー画面に遷移
@@ -77,4 +78,9 @@ public class LoginController {
 			}
 		}
 	}
+	
+//	@RequestMapping(path = "/user/regist/input", method = RequestMethod.GET)
+//	public String registInput(Model model) {
+//		return "user/regist/user_regist_input";
+//	}
 }
