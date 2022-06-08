@@ -26,13 +26,13 @@ public class LoginController {
 	 * 会員情報
 	 */
 	@Autowired
-	UserRepository	userRepository;
+	UserRepository userRepository;
 
 	/**
 	 * セッション情報
 	 */
 	@Autowired
-	HttpSession	session;
+	HttpSession session;
 
 	/**
 	 * ログイン処理
@@ -52,12 +52,9 @@ public class LoginController {
 	/**
 	 * ログイン処理
 	 *
-	 * @param form ログインフォーム
-	 * @param result 入力チェック結果
+	 * 
 	 * @param session セッション情報
-	 * @return 
-			一般会員の場合 "/" トップ画面へ
-			運用管理者、システム管理者の場合 "admin_menu"へ
+	 * 
 	 */
 	@RequestMapping(path = "/login", method = RequestMethod.POST)
 	public String doLogin(@Valid @ModelAttribute LoginForm form, BindingResult result) {
@@ -70,8 +67,7 @@ public class LoginController {
 			if (authority.intValue() == 2) {
 				// 一般会員ログインした場合、トップ画面に遷移
 				return "redirect:/";
-			}
-			else {
+			} else {
 				// 運用管理者、もしくはシステム管理者としてログインした場合、管理者用メニュー画面に遷移
 				return "admin_menu";
 			}

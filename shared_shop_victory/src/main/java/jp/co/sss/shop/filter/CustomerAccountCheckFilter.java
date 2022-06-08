@@ -39,7 +39,7 @@ public class CustomerAccountCheckFilter implements Filter {
 				if (user.getAuthority() == 2) {
 					// セッション情報を削除
 					session.invalidate();
-					
+
 					// レスポンス情報を取得
 					HttpServletResponse httpResponse = (HttpServletResponse) response;
 
@@ -68,16 +68,11 @@ public class CustomerAccountCheckFilter implements Filter {
 		String requestURL = httpRequest.getRequestURI();
 
 		if (!URLCheck.checkURLForStaticFile(requestURL)
-				&& (requestURL.indexOf("/admin") != -1
-				|| requestURL.indexOf("/item/regist") != -1
-				|| requestURL.indexOf("/item/update") != -1
-				|| requestURL.indexOf("/item/delete") != -1
-				|| requestURL.indexOf("/category/list") != -1
-				|| requestURL.indexOf("/category/regist") != -1
-				|| requestURL.indexOf("/category/update") != -1
-				|| requestURL.indexOf("/category/delete") != -1
-				|| requestURL.indexOf("/category/detail") != -1
-				|| requestURL.indexOf("/user/list") != -1)) {
+				&& (requestURL.indexOf("/admin") != -1 || requestURL.indexOf("/item/regist") != -1
+						|| requestURL.indexOf("/item/update") != -1 || requestURL.indexOf("/item/delete") != -1
+						|| requestURL.indexOf("/category/list") != -1 || requestURL.indexOf("/category/regist") != -1
+						|| requestURL.indexOf("/category/update") != -1 || requestURL.indexOf("/category/delete") != -1
+						|| requestURL.indexOf("/category/detail") != -1 || requestURL.indexOf("/user/list") != -1)) {
 			// URLのリクエスト先がフィルタ実行対象である場合
 			return true;
 		} else {
