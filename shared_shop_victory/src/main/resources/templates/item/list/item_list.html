@@ -2,36 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
 <head>
-<title>商品一覧 | シェアードショップ</title>
 <meta charset="UTF-8" />
+<title>Insert title here</title>
 </head>
-<body class="admin item_list_admin" th:object="${loginForm}">
+<body>
+
 
 	<h2 class="title">商品一覧</h2>
-	<form th:action="@{/item/regist/input}" class="sign_up_form">
-		<input type="submit" value="商品新規登録" class="menu_button" />
-	</form>
 
 	<div th:if="${#lists.isEmpty(items)}">
 		<p th:text="#{itemListAdmin.none}"></p>
 	</div>
 
+
 	<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
 		<tr>
-			<th>ID</th>
+			<th>商品画像</th>
 			<th>商品名</th>
 			<th>価格</th>
 			<th>カテゴリ</th>
-			<th>操作</th>
 		</tr>
 		<!--/* 商品情報 */-->
 		<tr th:each="item: ${items}">
-			<td th:text="${item.id}"></td>
+			<td  class="item_image_area_list"><span th:if="${item.image != null}">
+					<img th:src="@{/img/{image}(image=${item.image})}"></img>
+			</span> <span th:if="${item.image == null}"> <img
+					th:src="@{/img/common/no_image.jpg}"></img>
+			</span></td>
 			<td><a th:href="@{/item/detail/admin/{id}(id=${item.id})}"
 				th:text="${item.name}"></a></td>
 			<td th:text="${item.price}"></td>
 			<td th:text="${item.categoryName}"></td>
+
 		</tr>
 	</table>
+
 </body>
 </html>
