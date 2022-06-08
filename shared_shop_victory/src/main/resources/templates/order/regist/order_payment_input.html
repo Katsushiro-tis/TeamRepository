@@ -9,8 +9,16 @@
 	
 	<!--       ---------　支払方法選択画面　 ---------     -->
 	<div>支払い方法選択画面</div>
-	<a href="/shared_shop/order/check">次へ</a>
-	<a href="/shared_shop/address/input">戻る</a>
+	
+	<form method="post" action="/shared_shop/address/input">
+		<input type="hidden" name="backflg" value="true"/>
+		<input type="submit" value="戻る"/>
+	</form>
+	
+	<form method="post"action="/shared_shop/order/check">
+		<input type="hidden" name="backflg" value="false"/>
+		<input type="submit" value="次へ"/>
+	</form>
 	
 </body>
 </html>

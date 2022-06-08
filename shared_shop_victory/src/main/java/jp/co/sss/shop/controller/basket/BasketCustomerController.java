@@ -1,7 +1,13 @@
 package jp.co.sss.shop.controller.basket;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import jp.co.sss.shop.form.AddressForm;
+import jp.co.sss.shop.form.OrderForm;
 
 @Controller
 public class BasketCustomerController {
@@ -15,14 +21,16 @@ public class BasketCustomerController {
 	}
 
 	// 届け先入力画面
-	@RequestMapping(path = "/address/input")
-	public String ShopOrderRegist() {
+	@RequestMapping(path = "/address/input", method = RequestMethod.POST)
+	public String ShopOrderRegist(AddressForm addressform, HttpSession session) {
+		session.setAttribute("address", addressform.getAddress());
 		return "order/regist/order_address_input";
 	}
 
 	// 支払い方法選択画面
-	@RequestMapping(path = "/payment/input")
-	public String PaymentInput() {
+	@RequestMapping(path = "/payment/input", method = RequestMethod.POST)
+	public String PaymentInput(OrderForm orderform, HttpSession session) {
+		session.setAttribute("payment", orderform.getPayMethod());
 		return "order/regist/order_payment_input";
 	}
 

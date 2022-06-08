@@ -8,7 +8,16 @@
 <body>
 	<!--      ---------　届け先入力画面　---------      -->
 	<div>届け先入力画面</div>
-	<a href="/shared_shop/payment/input">次へ</a>
-	<a href="/shared_shop/basket">戻る</a>
+	
+	<form method="get" action="/shared_shop/basket/list">
+		<input type="hidden" name="backflg" value="true"/>
+		<input type="submit" value="戻る"/>
+	</form>
+	
+	
+	<form method="post"action="/shared_shop/payment/input">
+		<input type="hidden" name="backflg" value="false"/>
+		<input type="submit" value="次へ"/>
+	</form>
 </body>
 </html>
