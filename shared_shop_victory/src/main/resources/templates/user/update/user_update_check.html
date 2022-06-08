@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p>会員変更確認画面</p>
+	
+	<form th:action="@{/user/update/input}" method="post">	<!-- 会員変更入力画面へボタン -->
+		<input type="submit" value="戻る（会員変更入力画面へ）">
+	</form>
+	
+		
+	<form th:action="@{/user/update/complete}" method="post">	<!-- 会員変更完了画面へボタン -->
+		<input type="submit" value="登録（会員変更完了画面へ）">
+	</form>
+
+</body>
+</html>
