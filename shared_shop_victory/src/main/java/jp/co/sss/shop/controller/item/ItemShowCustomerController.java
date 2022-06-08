@@ -44,7 +44,6 @@ public class ItemShowCustomerController {
 
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
-		model.addAttribute("url", "/item/list/");
 		
 		return "index";
 	}
