@@ -2,9 +2,11 @@ package jp.co.sss.shop.controller.item;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.sss.shop.bean.ItemBean;
@@ -62,4 +64,25 @@ public class ItemShowCustomerController {
 		model.addAttribute("url", "/item/list/");
 		return "/item/list/item_list";
 	}
+	
+	 
+		@RequestMapping(path = "/item/detail/{id}")
+		public String showItem(@PathVariable int id, Model model) {
+
+			// 商品IDに該当する商品情報を取得
+			Item item = itemRepository.getById(id);
+
+			ItemBean itemBean = new ItemBean();
+
+			// Itemエンティティの各フィールドの値をItemBeanにコピー
+			BeanUtils.copyProperties(item, itemBean);
+
+			// 商品情報にカテゴリ名を設定
+			itemBean.setCategoryName(item.getCategory().getName());
+
+			// 商品情報をViewへ渡す
+			model.addAttribute("item", itemBean);
+
+			return "item/detail/item_detail";
+		}
 }
