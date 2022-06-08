@@ -1,8 +1,11 @@
 package jp.co.sss.shop.controller.basket;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,30 +23,48 @@ public class BasketCustomerController {
 
 // 商品追加処理
 	@PostMapping("/basket/add")
-	public String addItem() {
+	public String addItem(HttpSession session) {
+
 		return "basket/list";
 	}
 
 	// 買い物かご画面(ナビゲーションバーから遷移)
 	@GetMapping("/basket/list")
 	public String basketListGet(HttpSession session) {
+
 		// 確認用のbean生成
 		BasketBean bean = new BasketBean(10, "りんご", 100, 1);
-		session.setAttribute("basketBean", bean);		return "basket/shopping_basket";
+		BasketBean bean2 = new BasketBean(10, "いちご", 100, 1);
+		ArrayList<BasketBean> basket = new ArrayList<>();
+		basket.add(bean);
+		basket.add(bean2);
+		session.setAttribute("basketBean", basket);
+
+		return "basket/shopping_basket";
 	}
 
 	// 買い物かご画面(各種ボタンから遷移)
 	@PostMapping("/basket/list")
 	public String basketList(HttpSession session) {
+
 		// 画面確認用のbean生成
 		BasketBean bean = new BasketBean(10, "りんご", 100, 1);
-		session.setAttribute("basketBean", bean);
+		BasketBean bean2 = new BasketBean(10, "いちご", 100, 1);
+		ArrayList<BasketBean> basket = new ArrayList<>();
+		basket.add(bean);
+		basket.add(bean2);
+		session.setAttribute("basketBean", basket);
 
 		return "basket/shopping_basket";
 	}
 
 	@PostMapping("/basket/delete")
-	public String deleteItem() {
+	public String deleteItem(HttpSession session, Model model) {
+		Integer deleteId = (Integer) model.getAttribute("orderId");
+		ArrayList<BasketBean> basket = (ArrayList<BasketBean>) session.getAttribute("basketList");
+		// basket.remove(basket.indexOf());
+
+		session.setAttribute("basketBean", basket);
 		return "basket/shopping_basket";
 	}
 

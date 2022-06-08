@@ -20,6 +20,7 @@
 				<td th:text="${basket.name}"></td>
 				<td th:text="${basket.orderNum}"></td>
 				<td><form th:action="@{/basket/delete}" method="post">
+						<input type="hidden" name="orderId" value="${basket.id}">
 						<input type="submit" class="delete" value="削除"></input>
 					</form></td>
 				<td th:text="${basket.stock}"></td>
