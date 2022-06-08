@@ -9,7 +9,7 @@ public class BasketCustomerController {
 //	　　　　　買い物かごコントローラー 
 
 	// 買い物かご画面
-	@RequestMapping(path = "/basket")
+	@RequestMapping(path = "/basket/list")
 	public String ShopBasket() {
 		return "basket/shopping_basket";
 	}
