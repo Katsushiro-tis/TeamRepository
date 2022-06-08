@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<p>会員変更完了画面</p>
+	<p>会員情報の変更が完了しました。</p>
+	
+	<a th:href="@{/user/detail}">会員詳細へ戻る</a>
+
+</body>
+</html>

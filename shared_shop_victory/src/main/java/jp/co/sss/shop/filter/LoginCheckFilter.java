@@ -1,3 +1,4 @@
+
 package jp.co.sss.shop.filter;
 
 import java.io.IOException;
@@ -8,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
 
@@ -20,6 +19,7 @@ import jp.co.sss.shop.util.URLCheck;
  * 
  * @author System Shared
  */
+
 @Component
 public class LoginCheckFilter implements Filter {
 	@Override
@@ -28,25 +28,25 @@ public class LoginCheckFilter implements Filter {
 		// リクエスト情報を取得
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		if (checkRequestURL(httpRequest)) {
-
-			// セッション情報を取得
-			HttpSession session = httpRequest.getSession();
-
-			if (session.getAttribute("user") == null) {
-				// 不正アクセスの場合、ログイン画面にリダイレクト
-
-				// レスポンス情報を取得
-				HttpServletResponse httpResponse = (HttpServletResponse) response;
-
-				// ログイン画面へリダイレクト
-				httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
-			} else {
-				chain.doFilter(request, response);
-			}
-		} else {
+//		if (checkRequestURL(httpRequest)) {
+//
+//			// セッション情報を取得
+//			HttpSession session = httpRequest.getSession();
+//
+//			if (session.getAttribute("user") == null) {
+//				// 不正アクセスの場合、ログイン画面にリダイレクト
+//
+//				// レスポンス情報を取得
+//				HttpServletResponse httpResponse = (HttpServletResponse) response;
+//
+//				// ログイン画面へリダイレクト
+//				httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+//			} else {
+//				chain.doFilter(request, response);
+//			}
+//		} else {
 			chain.doFilter(request, response);
-		}
+//		}
 	}
 
 	/**
