@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>注文一覧 | シェアードショップ</title>
+</head>
+<body>
+	<a th:href="@{/order/detail}">注文詳細</a>
+</body>
+</html>

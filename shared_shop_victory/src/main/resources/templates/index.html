@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	    th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
 <title>トップ | シェアードショップ</title>
 <meta charset="UTF-8" />
 </head>
 <body class="user index">
 	<h2 class="title">売れ筋商品</h2>
-	<div class="item">
-		<div class="item_name"></div>
+
+
+	<div class="item" th:each="item: ${items}">
+		<div class="item_name">
+				<p th:text="${item.name}"></p>
+		</div>
+		<a th:href="@{/item/detail/{id}(id=${item.id})}">
+		<span th:if="${item.image != null}"> <img
+			th:src="@{/img/{image}(image=${item.image})}"></img>
+		</span> <span th:if="${item.image == null}"> <img
+			th:src="@{/img/common/no_image.jpg}"></img>
+		</span>
+	</a>
 	</div>
+
 
 </body>
 </html>

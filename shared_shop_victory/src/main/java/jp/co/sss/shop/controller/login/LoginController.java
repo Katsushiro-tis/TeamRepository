@@ -78,9 +78,4 @@ public class LoginController {
 			}
 		}
 	}
-	
-//	@RequestMapping(path = "/user/regist/input", method = RequestMethod.GET)
-//	public String registInput(Model model) {
-//		return "user/regist/user_regist_input";
-//	}
 }
