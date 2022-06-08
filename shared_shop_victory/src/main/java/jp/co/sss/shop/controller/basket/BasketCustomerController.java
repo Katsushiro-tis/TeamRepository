@@ -3,20 +3,52 @@ package jp.co.sss.shop.controller.basket;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.form.AddressForm;
 import jp.co.sss.shop.form.OrderForm;
 
+import jp.co.sss.shop.bean.BasketBean;
+
 @Controller
 public class BasketCustomerController {
 
 //	　　　　　買い物かごコントローラー 
 
-	// 買い物かご画面
-	@RequestMapping(path = "/basket")
-	public String ShopBasket() {
+// 商品追加処理
+	@PostMapping("/basket/add")
+	public String addItem() {
+		return "basket/list";
+	}
+
+	// 買い物かご画面(ナビゲーションバーから遷移)
+	@GetMapping("/basket/list")
+	public String basketListGet(HttpSession session) {
+		// 確認用のbean生成
+		BasketBean bean = new BasketBean(10, "りんご", 100, 1);
+		session.setAttribute("basketBean", bean);		return "basket/shopping_basket";
+	}
+
+	// 買い物かご画面(各種ボタンから遷移)
+	@PostMapping("/basket/list")
+	public String basketList(HttpSession session) {
+		// 画面確認用のbean生成
+		BasketBean bean = new BasketBean(10, "りんご", 100, 1);
+		session.setAttribute("basketBean", bean);
+
+		return "basket/shopping_basket";
+	}
+
+	@PostMapping("/basket/delete")
+	public String deleteItem() {
+		return "basket/shopping_basket";
+	}
+
+	@PostMapping("basket/deleteAll")
+	public String deleteAll() {
 		return "basket/shopping_basket";
 	}
 
