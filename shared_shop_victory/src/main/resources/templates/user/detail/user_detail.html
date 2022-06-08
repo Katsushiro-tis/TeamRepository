@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<p>会員詳細画面</p>
+	<h2 class="title">会員詳細画面</h2>
+	<div class="user_detail_area">
 	
+				<ul class="input_list">
+				<li>
+					<span class="input_title">メールアドレス</span>
+					<span class="input_value" th:text="${session.user.email}"></span>
+				</li>
+				<li>
+					<span class="input_title">氏名</span>
+					<span class="input_value" th:text="${session.user.name}"></span>
+				</li>
+				<li>
+					<span class="input_title">郵便番号</span>
+					<span class="input_value" th:text="${session.user.postalCode}"></span>
+				</li>
+				<li>
+					<span class="input_title">住所</span>
+					<span class="input_value" th:text="${session.user.address}"></span>
+				</li>
+				<li>
+					<span class="input_title">電話番号</span>
+					<span class="input_value" th:text="${session.user.phoneNumber}"></span>
+				</li>
+			</ul>
+	
+	</div>
+	
+	<div class="detail_button_area">
 	<form th:action="@{/}">	<!-- トップへ戻るボタン -->
-		<input type="submit" value="戻る（トップへ）">
+		<input type="submit" value="戻る">
 	</form>
 	
 	
 	<form th:action="@{/user/update/input}" method="post">	<!-- 会員変更入力画面へ -->
-		<input type="submit" value="変更入力">
+		<input type="submit" value="変更">
 	</form>
 	
 	
-	<form action="" method="post">	<!-- 会員削除確認画面へ -->
-		<input type="submit" value="退会（会員削除）">
+	<form th:action="@{/user/delete/check}" method="post">	<!-- 会員削除確認画面へ -->
+		<input type="submit" value="退会" class="delete">
 	</form>
+	
+	</div>
 </body>
 </html>

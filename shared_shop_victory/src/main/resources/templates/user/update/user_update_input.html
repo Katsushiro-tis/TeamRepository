@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<p>会員変更入力画面</p>
+	<h2 class="title">会員変更入力画面</h2>
 	
-	<form th:action="@{/user/detail}" method="get">	<!-- 会員詳細画面へ戻るボタン -->
+	<form th:action="@{/user/detail}" method="get" class="user_info_form">	<!-- 会員詳細画面へ戻るボタン -->
 		<input type="submit" value="戻る（会員詳細画面へ）">
 	</form>
 	
