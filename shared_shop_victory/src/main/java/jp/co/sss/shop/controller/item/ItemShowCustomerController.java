@@ -35,7 +35,6 @@ public class ItemShowCustomerController {
 	 */
 	@RequestMapping(path = "/")
 	public String index(Model model) {
-
 		
 		// 商品情報を全件検索(新着順)
 		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
@@ -45,10 +44,23 @@ public class ItemShowCustomerController {
 
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
-		model.addAttribute("url", "/item/list/admin/");
+		model.addAttribute("url", "/item/list/");
 		
-		return "item/list/item_list";
+		return "index";
 	}
 
-	
+	@RequestMapping(path = "/item/list")
+	public String item_list(Model model) {
+		
+		// 商品情報を全件検索(新着順)
+		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+
+		// エンティティ内の検索結果をJavaBeansにコピー
+		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
+
+		// 商品情報をViewへ渡す
+		model.addAttribute("items", itemBeanList);
+		model.addAttribute("url", "/item/list/");
+		return "/item/list/item_list";
+	}
 }
