@@ -1,8 +1,11 @@
 package jp.co.sss.shop.controller.basket;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +44,9 @@ public class BasketCustomerController {
 	}
 
 	@PostMapping("/basket/delete")
-	public String deleteItem() {
+	public String deleteItem(HttpSession session, Model model) {
+		Integer deleteId = (Integer) model.getAttribute("orderId");
+		ArrayList<BasketBean> bean = new ArrayList<>();
 		return "basket/shopping_basket";
 	}
 
