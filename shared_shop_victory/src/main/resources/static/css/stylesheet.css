@@ -495,6 +495,12 @@ select {
 .list_table.item_list th:last-of-type {
 	width:20%;
 }
+.list_table.item_list th:first-of-type {
+	width:20%;
+}
+.item_image_area_list img{
+	width: 60%;
+}
 
 /* ---- 注文一覧 ---- */
 .list_table.order{
