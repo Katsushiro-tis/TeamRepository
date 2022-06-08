@@ -17,7 +17,7 @@ public class BasketCustomerController {
 
 //	　　　　　買い物かごコントローラー 
 
-	// 商品追加処理
+// 商品追加処理
 	@PostMapping("/basket/add")
 	public String addItem() {
 		return "basket/list";
@@ -28,9 +28,7 @@ public class BasketCustomerController {
 	public String basketListGet(HttpSession session) {
 		// 確認用のbean生成
 		BasketBean bean = new BasketBean(10, "りんご", 100, 1);
-		session.setAttribute("basketBean", bean);
-
-		return "basket/shopping_basket";
+		session.setAttribute("basketBean", bean);		return "basket/shopping_basket";
 	}
 
 	// 買い物かご画面(各種ボタンから遷移)

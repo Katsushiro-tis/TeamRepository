@@ -74,6 +74,8 @@ public class UserUpdateAdminController {
 		}
 		return "user/update/user_update_input_admin";
 	}
+	
+	
 
 	/**
 	 * 会員情報 変更確認処理
