@@ -37,7 +37,7 @@ public class LoginCheckFilter implements Filter {
 
 			if (session.getAttribute("user") == null) {
 				// 不正アクセスの場合、ログイン画面にリダイレクト
-
+				
 				// レスポンス情報を取得
 				HttpServletResponse httpResponse = (HttpServletResponse) response;
 
