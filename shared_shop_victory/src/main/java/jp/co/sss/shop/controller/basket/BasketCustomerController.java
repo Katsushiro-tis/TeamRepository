@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,21 +12,62 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.shop.bean.BasketBean;
+import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.AddressForm;
 import jp.co.sss.shop.form.OrderForm;
-
-import jp.co.sss.shop.bean.BasketBean;
+import jp.co.sss.shop.repository.ItemRepository;
 
 @Controller
 public class BasketCustomerController {
+
+	@Autowired
+	ItemRepository itemRepository;
 
 //	　　　　　買い物かごコントローラー 
 
 // 商品追加処理
 	@PostMapping("/basket/add")
-	public String addItem(HttpSession session) {
+	public String addItem(int id, HttpSession session) {
+		// sessionに買い物かご情報があるか確認。なければ作成
+		ArrayList<BasketBean> basket = (ArrayList<BasketBean>) session.getAttribute("basketBean");
+		if (basket == null) {
+			basket = new ArrayList<>();
+		}
+		// 追加対象商品の在庫数確認
+		Item item = itemRepository.getById(id);
+		// 追加できる数ならば、買い物かごに追加(この時点では、在庫数が減らない為、買い物かご数は在庫数を超えてはいけない)
+		// 買い物かご個数
+		int basketStock = 0;
+		// 配列番号カウント
+		int count = 0;
+		for (BasketBean bask : basket) {
+			if (bask.getId() == id) {
+				basketStock = bask.getOrderNum() + 1;
+				if(basketStock <= item.getStock()) {
+					bask.setOrderNum(basketStock);
+					basket.set(count, bask);
+				}
+				
+			}
+			count++;
+		}
+		
+		if (basketStock > item.getStock()) {
+			System.out.println("エラー");
+			return "basket/shopping_basket";
+		} else { // 買い物かごをセット
+			session.setAttribute("basketBean", basket);
+			if(basketStock == 0) {
+				// 値を登録
+				BasketBean bean = new BasketBean(item.getId(), item.getName(), item.getPrice(), 1);
+				// 買い物かごに追加
+				basket.add(bean);
+			}
+			
+			return "basket/shopping_basket";
+		}
 
-		return "basket/list";
 	}
 
 	// 買い物かご画面(ナビゲーションバーから遷移)
