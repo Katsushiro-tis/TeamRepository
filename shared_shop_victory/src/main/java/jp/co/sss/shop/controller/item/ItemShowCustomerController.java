@@ -33,6 +33,12 @@ public class ItemShowCustomerController {
 	@Autowired
 	CategoryRepository categoryRepository;
 
+	/*	*//**
+			 * セッション
+			 *//*
+				 * @Autowired HttpSession session;
+				 */
+
 	/**
 	 * トップ画面 表示処理
 	 *
@@ -97,14 +103,17 @@ public class ItemShowCustomerController {
 		category.setId(categoryId);
 
 		List<Item> items = itemRepository.findByCategory(category);
-		
-		System.out.println(items.size());
 
 		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(items);
 
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
 
+		return "/item/list/item_list";
+	}
+
+	@RequestMapping("/after")
+	public String after() {
 		return "/item/list/item_list";
 	}
 
