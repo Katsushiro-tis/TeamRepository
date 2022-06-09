@@ -6,7 +6,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.form.CategoryForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.util.BeanCopy;
@@ -92,16 +90,22 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/item/list/category/{sortType}", method = RequestMethod.GET)
-	public String showCategoryList(Model model, @ModelAttribute CategoryForm form) {
+	public String showCategoryList(int categoryId, Model model) {
 
-		// カテゴリ情報を取得する
-		List<Category> categoryList = categoryRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+		Category category = new Category();
+
+		category.setId(categoryId);
+
+		List<Item> items = itemRepository.findByCategory(category);
 		
-		// カテゴリ情報をViewへ渡す
-		model.addAttribute("categories", categoryList);
-		model.addAttribute("url", "/category/list");
+		System.out.println(items.size());
 
-		return "category/list/category_list";
+		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(items);
+
+		model.addAttribute("items", itemBeanList);
+		model.addAttribute("url", "/item/list/");
+
+		return "/item/list/item_list";
 	}
 
 }
