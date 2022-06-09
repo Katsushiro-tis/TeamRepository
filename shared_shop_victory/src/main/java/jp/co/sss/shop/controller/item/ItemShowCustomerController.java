@@ -15,6 +15,7 @@ import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.util.BeanCopy;
 import jp.co.sss.shop.util.Constant;
 
@@ -32,6 +33,8 @@ public class ItemShowCustomerController {
 	ItemRepository itemRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
+	@Autowired
+	OrderItemRepository orderItemRepository;
 
 	/**
 	 * トップ画面 表示処理
@@ -103,6 +106,25 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
 
+		return "/item/list/item_list";
+	}
+
+	
+	@RequestMapping(path = "/item/list/{sortType}", method = RequestMethod.GET)
+	public String showNewerList(Model model) {
+		
+		/*
+		 * 売れ筋 Item item = new Item(); List<OrderItem> items =
+		 * orderItemRepository.findByItem(item); System.out.println(items);
+		 * 
+		 * List<OrderItemBean> orderitemBeanList =
+		 * BeanCopy.copyEntityToOrderItemBean(items);
+		 * 
+		 * // model.addAttribute("items",
+		 * orderItemRepository.findAllByOrderByQuantityDesc());
+		 * model.addAttribute("items", orderitemBeanList); model.addAttribute("url",
+		 * "/item/list/");
+		 */
 		return "/item/list/item_list";
 	}
 

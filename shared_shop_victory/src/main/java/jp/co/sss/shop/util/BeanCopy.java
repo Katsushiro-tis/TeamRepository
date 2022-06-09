@@ -136,4 +136,22 @@ public class BeanCopy {
 
 		return beanList;
 	}
+
+	/*
+	 * 売れ筋 public static List<OrderItemBean>
+	 * copyEntityToOrderItemBean(List<OrderItem> entityList) { // TODO
+	 * 自動生成されたメソッド・スタブ
+	 * 
+	 * List<OrderItemBean> beanList = new ArrayList<OrderItemBean>();
+	 * 
+	 * for (int i = 0; i < entityList.size(); i++) { OrderItemBean bean = new
+	 * OrderItemBean(); BeanUtils.copyProperties(entityList.get(i), bean);
+	 * 
+	 * if (entityList.get(i).getItem() != null) {
+	 * bean.setName(entityList.get(i).getItem().getName()); }
+	 * 
+	 * beanList.add(bean); }
+	 * 
+	 * return beanList; }
+	 */
 }
