@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.form.AddressForm;
 import jp.co.sss.shop.form.OrderForm;
-
-import jp.co.sss.shop.bean.BasketBean;
+import jp.co.sss.shop.repository.OrderRepository;
 
 @Controller
 public class BasketCustomerController {
+	@Autowired
+	OrderRepository orderRepository;
 
 //	　　　　　買い物かごコントローラー 
 
@@ -73,23 +76,30 @@ public class BasketCustomerController {
 		return "basket/shopping_basket";
 	}
 
-	// 届け先入力画面
+	// 届け先入力画面へ
 	@RequestMapping(path = "/address/input", method = RequestMethod.POST)
-	public String ShopOrderRegist(AddressForm addressform, HttpSession session) {
-		session.setAttribute("address", addressform.getAddress());
+	public String ShopOrderRegist() {
 		return "order/regist/order_address_input";
 	}
 
-	// 支払い方法選択画面
+	// 支払い方法選択画面へ
 	@RequestMapping(path = "/payment/input", method = RequestMethod.POST)
-	public String PaymentInput(OrderForm orderform, HttpSession session) {
-		session.setAttribute("payment", orderform.getPayMethod());
+	public String PaymentInput(AddressForm addressform, HttpSession session) {
+//		session.setAttribute("payment", orderform.getPayMethod());
+
+//		Order order = new Order();
+//		order.setPostalCode(addressform.getPostalCode());
+//		order.setAddress(addressform.getAddress());
+//		order.setName(addressform.getName());
+//		order.setPhoneNumber(addressform.getPhoneNumber());
+//		orderRepository.save(order);
 		return "order/regist/order_payment_input";
 	}
 
 	// 注文登録確認画面
-	@RequestMapping(path = "/order/check")
-	public String OrderCheck() {
+	@RequestMapping(path = "/order/check", method = RequestMethod.POST)
+	public String OrderCheck(OrderForm oderform, HttpSession session) {
+
 		return "order/regist/order_check";
 	}
 
