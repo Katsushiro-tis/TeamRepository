@@ -16,6 +16,7 @@
 	<input type="radio" name="selectedRadio" th:text="電子マネー"><br>
 	<input type="radio" name="selectedRadio" th:text="コンビニ決済"><br>
 	
+	<div th:text="${session.address.postalCode}"></div>
 	<form method="post" action="/shared_shop/address/input">
 		<input type="hidden" name="backflg" value="true"/>
 		<input type="submit" value="戻る"/>
