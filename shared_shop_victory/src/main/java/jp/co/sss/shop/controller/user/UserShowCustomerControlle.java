@@ -35,7 +35,7 @@ public class UserShowCustomerControlle {
 		BeanUtils.copyProperties(user, userBean);
 
 		// 会員情報をViewに渡す
-		model.addAttribute("userDetail", userBean);
+		model.addAttribute("user", userBean);
 		
 		return "user/detail/user_detail";
 	}
