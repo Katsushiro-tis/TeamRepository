@@ -18,6 +18,7 @@ import jp.co.sss.shop.form.AddressForm;
 import jp.co.sss.shop.form.BasketForm;
 import jp.co.sss.shop.form.OrderForm;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderRepository;
 
 @Controller
 public class BasketCustomerController {
