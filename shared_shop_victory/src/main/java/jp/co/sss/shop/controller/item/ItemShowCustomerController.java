@@ -109,16 +109,7 @@ public class ItemShowCustomerController {
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
 	public String showFavoriteList(Model model) {
 
-		// 商品情報を全件検索(新着順)
-		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
-
-		// エンティティ内の検索結果をJavaBeansにコピー
-		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
-
-		// 商品情報をViewへ渡す
-		model.addAttribute("items", itemBeanList);
-		model.addAttribute("url", "/item/list/");
-		return "/item/list/item_list";
+		return "/item/list/item_favorite";
 	}
 
 }

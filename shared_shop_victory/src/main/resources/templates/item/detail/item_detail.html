@@ -30,7 +30,7 @@
 			</dl>
 			<form method="post" class="user_info_form"
 				action="/shared_shop/basket/add">
-				<input type="hidden" name="id" value="${session.item.id}" /> <input
+				<input type="hidden" name="id" th:value="${item.id}" /> <input
 					type="submit" value="買い物かごに入れる" class="send_button" />
 			</form>
 			<form action="/shared_shop/">

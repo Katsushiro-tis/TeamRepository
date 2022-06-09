@@ -38,7 +38,6 @@ public class LoginValidator implements ConstraintValidator<LoginCheck, Object> {
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		BeanWrapper beanWrapper = new BeanWrapperImpl(value);
-
 		String email = (String) beanWrapper.getPropertyValue(this.email);
 		String password = (String) beanWrapper.getPropertyValue(this.password);
 
