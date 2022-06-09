@@ -3,17 +3,18 @@
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
-<title>Insert title here</title>
+<title>買い物かご</title>
 </head>
 <body>
 	<!-- 　　　　---------買い物かご画面-------　　　　　　　　-->
 	<div>買い物かご画面</div>
 	
-	<div th:if="${#lists.isEmpty(session.basket)}"
-			th:text="#{basketList.none}"></div>
+	<p class="error_message" th:if="${#lists.isEmpty(session.basket)}"
+			th:text="#{basketList.none}"></p>
+	
 			
 	<div th:if="!${#lists.isEmpty(session.basket)}">
-		<table>
+		<table class="list_table.basket">
 			<tr>
 				<th>商品名</th>
 				<th>数</th>
