@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+
+	<h2 class="title">お気に入り一覧</h2>
+
+	<div th:if="${#lists.isEmpty(items)}">
+		<p th:text="#{itemListAdmin.none}"></p>
+	</div>
+
+
+</body>

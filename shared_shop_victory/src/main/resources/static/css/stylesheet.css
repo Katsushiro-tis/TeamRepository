@@ -49,6 +49,13 @@ p {
 	float: left;
 }
 
+/* ---- ナビゲーションバー ---- */
+.navi_menu{
+	display: flex;
+	width: auto;
+	margin: 2px;
+}
+
 /* ---- 社員登録入力画面へのリンク ---- */
 .regist_link {
 	margin-top: 25px;
