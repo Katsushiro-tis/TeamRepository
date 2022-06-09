@@ -6,10 +6,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2 class="title">会員詳細画面</h2>
+	<h2 class="title">会員詳細</h2>
 	<div class="user_detail_area">
-	
-				<ul class="input_list">
+			<ul class="input_list">
 				<li>
 					<span class="input_title">メールアドレス</span>
 					<span class="input_value" th:text="${user.email}"></span>
@@ -31,24 +30,21 @@
 					<span class="input_value" th:text="${user.phoneNumber}"></span>
 				</li>
 			</ul>
+		</div>
 	
-	</div>
+		<div class="detail_button_area">
+			<form th:action="@{/}">	<!-- トップへ戻るボタン -->
+				<input type="submit" value="戻る">
+			</form>
+			
+		<form th:action="@{/user/update/input}" method="post">	<!-- 会員変更入力画面へ -->
+			<input type="submit" value="変更">
+		</form>
 	
-	<div class="detail_button_area">
-	<form th:action="@{/}">	<!-- トップへ戻るボタン -->
-		<input type="submit" value="戻る">
-	</form>
+		<form th:action="@{/user/delete/check}" method="post">	<!-- 会員削除確認画面へ -->
+			<input type="submit" value="退会" class="delete">
+		</form>
 	
-	
-	<form th:action="@{/user/update/input}" method="post">	<!-- 会員変更入力画面へ -->
-		<input type="submit" value="変更">
-	</form>
-	
-	
-	<form th:action="@{/user/delete/check}" method="post">	<!-- 会員削除確認画面へ -->
-		<input type="submit" value="退会" class="delete">
-	</form>
-	
-	</div>
+		</div>
 </body>
 </html>
