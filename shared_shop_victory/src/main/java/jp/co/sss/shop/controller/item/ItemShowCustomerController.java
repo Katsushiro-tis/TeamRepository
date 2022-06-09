@@ -33,12 +33,6 @@ public class ItemShowCustomerController {
 	@Autowired
 	CategoryRepository categoryRepository;
 
-	/*	*//**
-			 * セッション
-			 *//*
-				 * @Autowired HttpSession session;
-				 */
-
 	/**
 	 * トップ画面 表示処理
 	 *
@@ -114,7 +108,7 @@ public class ItemShowCustomerController {
 
 	@RequestMapping("/after")
 	public String after() {
-		return "/item/list/item_list";
+		return "index";
 	}
 
 }
