@@ -7,8 +7,25 @@
 </head>
 <body>
 	<!--      ---------　届け先入力画面　---------      -->
-	<div>届け先入力画面</div>
-	<a href="/shared_shop/payment/input">次へ</a>
-	<a href="/shared_shop/basket">戻る</a>
+	<div>お届け先入力画面</div>
+	
+	<form method="post" th:action="@{/address/input}"> 
+		郵便番号 <br><input type="number"name="postalCode"><br>
+		住所 <br><input type="text"name="address"><br>
+		氏名 <br><input type="text"name="name"><br>
+		電話番号<br><input type="number"name="phoneNumber"><br>
+	</form>
+	
+	
+	<form method="get" action="/shared_shop/basket/list">
+		<input type="hidden" name="backflg" value="true"/>
+		<input type="submit" value="戻る"/>
+	</form>
+	
+	
+	<form method="post"action="/shared_shop/payment/input">
+		<input type="hidden" name="backflg" value="false"/>
+		<input type="submit" value="次へ"/>
+	</form>
 </body>
 </html>
