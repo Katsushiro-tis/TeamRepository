@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +42,7 @@ public class BasketCustomerController {
 	}
 
 	@PostMapping("/basket/delete")
-	public String deleteItem(HttpSession session, Model model, BasketForm form) {
+	public String deleteItem(HttpSession session, BasketForm form) {
 		int deleteId = form.getId();
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 		for (BasketBean bean : basketList) {
