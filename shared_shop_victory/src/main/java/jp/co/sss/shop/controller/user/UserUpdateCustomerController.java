@@ -1,5 +1,7 @@
 package jp.co.sss.shop.controller.user;
 
+import java.sql.Date;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +32,11 @@ public class UserUpdateCustomerController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	HttpSession session;
+	
 	@PostMapping("/user/update/input")	//会員変更入力画面へ
-	public String userUpdateInput(boolean backFlg, Model model, HttpSession session, @ModelAttribute UserForm form) {
+	public String userUpdateInput(boolean backFlg, Model model, @ModelAttribute UserForm form) {
 		
 		//ログイン中のユーザ情報を設定
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;
@@ -66,7 +72,7 @@ public class UserUpdateCustomerController {
 	
 	
 	@RequestMapping(path = "/user/update/check", method = RequestMethod.POST)
-	public String updateCheck( Model model, @Valid @ModelAttribute UserForm form, HttpSession session, BindingResult result) {
+	public String userUpdateCheck( Model model, @Valid @ModelAttribute UserForm form, BindingResult result) {
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;
 		
 		form.setId(sessionUser.getId());
@@ -88,7 +94,43 @@ public class UserUpdateCustomerController {
 		return "user/update/user_update_check";
 	}
 	
-	@PostMapping("/user/update/complete")	//会員変更完了画面へ
+	
+	@RequestMapping(path = "/user/update/complete", method = RequestMethod.POST)
+	public String userUpdateComplete(Model model, @ModelAttribute UserForm form) {
+
+		// 変更対象の会員情報を取得
+		User user = userRepository.getById(form.getId());
+
+		// 会員情報の削除フラグを取得
+		Integer deleteFlag = user.getDeleteFlag();
+		// 会員情報の登録日付を取得
+		Date insertDate = user.getInsertDate();
+
+		// 入力値をUserエンティティの各フィールドにコピー
+		BeanUtils.copyProperties(form, user);
+
+		// 削除フラグをセット
+		user.setDeleteFlag(deleteFlag);
+		// 登録日付をセット
+		user.setInsertDate(insertDate);
+
+		// 会員情報を保存
+		userRepository.save(user);
+
+		// セッションからログインユーザーの情報を取得
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		// 変更対象の会員が、ログインユーザと一致していた場合セッション情報を変更
+		if (user.getId().equals(userBean.getId())) {
+			// Userエンティティの各フィールドの値をUserBeanにコピー
+			BeanUtils.copyProperties(form, userBean);
+			// 会員情報をViewに渡す
+			session.setAttribute("user", userBean);
+		}
+
+		return "redirect:/user/update/complete";
+	}
+	
+	@GetMapping("/user/update/complete")	//会員変更完了画面へ
 	public String userUpdateComplete() {
 		return "user/update/user_update_complete";
 	}

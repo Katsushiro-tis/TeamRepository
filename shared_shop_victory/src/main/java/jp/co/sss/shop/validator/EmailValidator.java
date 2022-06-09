@@ -42,11 +42,9 @@ public class EmailValidator implements ConstraintValidator<EmailCheck, Object> {
 		User user = userRepository.findByEmail(email);
 
 		if (user == null || user.getId() == id) {
-			System.out.println("emailエラーじゃないよ");
 			return true;
 		}
 		else {
-			System.out.println("emailエラーだよ");
 			return false;
 		}
 	}
