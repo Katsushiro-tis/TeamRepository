@@ -120,6 +120,7 @@ public class ItemShowCustomerController {
 		
 		model.addAttribute("items", itemBeanList2);
 		
+		/* いったんitem_favoritに渡してます。のちのちはitem_listへ */
 		return "/item/list/item_favorite";
 	}
 
