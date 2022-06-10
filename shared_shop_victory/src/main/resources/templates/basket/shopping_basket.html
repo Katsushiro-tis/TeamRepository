@@ -23,8 +23,7 @@
 				<th>在庫</th>
 			</tr>
 			<tr th:each="item:${session.basket}">
-				<td><a th:href="@{/item/detail/} + ${item.id}"
-					th:text="${item.name}"></a></td>
+				<td><a th:href="@{/item/detail/} + ${item.id}" th:text="${item.name}"></a></td>
 				<td th:text="${item.orderNum}"></td>
 				<td><form th:action="@{/basket/delete}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />
@@ -35,7 +34,7 @@
 		</table>
 		
 		<div style="display: inline-flex">
-		<form method="post" action="/shared_shop/address/input">
+		<form method="post" th:action="@{/address/input}">
 			<input type="hidden" name="backflg" value="false" /> <input
 				type="submit" value="ご注文の手続き" />
 		</form>
