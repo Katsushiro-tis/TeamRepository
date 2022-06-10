@@ -18,6 +18,7 @@ import jp.co.sss.shop.form.AddressForm;
 import jp.co.sss.shop.form.BasketForm;
 import jp.co.sss.shop.form.OrderForm;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderRepository;
 
 @Controller
 public class BasketCustomerController {
@@ -70,8 +71,6 @@ public class BasketCustomerController {
 			
 			return "basket/shopping_basket";
 		}
-
-		return "basket/shopping_basket";
 	}
 
 	// 買い物かご画面(ナビゲーションバーから遷移)

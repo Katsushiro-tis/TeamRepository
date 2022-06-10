@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
+import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
@@ -109,23 +111,16 @@ public class ItemShowCustomerController {
 		return "/item/list/item_list";
 	}
 
-	
 	@RequestMapping(path = "/item/list/{sortType}", method = RequestMethod.GET)
 	public String showNewerList(Model model) {
 		
-		/*
-		 * 売れ筋 Item item = new Item(); List<OrderItem> items =
-		 * orderItemRepository.findByItem(item); System.out.println(items);
-		 * 
-		 * List<OrderItemBean> orderitemBeanList =
-		 * BeanCopy.copyEntityToOrderItemBean(items);
-		 * 
-		 * // model.addAttribute("items",
-		 * orderItemRepository.findAllByOrderByQuantityDesc());
-		 * model.addAttribute("items", orderitemBeanList); model.addAttribute("url",
-		 * "/item/list/");
-		 */
-		return "/item/list/item_list";
+		List<OrderItem> oderitems = orderItemRepository.findAllByOrderByQuantityDesc();
+
+		List<OrderItemBean> itemBeanList2 = BeanCopy.copyEntityToOrderItemBean(oderitems);
+		
+		model.addAttribute("items", itemBeanList2);
+		
+		return "/item/list/item_favorite";
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)

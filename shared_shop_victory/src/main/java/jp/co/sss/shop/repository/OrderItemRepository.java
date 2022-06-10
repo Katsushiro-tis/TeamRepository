@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.OrderItem;
 
 /**
@@ -15,7 +16,7 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 	
 	public List<OrderItem> findAllByOrderByQuantityDesc();
 	
-	/*
-	 * 売れ筋 public List<OrderItem> findByItem(Item item);
-	 */
+	
+	public List<OrderItem> findByItem(Item item);
+	 
 }
