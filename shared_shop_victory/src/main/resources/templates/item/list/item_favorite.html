@@ -34,7 +34,7 @@
 			<td th:text="${item.name}"></td>
 			<td th:text="${item.price}"></td>
 <!-- 			↓のカテゴリー名を持ってくるところができていない -->
-<!-- 			<td th:text="${item.item.categoryName}"></td>  -->
+			<td th:text="${item.item.category.name}"></td> 
 		</tr>
 	</table>
 
