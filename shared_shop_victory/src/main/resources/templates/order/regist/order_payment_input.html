@@ -10,21 +10,24 @@
 	<!--       ---------　支払方法選択画面　 ---------     -->
 	<div>支払い方法選択画面</div>
 	
-	<input type="radio" name="selectedRadio" th:text="クレジットカード"><br>
-	<input type="radio" name="selectedRadio" th:text="銀行振り込み"><br>
-	<input type="radio" name="selectedRadio" th:text="着払い"><br>
-	<input type="radio" name="selectedRadio" th:text="電子マネー"><br>
-	<input type="radio" name="selectedRadio" th:text="コンビニ決済"><br>
+	<form method="post"action="/shared_shop/order/check">	
+		<input type="radio" name="selectedRadio" th:text="クレジットカード"><br>
+		<input type="radio" name="selectedRadio" th:text="銀行振り込み"><br>
+		<input type="radio" name="selectedRadio" th:text="着払い"><br>
+		<input type="radio" name="selectedRadio" th:text="電子マネー"><br>
+		<input type="radio" name="selectedRadio" th:text="コンビニ決済"><br>
+			<input type="hidden" name="backflg" value="false"/>
+			<input type="submit" value="次へ"/>
+	</form>
 	
+	<div th:text="${userDetail.postalCode}"></div>
 	<form method="post" action="/shared_shop/address/input">
 		<input type="hidden" name="backflg" value="true"/>
 		<input type="submit" value="戻る"/>
 	</form>
 	
-	<form method="post"action="/shared_shop/order/check">
-		<input type="hidden" name="backflg" value="false"/>
-		<input type="submit" value="次へ"/>
-	</form>
+	
+		
 	
 </body>
 </html>
