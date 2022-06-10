@@ -34,6 +34,10 @@ public class OrderItemBean {
 	 */
 	private Integer orderNum;
 	
+	
+	/**
+	 * itemテーブル
+	 */
 	private Item item;
 	
 	/**
