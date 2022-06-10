@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.OrderItem;
 
 /**
@@ -13,6 +14,12 @@ import jp.co.sss.shop.entity.OrderItem;
  * @author System Shared
  */
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
+	
+	public List<OrderItem> findAllByOrderByQuantityDesc();
+	
+	
+	public List<OrderItem> findByItem(Item item);
+	 
 	
 	@Query("SELECT oi.item, sum(oi.quantity) "
 			+ "FROM OrderItem oi "
