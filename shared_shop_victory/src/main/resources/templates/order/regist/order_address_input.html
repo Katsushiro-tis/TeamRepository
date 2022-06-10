@@ -16,9 +16,13 @@
 		<p th:errors="*{phoneNumber}"></p>
 	</div>
 		
-	<form method="post"action="/shared_shop/payment/input"> 
-		<input type="hidden" name="backflg" value="false"/>
-		<input type="submit" value="次へ"/>
+	<form method="post"th:action="@{/payment/input}">
+		郵便番号<br><input type="number" name="postalCode"><br>
+		住所<br><input type="text" name="address"><br>
+		氏名<br><input type="text" name="name"><br>
+		電話番号<br><input type="number" name="phoneNumber"><br>
+			<input type="hidden" name="backflg" value="false"/>
+			<input type="submit" value="次へ"/>	
 	</form>
 	
 	<form method="get" action="/shared_shop/basket/list">

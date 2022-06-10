@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.AddressForm;
 import jp.co.sss.shop.form.OrderForm;
@@ -162,7 +163,6 @@ public class BasketCustomerController {
 		order.setPhoneNumber(addressform.getPhoneNumber());
 
 		session.setAttribute("address", order);
-		session.setAttribute("form", addressform);
 
 		if (result.hasErrors()) {
 			return "order/regist/order_address_input";
