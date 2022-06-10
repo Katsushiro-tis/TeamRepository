@@ -20,6 +20,7 @@
 			<input type="submit" value="次へ"/>
 	</form>
 	
+	<div th:text="${session.address.postalCode}"></div>
 	<form method="post" action="/shared_shop/address/input">
 		<input type="hidden" name="backflg" value="true"/>
 		<input type="submit" value="戻る"/>

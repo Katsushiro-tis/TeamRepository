@@ -29,7 +29,9 @@
 			</span> <span th:if="${item.image == null}"> <img
 					th:src="@{/img/common/no_image.jpg}"></img>
 			</span></td>
-			<td><a th:href="@{/item/detail/admin/{id}(id=${item.id})}"
+			<td>
+				
+			<a th:href="@{/item/detail/{id}(id=${item.id})}"
 				th:text="${item.name}"></a></td>
 			<td th:text="${item.price}"></td>
 			<td th:text="${item.categoryName}"></td>

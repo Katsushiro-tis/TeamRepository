@@ -97,8 +97,6 @@ public class ItemShowCustomerController {
 		category.setId(categoryId);
 
 		List<Item> items = itemRepository.findByCategory(category);
-		
-		System.out.println(items.size());
 
 		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(items);
 
@@ -106,6 +104,12 @@ public class ItemShowCustomerController {
 		model.addAttribute("url", "/item/list/");
 
 		return "/item/list/item_list";
+	}
+
+	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
+	public String showFavoriteList(Model model) {
+
+		return "/item/list/item_favorite";
 	}
 
 }
