@@ -34,7 +34,7 @@ public class OrderItemBean {
 	 */
 	private Integer orderNum;
 	
-	
+	private Integer quantity;
 	/**
 	 * itemテーブル
 	 */
@@ -99,5 +99,13 @@ public class OrderItemBean {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 }
