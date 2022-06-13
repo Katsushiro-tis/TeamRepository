@@ -131,9 +131,4 @@ public class ItemShowCustomerController {
 	}
 	
 	
-//	@GetMapping("/item/list/{sortType}")
-//	public String itemListSortType() {
-//		return "item_list";
-//	}
-
 }

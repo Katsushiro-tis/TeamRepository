@@ -3,11 +3,11 @@
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
-<title>買い物かご</title>
+<title>買い物かご | シェアードショップ</title>
 </head>
 <body>
 	<!-- 　　　　---------買い物かご画面-------　　　　　　　　-->
-	<div>買い物かご画面</div>
+	<h2 class="title">買い物かご画面</h2>
 	
 	<p class="error_message" th:if="${#lists.isEmpty(session.basket)}"
 			th:text="#{basketList.none}"></p>

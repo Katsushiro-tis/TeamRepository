@@ -3,12 +3,12 @@
 		th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>支払い方法選択画面 | シェアードショップ</title>
 </head>
 <body>
 	
 	<!--       ---------　支払方法選択画面　 ---------     -->
-	<div>支払い方法選択画面</div>
+	<h2 class="title">支払い方法選択画面</h2>
 	
 	<form method="post"action="/shared_shop/order/check">	
 		<input type="radio" name="selectedRadio" th:text="クレジットカード"><br>

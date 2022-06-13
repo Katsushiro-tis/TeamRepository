@@ -3,7 +3,7 @@
 	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
-<title>Insert title here</title>
+<title>お気に入り一覧 | シェアードショップ</title>
 </head>
 <body>
 
@@ -33,8 +33,7 @@
 			</span></td>
 			<td th:text="${item.name}"></td>
 			<td th:text="${item.price}"></td>
-<!-- 			↓のカテゴリー名を持ってくるところができていない -->
-<!-- 			<td th:text="${item.item.categoryName}"></td>  -->
+			<td th:text="${item.item.category.name}"></td> 
 		</tr>
 	</table>
 
