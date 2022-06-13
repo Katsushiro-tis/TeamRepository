@@ -7,9 +7,12 @@
 <ul th:fragment="layout-menu" class="navi_menu"><!--/*
 	*/--><li><a href="/shared_shop">トップ</a></li><!--/*
 	*/--><li><a href="/shared_shop/item/list">新着一覧</a></li><!--/*
-	*/--><li><a href="/shared_shop/basket/list">買い物かご</a></li><!--/*
+	*/--><!-- <a href="/shared_shop/basket/list">買い物かご</a></li> -->
+	<th:block th:if="${session.user != null}"><li><a th:href="@{/basket/list}">買い物かご</a></li></th:block>
+	<!--/*
 	*/--><th:block th:if="${session.user != null}"><li><a th:href="@{/order/list}">注文一覧</a></li></th:block><!--/*
 	*/--><th:block th:if="${session.user != null}"><li><a th:href="@{/favorite/list}">お気に入り</a></li></th:block>
 	</ul>
 </body>
 </html>
+

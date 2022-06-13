@@ -15,7 +15,7 @@
 	<p class="error_message" th:if="!${(#strings.isEmpty(notEnoughName))}" th:text="${notEnoughName} + #{basketList.itemStockNone}">
 	
 	<div th:if="!${#lists.isEmpty(session.basket)}">
-		<table class="list_table.basket">
+		<table class="list_table basket">
 			<tr>
 				<th>商品名</th>
 				<th>数</th>
