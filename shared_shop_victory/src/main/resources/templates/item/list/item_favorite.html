@@ -15,4 +15,28 @@
 	</div>
 
 
+
+	<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
+		<tr>
+			<th>商品画像</th>
+			<th>商品名</th>
+			<th>価格</th>
+			<th>カテゴリ</th>
+		</tr>
+		<tr th:each="item: ${items}">
+
+			<td class="item_image_area_list"><span
+				th:if="${item.image != null}"> <img
+					th:src="@{/img/{image}(image=${item.image})}"></img>
+			</span> <span th:if="${item.image == null}"> <img
+					th:src="@{/img/common/no_image.jpg}"></img>
+			</span></td>
+			<td th:text="${item.name}"></td>
+			<td th:text="${item.price}"></td>
+			<td th:text="${item.item.category.name}"></td> 
+		</tr>
+	</table>
+
+
+
 </body>
