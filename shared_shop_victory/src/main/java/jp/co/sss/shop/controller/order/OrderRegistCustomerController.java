@@ -3,7 +3,6 @@ package jp.co.sss.shop.controller.order;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,18 +34,22 @@ public class OrderRegistCustomerController {
 
 			UserBean sessionUser = (UserBean) session.getAttribute("user");
 			User user = userRepository.getById(sessionUser.getId());
-			UserBean userBean = new UserBean();
+			// UserBean userBean = new UserBean();
 
 			// Userエンティティの各フィールドの値をUserBeanにコピー
-			BeanUtils.copyProperties(user, userBean);
+			// BeanUtils.copyProperties(user, userBean);
+			addressForm.setAddress(user.getAddress());
+			addressForm.setName(user.getName());
+			addressForm.setPhoneNumber(user.getPhoneNumber());
+			addressForm.setPostalCode(user.getPostalCode());
 
 			// 会員情報をViewに渡す
-			model.addAttribute("userDetail", userBean);
+			model.addAttribute("userDetail", addressForm);
 		}
 
 		// 戻るボタンからの遷移の場合の処理
 		else {
-
+			model.addAttribute("userDetail", addressForm);
 		}
 		return "order/regist/order_address_input";
 	}
