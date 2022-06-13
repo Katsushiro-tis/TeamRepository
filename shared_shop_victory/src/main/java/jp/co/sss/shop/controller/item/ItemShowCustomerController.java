@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
@@ -34,8 +35,10 @@ public class ItemShowCustomerController {
 	ItemRepository itemRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
+//	@Autowired
+//	EntityManager entityManager;
 	@Autowired
-	OrderItemRepository OIRepository;
+	OrderItemRepository orderItemRepository;
 	
 	
 
@@ -70,9 +73,18 @@ public class ItemShowCustomerController {
 		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
 		
 		
-//		for(OrderItem oi : orderItemRepository.sortSql()) {
-//			System.out.println(oi.getId());
-//		}
+		List<OrderItem> oiList = orderItemRepository.sortSQL();
+		
+		System.out.println("id:個数:O_id:I_id:price");
+		
+		for(OrderItem oi : oiList) {
+			System.out.print(oi.getId() + ":");
+			System.out.print(oi.getQuantity() + ":");
+			System.out.print(oi.getOrder().getId() + ":");
+			System.out.print(oi.getItem().getId() + ":");
+			System.out.print(oi.getPrice());
+			System.out.println("");
+		}
 
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
