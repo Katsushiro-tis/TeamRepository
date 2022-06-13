@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-		th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <title>Insert title here</title>
 </head>
 <body>
@@ -14,6 +14,27 @@
 		<p th:errors="*{address}"></p>
 		<p th:errors="*{name}"></p>
 		<p th:errors="*{phoneNumber}"></p>
+
+
+		<form method="post" th:action="@{/payment/input}">
+			郵便番号 <br>
+			<input type="number" name="postalCode"
+				th:value="*{postalCode}"><br> 住所 <br>
+			<input type="text" name="address" th:value="${userDetail.address}"><br>
+			氏名 <br>
+			<input type="text" name="name" th:value="${userDetail.name}"><br>
+			電話番号<br>
+			<input type="number" name="phoneNumber"
+				th:value="${userDetail.phoneNumber}"><br> <input
+				type="hidden" name="backflg" value="false" /> <input type="submit"
+				value="次へ" />
+		</form>
+
+		<form method="get" action="/shared_shop/basket/list">
+			<input type="hidden" name="name" th:value="*{name}" />
+			<input type="submit" value="戻る" />
+		</form>
+
 	</div>
 	
 	<form method="post" th:action="@{/payment/input}"> 

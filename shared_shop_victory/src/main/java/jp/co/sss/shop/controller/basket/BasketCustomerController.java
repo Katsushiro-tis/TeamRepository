@@ -3,14 +3,11 @@ package jp.co.sss.shop.controller.basket;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.BasketBean;
@@ -75,27 +72,26 @@ public class BasketCustomerController {
 		}
 
 		session.setAttribute("basket", basketList);
-		return "basket/shopping_basket";
+		return "forward:/basket/list";
 	}
 
 	// 買い物かご画面(ナビゲーションバーから遷移)
 	@GetMapping("/basket/list")
 	public String basketListGet(HttpSession session) {
-
-		return "basket/shopping_basket";
+		return "/basket/shopping_basket";
 	}
 
 	// 買い物かご画面(各種ボタンから遷移)
 	@PostMapping("/basket/list")
 	public String basketList(HttpSession session) {
-
-		return "basket/shopping_basket";
+		return "/basket/shopping_basket";
 	}
 
 	// 商品削除（個別）
 	@PostMapping("/basket/delete")
 	public String deleteItem(HttpSession session, int id) {
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
+
 		for (BasketBean bean : basketList) {
 			int index = 0;
 			if (bean.getId() == id) {
@@ -110,7 +106,7 @@ public class BasketCustomerController {
 			index++;
 		}
 		session.setAttribute("basket", basketList);
-		return "basket/shopping_basket";
+		return "forward:/basket/list";
 	}
 
 	// 商品全削除
@@ -120,7 +116,7 @@ public class BasketCustomerController {
 		basketList.clear();
 		session.setAttribute("basket", basketList);
 
-		return "basket/shopping_basket";
+		return "forward:/basket/list";
 	}
 
 	@PostMapping("/basket/test")
