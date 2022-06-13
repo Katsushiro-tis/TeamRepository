@@ -10,6 +10,17 @@
 	<!--    　 ---------　注文登録確認画面　---------　　　　 -->
 	<div>注文確認画面</div>
 	
+	<div>お届け先</div>
+	<div th:text="${session.postalCode}"></div>
+	<div th:text="${session.address}"></div>
+	<div th:text="${session.name}"></div>
+	<div th:text="${session.phoneNumber}"></div>
+	
+	<div>お支払い方法</div>
+	<div th:text="${session.payMethod}"></div>
+	
+	
+	
 	<form method="post" action="/shared_shop/payment/input">
 		<input type="hidden" name="backflg" value="true"/>
 		<input type="submit" value="戻る"/>

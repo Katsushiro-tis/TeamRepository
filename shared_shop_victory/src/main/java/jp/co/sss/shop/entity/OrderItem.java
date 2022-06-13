@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+
 /**
  * 注文商品情報のエンティティクラス
  *
@@ -17,7 +18,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "order_items")
+
+//@NamedQuery(name="sortSQL", query="SELECT oi.id, item.name FROM OrderItem oi")
 public class OrderItem {
+	
+
+	
 
 	/**
 	 * 注文商品ID
@@ -43,7 +49,7 @@ public class OrderItem {
 	/**
 	 * 商品情報
 	 */
-	@ManyToOne
+	@ManyToOne(optional = true)
 	@JoinColumn(name = "item_id", referencedColumnName = "id")
 	private Item item;
 

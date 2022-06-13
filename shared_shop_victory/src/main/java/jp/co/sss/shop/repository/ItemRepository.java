@@ -3,6 +3,7 @@ package jp.co.sss.shop.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import jp.co.sss.shop.entity.Category;
@@ -20,6 +21,14 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	public List<Item> findByDeleteFlagOrderByInsertDateDescIdAsc(int deleteFlag);
 
 	public List<Item> findByCategory(Category category);
+	
+	@Query(value = "select i.id, i.ID, i.NAME, i.PRICE, i.DESCRIPTION, i.STOCK, i.IMAGE, i.CATEGORY_ID, i.DELETE_FLAG, i.INSERT_DATE, sum(oi.quantity) \r\n"
+			+ "from order_items oi left join items i on oi.item_id = i.id\r\n"
+			+ "where i.delete_flag = 0\r\n"
+			+ "group by i.id, i.ID, i.NAME, i.PRICE, i.DESCRIPTION, i.STOCK, i.IMAGE, i.CATEGORY_ID, i.DELETE_FLAG, i.INSERT_DATE\r\n"
+			+ "order by sum(oi.quantity) desc"
+			+ "", nativeQuery = true)
+	public List<Item> sortSQL();
 	
 
 }
