@@ -35,8 +35,8 @@
 		
 		<div style="display: inline-flex">
 		<form method="post" th:action="@{/address/input}">
-			<input type="hidden" name="backflg" value="false" /> <input
-				type="submit" value="ご注文の手続き" />
+			<input type="hidden" name="backflg" value="false" /> 
+			<input type="submit" value="ご注文の手続き" />
 		</form>
 		<form th:action="@{/basket/deleteAll}" method="post">
 			<input type="submit" class="delete" value="かごの中身を空にする">
