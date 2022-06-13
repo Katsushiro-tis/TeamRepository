@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
-import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
-import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.util.BeanCopy;
 import jp.co.sss.shop.util.Constant;
 
@@ -35,10 +32,9 @@ public class ItemShowCustomerController {
 	ItemRepository itemRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
+	
 //	@Autowired
-//	EntityManager entityManager;
-	@Autowired
-	OrderItemRepository orderItemRepository;
+//	OrderItemRepository orderItemRepository;
 
 	/**
 	 * トップ画面 表示処理
@@ -61,34 +57,34 @@ public class ItemShowCustomerController {
 		return "index";
 	}
 
-	@RequestMapping(path = "/item/list")
-	public String item_list(Model model) {
-
-		// 商品情報を全件検索(新着順)
-		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
-
-		// エンティティ内の検索結果をJavaBeansにコピー
-		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
-		
-		
-		List<OrderItem> oiList = orderItemRepository.sortSQL();
-		
-		System.out.println("id:個数:O_id:I_id:price");
-		
-		for(OrderItem oi : oiList) {
-			System.out.print(oi.getId() + ":");
-			System.out.print(oi.getQuantity() + ":");
-			System.out.print(oi.getOrder().getId() + ":");
-			System.out.print(oi.getItem().getId() + ":");
-			System.out.print(oi.getPrice());
-			System.out.println("");
-		}
-
-		// 商品情報をViewへ渡す
-		model.addAttribute("items", itemBeanList);
-		model.addAttribute("url", "/item/list/");
-		return "/item/list/item_list";
-	}
+//	@RequestMapping(path = "/item/list")
+//	public String item_list(Model model) {
+//
+//		// 商品情報を全件検索(新着順)
+//		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+//
+//		// エンティティ内の検索結果をJavaBeansにコピー
+////		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
+//		
+//		
+//		List<Item> oiList = itemRepository.sortSQL();
+//		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(oiList);
+//		
+//		
+//		//表示試してるだけ
+//		System.out.println("id:name");
+//		
+//		for(Item oi : oiList) {
+//			System.out.print(oi.getId() + ":");
+//			System.out.print(oi.getName() + ":");
+//			System.out.println("");
+//		}
+//
+//		// 商品情報をViewへ渡す
+//		model.addAttribute("items", itemBeanList);
+//		model.addAttribute("url", "/item/list/");
+//		return "/item/list/item_list";
+//	}
 
 	@RequestMapping(path = "/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
@@ -128,16 +124,28 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/item/list/{sortType}", method = RequestMethod.GET)
-	public String showNewerList(Model model) {
+	public String showNewerList(Model model, @PathVariable int sortType) {
 		
-		List<OrderItem> oderitems = orderItemRepository.findAllByOrderByQuantityDesc();
-
-		List<OrderItemBean> itemBeanList2 = BeanCopy.copyEntityToOrderItemBean(oderitems);
+		List<ItemBean> itemBeanList;
+		List<Item> itemList = null;
 		
-		model.addAttribute("items", itemBeanList2);
 		
-		/* いったんitem_favoritに渡してます。のちのちはitem_listへ */
-		return "/item/list/item_favorite";
+		if(sortType == 1) {
+			// 商品情報を全件検索(新着順)
+			itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+			model.addAttribute("sort", 1);
+		}else if(sortType == 2) {
+			//商品情報を売上順で検索
+			itemList = itemRepository.sortSQL();
+			model.addAttribute("sort", 2);
+		}
+		
+		// エンティティ内の検索結果をJavaBeansにコピー
+		itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
+		// 商品情報をViewへ渡す
+		model.addAttribute("items", itemBeanList);
+		model.addAttribute("url", "/item/list/");
+		return "/item/list/item_list";
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
