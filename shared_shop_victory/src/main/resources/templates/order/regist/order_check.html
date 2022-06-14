@@ -11,19 +11,23 @@
 	<div>注文確認画面</div>
 	
 	<div>お届け先</div>
-	<div th:text="${session.postalCode}"></div>
-	<div th:text="${session.address}"></div>
-	<div th:text="${session.name}"></div>
-	<div th:text="${session.phoneNumber}"></div>
+	<div th:text="${register.postalCode}"></div>
+	<div th:text="${register.address}"></div>
+	<div th:text="${register.name}"></div>
+	<div th:text="${register.phoneNumber}"></div>
 	
 	<div>お支払い方法</div>
-	<div th:text="${session.payMethod}"></div>
+	<div th:text="${payMethod}"></div>
 	
 	
 	
 	<form method="post" action="/shared_shop/payment/input">
-		<input type="hidden" name="backflg" value="true"/>
-		<input type="submit" value="戻る"/>
+		<input type="hidden" name="postalCode" th:value="${userDetail.postalCode}" />
+		<input type="hidden" name="address" th:value="${userDetail.address}" />
+		<input type="hidden" name="phoneNumber" th:value="${userDetail.phoneNumber}" />
+		<input type="hidden" name="name" th:value="${userDetail.name}" /> 
+			<input type="hidden" name="backflg" value="true"/>
+			<input type="submit" value="戻る"/>
 	</form>
 	
 	<form method="post"action="/shared_shop/order/complete">

@@ -274,7 +274,7 @@ p {
 
 .user_info_form_area [type="submit"],
 .item_info_form_area [type="submit"] {
-	line-height: 2.8rem;
+	line-height: 2.5rem;
 	min-width: 7rem;
 	margin-right: 20px;
 	font-size: 1rem;

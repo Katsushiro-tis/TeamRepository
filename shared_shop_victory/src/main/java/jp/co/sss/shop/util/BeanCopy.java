@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import jp.co.sss.shop.bean.CategoryBean;
+import jp.co.sss.shop.bean.FavoriteBean;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.entity.Category;
+import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.form.ItemForm;
@@ -153,6 +155,25 @@ public class BeanCopy {
 
 			beanList.add(bean);
 		}
+
+		return beanList;
+	}
+	
+	public static List<FavoriteBean> copyEntityToFavoriteBean(List<Favorite> entityList) {
+		// TODO 自動生成されたメソッド・スタブ
+		List<FavoriteBean> beanList = new ArrayList<FavoriteBean>();
+		
+		for (int i = 0; i < entityList.size(); i++) {
+			FavoriteBean bean = new FavoriteBean();
+			BeanUtils.copyProperties(entityList.get(i), bean);
+
+			if (entityList.get(i).getItem() != null) {
+				bean.setName(entityList.get(i).getItem().getName());
+			}
+
+			beanList.add(bean);
+		}
+		
 
 		return beanList;
 	}

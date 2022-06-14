@@ -33,6 +33,7 @@ public class BasketCustomerController {
 	@PostMapping("/basket/add")
 	public String addItem(int id, HttpSession session, Model model) {
 		// sessionに買い物かご情報があるか確認。なければ作成
+		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 		if (basketList == null) {
 			basketList = new ArrayList<>();
@@ -90,6 +91,7 @@ public class BasketCustomerController {
 	// 商品削除（個別）
 	@PostMapping("/basket/delete")
 	public String deleteItem(HttpSession session, int id) {
+		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 
 		for (BasketBean bean : basketList) {
@@ -112,6 +114,7 @@ public class BasketCustomerController {
 	// 商品全削除
 	@PostMapping("basket/deleteAll")
 	public String deleteAll(HttpSession session) {
+		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 		basketList.clear();
 		session.setAttribute("basket", basketList);
