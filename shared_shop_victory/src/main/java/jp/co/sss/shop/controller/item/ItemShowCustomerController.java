@@ -123,7 +123,7 @@ public class ItemShowCustomerController {
 		return "/item/list/item_list";
 	}
 
-	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
+	@RequestMapping(path = "/favorite/add", method = RequestMethod.GET)
 	public String showFavoriteList(Model model, FavoriteForm form, UserForm userform) {
 
 		// 商品IDに該当する商品情報を取得
@@ -153,6 +153,16 @@ public class ItemShowCustomerController {
 			System.out.println(item3.getItem().getName());
 		}
 
+		return "/item/list/item_favorite";
+	}
+	
+	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
+	public String showFavoriteList2(Model model) {
+		List<Favorite> favoriteitems = favoriteRepository.findAll();
+
+		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
+
+		model.addAttribute("items", itemBeanList3);
 		return "/item/list/item_favorite";
 	}
 
