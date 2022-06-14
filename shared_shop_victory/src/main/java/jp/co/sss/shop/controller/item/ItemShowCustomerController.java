@@ -108,7 +108,7 @@ public class ItemShowCustomerController {
 
 	@RequestMapping(path = "/item/list/category/{sortType}", method = RequestMethod.GET)
 	public String showCategoryList(int categoryId, Model model) {
-
+		
 		Category category = new Category();
 
 		category.setId(categoryId);
