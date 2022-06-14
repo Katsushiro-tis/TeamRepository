@@ -16,7 +16,6 @@ import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.FavoriteForm;
-import jp.co.sss.shop.form.ItemForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -37,7 +36,7 @@ public class ItemShowCustomerController {
 	ItemRepository itemRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
-	
+
 //	@Autowired
 //	OrderItemRepository orderItemRepository;
 	@Autowired
@@ -63,35 +62,6 @@ public class ItemShowCustomerController {
 
 		return "index";
 	}
-
-//	@RequestMapping(path = "/item/list")
-//	public String item_list(Model model) {
-//
-//		// 商品情報を全件検索(新着順)
-//		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
-//
-//		// エンティティ内の検索結果をJavaBeansにコピー
-////		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
-//		
-//		
-//		List<Item> oiList = itemRepository.sortSQL();
-//		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(oiList);
-//		
-//		
-//		//表示試してるだけ
-//		System.out.println("id:name");
-//		
-//		for(Item oi : oiList) {
-//			System.out.print(oi.getId() + ":");
-//			System.out.print(oi.getName() + ":");
-//			System.out.println("");
-//		}
-//
-//		// 商品情報をViewへ渡す
-//		model.addAttribute("items", itemBeanList);
-//		model.addAttribute("url", "/item/list/");
-//		return "/item/list/item_list";
-//	}
 
 	@RequestMapping(path = "/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
@@ -135,18 +105,17 @@ public class ItemShowCustomerController {
 
 		List<ItemBean> itemBeanList;
 		List<Item> itemList = null;
-		
-		
-		if(sortType == 1) {
+
+		if (sortType == 1) {
 			// 商品情報を全件検索(新着順)
 			itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
 			model.addAttribute("sort", 1);
-		}else if(sortType == 2) {
-			//商品情報を売上順で検索
+		} else if (sortType == 2) {
+			// 商品情報を売上順で検索
 			itemList = itemRepository.sortSQL();
 			model.addAttribute("sort", 2);
 		}
-		
+
 		// エンティティ内の検索結果をJavaBeansにコピー
 		itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
 		// 商品情報をViewへ渡す
@@ -158,16 +127,18 @@ public class ItemShowCustomerController {
 //お気に入り一覧表示
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model, ItemForm form) {
+	public String showFavoriteList(Model model, FavoriteForm form) {
 
 		Item item = new Item();
-		item.setId(Integer.valueOf(form.getId())); 
+//		item.setId(Integer.valueOf(form.getId())); 
 		item.setName(form.getName());
-		
-		System.out.println(form.getId());
-		System.out.println(form.getName());
-		
-		
+
+		System.out.println("id:" + form.getId());
+		System.out.println("name:" + form.getName());
+
+		//このあとまかせた！！！セーブしたい！
+//		favoriteRepository.save(item);
+
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
@@ -175,16 +146,7 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList3);
 
 		return "/item/list/item_favorite";
-	}
 
-//ここから変更
-//お気に入り登録
-	@RequestMapping(path = "/favorite/add", method = RequestMethod.GET)
-	public String addFavorite(FavoriteForm form) {
-		Favorite favorite = new Favorite();
-		favorite.setId(form.getId());
-		favoriteRepository.save(favorite);
-		return "item/detail/item_detail";
 	}
 }
 

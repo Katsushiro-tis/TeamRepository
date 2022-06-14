@@ -15,12 +15,18 @@ import javax.persistence.Table;
 /**
  * カテゴリ情報のエンティティクラス
  *
- * @author SystemShared
  */
+
+//エンティティクラスを指定
 @Entity
+
+//テーブル名を指定
 @Table(name = "categories")
+
+
 public class Category {
 
+//Iカラムを登録
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_categories_gen")
 	@SequenceGenerator(name = "seq_categories_gen", sequenceName = "seq_categories", allocationSize = 1)
@@ -29,37 +35,45 @@ public class Category {
 	 */
 	private Integer id;
 
+	
 	/**
 	 * カテゴリ名
 	 */
 	@Column
 	private String name;
 
+	
 	/**
 	 * カテゴリ説明
 	 */
 	@Column
 	private String description;
 
+	
 	/**
 	 * 削除フラグ 0:未削除、1:削除済み
 	 */
 	@Column(insertable = false)
 	private Integer deleteFlag;
 
+	
 	/**
 	 * 登録日付
 	 */
 	@Column(insertable = false)
 	private Date insertDate;
 
+	
 	/**
 	 * 商品リスト
 	 */
 	@OneToMany(mappedBy = "category")
 	private List<Item> itemList;
 
-	public Integer getId() {
+	
+//各種getterとsetterを用意
+	
+	public Integer getId(Integer Id) {
 		return id;
 	}
 
