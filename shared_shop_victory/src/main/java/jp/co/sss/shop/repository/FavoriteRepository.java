@@ -6,10 +6,6 @@ import jp.co.sss.shop.entity.Favorite;
 
 
 public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
-
-//	void save(Item item);
-
-//	void save(Item item);
 	
 
 }
