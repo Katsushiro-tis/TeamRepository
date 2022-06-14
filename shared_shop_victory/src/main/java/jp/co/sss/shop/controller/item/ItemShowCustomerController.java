@@ -15,7 +15,7 @@ import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.form.FavoriteItemForm;
+import jp.co.sss.shop.form.FavoriteForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -125,17 +125,22 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model, FavoriteItemForm form) {
+	public String showFavoriteList(Model model, FavoriteForm form) {
 
-		Item item = new Item();
-//		item.setId(Integer.valueOf(form.getId())); 
-		item.setName(form.getName());
+		/*
+		 * Item item = new Item(); // item.setId(Integer.valueOf(form.getId()));
+		 * item.setName(form.getName());
+		 */
 
+		//ここ、detailからキテマス☆
 		System.out.println("id:" + form.getId());
 		System.out.println("name:" + form.getName());
 
 		//このあとまかせた！！！セーブしたい！
-//		favoriteRepository.save(item);
+		// 商品IDに該当する商品情報を取得
+
+		
+		//favoriteRepository.save(item);
 
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
