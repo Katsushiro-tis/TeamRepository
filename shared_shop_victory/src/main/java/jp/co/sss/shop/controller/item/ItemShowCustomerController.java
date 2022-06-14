@@ -2,6 +2,8 @@ package jp.co.sss.shop.controller.item;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.FavoriteBean;
 import jp.co.sss.shop.bean.ItemBean;
+import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.form.FavoriteItemForm;
+import jp.co.sss.shop.form.FavoriteForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.util.BeanCopy;
 import jp.co.sss.shop.util.Constant;
 
@@ -41,6 +45,8 @@ public class ItemShowCustomerController {
 //	OrderItemRepository orderItemRepository;
 	@Autowired
 	FavoriteRepository favoriteRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	/**
 	 * トップ画面 表示処理
@@ -125,17 +131,26 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model, FavoriteItemForm form) {
-
-		Item item = new Item();
-//		item.setId(Integer.valueOf(form.getId())); 
-		item.setName(form.getName());
+	public String showFavoriteList(Model model, FavoriteForm form, HttpSession session) {
 
 		System.out.println("id:" + form.getId());
 		System.out.println("name:" + form.getName());
 
 		//このあとまかせた！！！セーブしたい！
-//		favoriteRepository.save(item);
+		
+		//こっから
+		UserBean ub = (UserBean)session.getAttribute("user");
+		
+		
+		Favorite inFavorite = new Favorite();
+		//エンティティのそれぞれのフィールドに中身を設定
+		inFavorite.setItem(itemRepository.getById(Integer.parseInt(form.getId())));
+		inFavorite.setUser(userRepository.getById(ub.getId()));
+		//セーブ
+		favoriteRepository.save(inFavorite);
+		//ここまでやったとこ
+		
+		System.out.println(inFavorite.getId());
 
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
@@ -143,7 +158,9 @@ public class ItemShowCustomerController {
 
 		model.addAttribute("items", itemBeanList3);
 
-		return "/item/list/item_favorite";
+		System.out.println("いまから画面遷移します");
+		
+		return "item/list/item_favorite";
 	}
 
 }
