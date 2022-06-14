@@ -15,6 +15,7 @@ import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.repository.UserRepository;
+
 @Controller
 public class BasketCustomerController {
 	@Autowired
@@ -69,27 +70,28 @@ public class BasketCustomerController {
 			}
 			// return "basket/shopping_basket";
 		}
-session.setAttribute("basket", basketList);
-		return "basket/shopping_basket";	}
+
+		session.setAttribute("basket", basketList);
+		return "forward:/basket/list";
+	}
 
 	// 買い物かご画面(ナビゲーションバーから遷移)
 	@GetMapping("/basket/list")
 	public String basketListGet(HttpSession session) {
-
-		return "basket/shopping_basket";
+		return "/basket/shopping_basket";
 	}
 
 	// 買い物かご画面(各種ボタンから遷移)
 	@PostMapping("/basket/list")
 	public String basketList(HttpSession session) {
-
-		return "basket/shopping_basket";
+		return "/basket/shopping_basket";
 	}
 
 	// 商品削除（個別）
 	@PostMapping("/basket/delete")
 	public String deleteItem(HttpSession session, int id) {
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
+
 		for (BasketBean bean : basketList) {
 			int index = 0;
 			if (bean.getId() == id) {
@@ -104,7 +106,7 @@ session.setAttribute("basket", basketList);
 			index++;
 		}
 		session.setAttribute("basket", basketList);
-		return "basket/shopping_basket";
+		return "forward:/basket/list";
 	}
 
 	// 商品全削除
@@ -114,7 +116,7 @@ session.setAttribute("basket", basketList);
 		basketList.clear();
 		session.setAttribute("basket", basketList);
 
-		return "basket/shopping_basket";
+		return "forward:/basket/list";
 	}
 
 	@PostMapping("/basket/test")

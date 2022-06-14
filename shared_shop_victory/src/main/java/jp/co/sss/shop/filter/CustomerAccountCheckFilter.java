@@ -43,7 +43,6 @@ public class CustomerAccountCheckFilter implements Filter {
 					// レスポンス情報を取得
 					HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-					
 					System.out.println("アカウントチェックひっかかりました");
 					// ログイン画面にリダイレクト
 					httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
@@ -77,7 +76,7 @@ public class CustomerAccountCheckFilter implements Filter {
 						|| requestURL.indexOf("/category/detail") != -1 || requestURL.indexOf("/user/list") != -1)) {
 			// URLのリクエスト先がフィルタ実行対象である場合
 			System.out.println(requestURL.indexOf("/admin") != -1);
-			
+
 			return true;
 		} else {
 			// URLのリクエスト先がフィルタ実行対象ではない場合

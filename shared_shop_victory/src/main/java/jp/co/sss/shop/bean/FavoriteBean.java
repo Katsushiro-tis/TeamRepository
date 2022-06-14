@@ -1,13 +1,14 @@
 package jp.co.sss.shop.bean;
 
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.User;
 
 /**
  * 注文商品情報クラス
  *
  * @author SystemShared
  */
-public class OrderItemBean {
+public class FavoriteBean {
 
 	/**
 	 * 注文商品ID
@@ -44,6 +45,8 @@ public class OrderItemBean {
 	 * 小計
 	 */
 	private Integer subtotal;
+
+	private User user;
 
 	public Integer getId() {
 		return id;
@@ -107,5 +110,14 @@ public class OrderItemBean {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

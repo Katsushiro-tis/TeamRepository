@@ -11,7 +11,12 @@
 	<h2 class="title">商品一覧</h2>
 
 	<div class="sorted_by">
-		<a th:href="@{/item/list/} + ${sortType}"> 売れ筋順 </a>
+ 		<div th:if="${sort == 1}">
+			<a th:href="@{/item/list/2}"> 売れ筋順 </a>
+ 		</div>
+ 		 <div th:if="${sort == 2}">
+			<a th:href="@{/item/list/1}"> 新着順 </a>
+ 		</div>
 	</div>
 
 

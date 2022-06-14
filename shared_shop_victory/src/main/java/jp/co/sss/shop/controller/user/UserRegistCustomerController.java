@@ -92,6 +92,10 @@ public class UserRegistCustomerController {
 
 				// セッションスコープにログインしたユーザの情報を登録
 				session.setAttribute("user", userBean);
+		return "redirect:/user/regist/complete";
+	}
+	@RequestMapping(path = "/user/regist/complete", method = RequestMethod.GET)
+	public String registComplete() {
 		return "user/regist/user_regist_complete";
 	}
 
