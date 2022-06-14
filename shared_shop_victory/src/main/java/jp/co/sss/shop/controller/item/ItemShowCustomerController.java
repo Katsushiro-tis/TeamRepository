@@ -15,6 +15,7 @@ import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.form.FavoriteForm;
 import jp.co.sss.shop.form.ItemForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
@@ -153,6 +154,8 @@ public class ItemShowCustomerController {
 		model.addAttribute("url", "/item/list/");
 		return "/item/list/item_list";
 	}
+	
+//お気に入り一覧表示
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
 	public String showFavoriteList(Model model, ItemForm form) {
@@ -174,4 +177,14 @@ public class ItemShowCustomerController {
 		return "/item/list/item_favorite";
 	}
 
+//ここから変更
+//お気に入り登録
+	@RequestMapping(path = "/favorite/add", method = RequestMethod.GET)
+	public String addFavorite(FavoriteForm form) {
+		Favorite favorite = new Favorite();
+		favorite.setId(form.getId());
+		favoriteRepository.save(favorite);
+		return "item/detail/item_detail";
+	}
 }
+
