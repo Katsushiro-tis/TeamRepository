@@ -43,7 +43,7 @@
 			
 			<form action="/shared_shop/favorite/list">
 				<input type="hidden" name="id" th:value="${item.id}" /> <input
-					type="hidden" name="name" th:value="${item.name}" />
+					type="hidden" name="name" th:value="${session.user.name}" />
 				
 					 <input
 						type="submit" value="お気に入り" class="send_button" />

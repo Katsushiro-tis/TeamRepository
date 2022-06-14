@@ -15,10 +15,13 @@ import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.FavoriteForm;
+import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.util.BeanCopy;
 import jp.co.sss.shop.util.Constant;
 
@@ -41,6 +44,8 @@ public class ItemShowCustomerController {
 //	OrderItemRepository orderItemRepository;
 	@Autowired
 	FavoriteRepository favoriteRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	/**
 	 * トップ画面 表示処理
@@ -125,23 +130,28 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model, FavoriteForm form) {
+	public String showFavoriteList(Model model, FavoriteForm form, UserForm userform) {
 
-		/*
-		 * Item item = new Item(); // item.setId(Integer.valueOf(form.getId()));
-		 * item.setName(form.getName());
-		 */
-
-		//ここ、detailからキテマス☆
-		System.out.println("id:" + form.getId());
-		System.out.println("name:" + form.getName());
-
-		//このあとまかせた！！！セーブしたい！
 		// 商品IDに該当する商品情報を取得
+		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
+
+		// userIDに該当する商品情報を取得
+		User user = userRepository.getById(userform.getId());
+		
+		//確認用
+		System.out.println("確認用id:" + item.getName());
+		System.out.println("確認用Name:" + user.getName());
+		
+		//favorite二セーブ	
+		Favorite favorite = new Favorite();
+		
+		favorite.setItem(item);
+		favorite.setUser(user);
 
 		
-		//favoriteRepository.save(item);
-
+		favoriteRepository.save(favorite);
+	
+		
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
