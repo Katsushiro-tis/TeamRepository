@@ -73,7 +73,7 @@ public class Category {
 	
 //各種getterとsetterを用意
 	
-	public Integer getId(Integer Id) {
+	public Integer getId() {
 		return id;
 	}
 

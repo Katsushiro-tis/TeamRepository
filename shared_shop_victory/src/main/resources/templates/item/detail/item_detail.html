@@ -41,10 +41,10 @@
 				<input type="submit" value="戻る" class="back_button" />
 			</form>
 			
-			
-				
-					
-				
+			<form action="/shared_shop/favorite/list">
+				<input type="hidden" name="id" th:value="${item.id}" /> <input
+					type="hidden" name="name" 	th:if="${session.user != null}" th:value="${session.user.name}" />
+		
 					 <input type="submit" value="お気に入り" class="send_button" />
 				
 			</form>
