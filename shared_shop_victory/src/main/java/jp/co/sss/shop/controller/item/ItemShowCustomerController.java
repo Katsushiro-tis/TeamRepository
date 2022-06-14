@@ -18,9 +18,7 @@ import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.FavoriteForm;
-import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -128,12 +126,6 @@ public class ItemShowCustomerController {
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
 	public String showFavoriteList(Model model, FavoriteForm form, HttpSession session) {
-
-		// 商品IDに該当する商品情報を取得
-		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
-
-		// userIDに該当する商品情報を取得
-		User user = userRepository.getById(userform.getId());
 	
 		// favorite二セーブ
 		Favorite favorite = new Favorite();
@@ -152,36 +144,23 @@ public class ItemShowCustomerController {
 		favoriteRepository.save(inFavorite);
 		//ここまでやったとこ
 		
-		System.out.println(inFavorite.getId());
-
-		// favoriteにセットできているのか
-		System.out.println(form.getItem());
-		
-		favoriteRepository.save(favorite);
-
-		List<Favorite> favoriteitems = favoriteRepository.findAll();
+		List<Favorite> favoriteitems = favoriteRepository.findByUser(inFavorite.getUser());
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
 
 		model.addAttribute("items", itemBeanList3);
-	
-		for(FavoriteBean item3: itemBeanList3) {
-			System.out.println(item3.getItem().getName());
-		}
-
-		System.out.println("いまから画面遷移します");
 		
 		return "item/list/item_favorite";
 	}
 	
-	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList2(Model model) {
-		List<Favorite> favoriteitems = favoriteRepository.findAll();
-
-		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
-
-		model.addAttribute("items", itemBeanList3);
-		return "/item/list/item_favorite";
-	}
+//	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
+//	public String showFavoriteList2(Model model) {
+//		List<Favorite> favoriteitems = favoriteRepository.findAll();
+//
+//		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
+//
+//		model.addAttribute("items", itemBeanList3);
+//		return "/item/list/item_favorite";
+//	}
 
 }
