@@ -171,7 +171,7 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList3);
 		return "/item/list/item_favorite";
 	}
-	
+
 	@PostMapping("/favorite/delete")
 	public String deleteFavoriteItem(HttpSession session, FavoriteForm favoriteForm) {
 		favoriteRepository.deleteById(Integer.valueOf(favoriteForm.getId()));
