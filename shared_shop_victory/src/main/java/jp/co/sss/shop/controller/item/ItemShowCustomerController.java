@@ -70,21 +70,15 @@ public class ItemShowCustomerController {
 
 	@RequestMapping(path = "/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
-
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(id);
-
 		ItemBean itemBean = new ItemBean();
-
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
 		BeanUtils.copyProperties(item, itemBean);
-
 		// 商品情報にカテゴリ名を設定
 		itemBean.setCategoryName(item.getCategory().getName());
-
 		// 商品情報をViewへ渡す
 		model.addAttribute("item", itemBean);
-
 		return "item/detail/item_detail";
 	}
 
@@ -137,26 +131,27 @@ public class ItemShowCustomerController {
 
 		// userIDに該当する商品情報を取得
 		User user = userRepository.getById(userform.getId());
-		
-		//確認用
-		System.out.println("確認用id:" + item.getName());
-		System.out.println("確認用Name:" + user.getName());
-		
-		//favorite二セーブ	
+	
+		// favorite二セーブ
 		Favorite favorite = new Favorite();
-		
+
 		favorite.setItem(item);
 		favorite.setUser(user);
 
+		// favoriteにセットできているのか
+		System.out.println(form.getItem());
 		
 		favoriteRepository.save(favorite);
-	
-		
+
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
 
 		model.addAttribute("items", itemBeanList3);
+	
+		for(FavoriteBean item3: itemBeanList3) {
+			System.out.println(item3.getItem().getName());
+		}
 
 		return "/item/list/item_favorite";
 	}
