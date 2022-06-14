@@ -10,17 +10,18 @@
 	<!--       ---------　支払方法選択画面　 ---------     -->
 	
 	<form method="post"action="/shared_shop/order/check">	
-		<input type="radio" name="selectedRadio" th:text="クレジットカード"th:value="クレジットカード"><br>
-		<input type="radio" name="selectedRadio" th:text="銀行振り込み"th:value="銀行振り込み"><br>
-		<input type="radio" name="selectedRadio" th:text="着払い"th:value="着払い"><br>
-		<input type="radio" name="selectedRadio" th:text="電子マネー"th:value="電子マネー"><br>
-		<input type="radio" name="selectedRadio" th:text="コンビニ決済"th:value="コンビニ決済"><br>
+		<input type="radio" name="payMethod" th:text="クレジットカード" value="1"checked><br>
+		<input type="radio" name="payMethod" th:text="銀行振り込み"th:value="2"><br>
+		<input type="radio" name="payMethod" th:text="着払い"th:value="3"><br>
+		<input type="radio" name="payMethod" th:text="電子マネー"th:value="4"><br>
+		<input type="radio" name="payMethod" th:text="コンビニ決済"th:value="5"><br>
 		<input type="hidden" name="postalCode" th:value="${userDetail.postalCode}" />
 		<input type="hidden" name="address" th:value="${userDetail.address}" />
 		<input type="hidden" name="phoneNumber" th:value="${userDetail.phoneNumber}" />
 		<input type="hidden" name="name" th:value="${userDetail.name}" />
-			<input type="hidden" name="backflg" value="false"/>
-			<input type="submit" value="次へ"/>
+		<input type="hidden" name="backflg" value="false"/>
+
+		<input type="submit" value="次へ"/>
 	</form>
 	
 	<form method="post" action="/shared_shop/address/input">

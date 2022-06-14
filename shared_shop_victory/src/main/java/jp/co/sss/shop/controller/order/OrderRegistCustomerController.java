@@ -76,15 +76,15 @@ public class OrderRegistCustomerController {
 	// 支払い方法選択画面へ
 	@RequestMapping(path = "/payment/input", method = RequestMethod.POST)
 	public String inputPayment(@Valid @ModelAttribute AddressForm addressForm, BindingResult result, Model model,
-			HttpSession session) {
+			HttpSession session, boolean backflg) {
 
-		// 入力した住所をsessionに登録（確認画面での表示）
-		session.setAttribute("postalCode", addressForm.getPostalCode());
-		session.setAttribute("address", addressForm.getAddress());
-		session.setAttribute("name", addressForm.getName());
-		session.setAttribute("phoneNumber", addressForm.getPhoneNumber());
-
+		// 入力した住所を登録（確認画面での表示）
+		model.addAttribute("register", addressForm);
 		model.addAttribute("userDetail", addressForm);
+
+		if (backflg) {
+			return "order/regist/order_payment_input";
+		}
 
 		if (result.hasErrors()) {
 			return "order/regist/order_address_input";
@@ -94,61 +94,67 @@ public class OrderRegistCustomerController {
 
 	// 注文登録確認画面
 	@RequestMapping(path = "/order/check", method = RequestMethod.POST)
-	public String checkOrder(OrderForm orderForm, HttpSession session, String selectedRadio, Model model) {
+	public String checkOrder(@ModelAttribute OrderForm orderForm, HttpSession session, Model model) {
 
 		// 宛先、支払方法の情報を取得
 		OrderBean orderBean = new OrderBean();
 		BeanUtils.copyProperties(orderForm, orderBean);
-		switch (selectedRadio) {
-		case "クレジットカード":
-			orderBean.setPayMethod(1);
-			break;
-		case "銀行振込":
-			orderBean.setPayMethod(2);
-			break;
-		case "着払い":
-			orderBean.setPayMethod(3);
-			break;
-		case "電子マネー":
-			orderBean.setPayMethod(4);
-			break;
-		case "コンビニ決済":
-			orderBean.setPayMethod(5);
-			break;
-		}
 
 		// 買い物かごにある商品の情報を取得
 		ArrayList<OrderItemBean> orderItemList = new ArrayList<OrderItemBean>();
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
-		int subtotal = 0;
 		int total = 0;
+
+		// 在庫不足時のメッセージリスト
+		ArrayList<String> shotageList = new ArrayList<String>();
 
 		for (BasketBean basketBean : basketList) {
 			Item item = itemRepository.getById(basketBean.getId());
+
+			// int orderNum = basketBean.getOrderNum();
+			int orderNum = 10;
+			int stock = item.getStock();
+			int subtotal = 0;
+
+			// 確定時点での在庫が0の場合、注文不可
+			if (stock <= 0) {
+				shotageList.add(item.getName() + "は在庫切れのため、注文できません。");
+				continue;
+			}
+
 			OrderItemBean orderItemBean = new OrderItemBean();
 			BeanUtils.copyProperties(item, orderItemBean);
 
-			int orderNum = basketBean.getOrderNum();
+			// 在庫数 < 注文数の場合は在庫数で注文
+			if (stock < orderNum) {
+				shotageList.add(item.getName() + "は在庫不足のため、在庫数分のみ注文できます。");
+				orderItemBean.setQuantity(stock);
+				subtotal += item.getPrice() * stock;
+			}
+			// 在庫数 >= 注文数の場合は注文数で注文
+			else {
+				orderItemBean.setQuantity(orderNum);
+				subtotal += item.getPrice() * orderNum;
+			}
 
-			orderItemBean.setOrderNum(orderNum);
-
-			subtotal = item.getPrice() * orderNum;
 			orderItemBean.setSubtotal(subtotal);
 
 			total += subtotal;
 			orderItemList.add(orderItemBean);
 		}
 
+		session.setAttribute("orderItemList", orderItemList);
+		model.addAttribute("register", orderBean);
+		model.addAttribute("shotageList", shotageList);
 		model.addAttribute("total", total);
-		model.addAttribute("orderItemList", orderItemList);
-		model.addAttribute("sendDetail", orderBean);
 
 		return "order/regist/order_check";
 	}
 
 	// 注文登録完了画面
 	@RequestMapping(path = "/order/complete")
-	public String completeOrder() {
+	public String completeOrder(OrderBean register) {
+
 		return "order/regist/order_complete";
 	}
 
