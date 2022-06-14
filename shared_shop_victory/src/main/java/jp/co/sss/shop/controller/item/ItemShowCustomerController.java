@@ -2,16 +2,20 @@ package jp.co.sss.shop.controller.item;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.FavoriteBean;
 import jp.co.sss.shop.bean.ItemBean;
+import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
@@ -124,14 +128,15 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/favorite/add", method = RequestMethod.GET)
-	public String showFavoriteList(Model model, FavoriteForm form, UserForm userform) {
+	public String addFavoriteList(Model model, FavoriteForm form, UserForm userform, HttpSession session) {
 
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
 
 		// userIDに該当する商品情報を取得
-		User user = userRepository.getById(userform.getId());
-	
+		UserBean sessionUser = (UserBean) session.getAttribute("user");
+		User user = userRepository.getById(sessionUser.getId());
+
 		// favorite二セーブ
 		Favorite favorite = new Favorite();
 
@@ -139,8 +144,9 @@ public class ItemShowCustomerController {
 		favorite.setUser(user);
 
 		// favoriteにセットできているのか
-		System.out.println(form.getItem());
-		
+		System.out.println("item" + form.getItem());
+		System.out.println("user" + form.getUser());
+
 		favoriteRepository.save(favorite);
 
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
@@ -148,22 +154,28 @@ public class ItemShowCustomerController {
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
 
 		model.addAttribute("items", itemBeanList3);
-	
-		for(FavoriteBean item3: itemBeanList3) {
-			System.out.println(item3.getItem().getName());
-		}
 
+		for (FavoriteBean item3 : itemBeanList3) {
+			System.out.println(item3.getItem().getName());
+			System.out.println(item3.getUser().getName());
+		}
 		return "/item/list/item_favorite";
 	}
-	
+
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList2(Model model) {
+	public String showFavoriteList(Model model) {
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
 
 		model.addAttribute("items", itemBeanList3);
 		return "/item/list/item_favorite";
+	}
+	
+	@PostMapping("/favorite/delete")
+	public String deleteFavoriteItem(HttpSession session, FavoriteForm favoriteForm) {
+		favoriteRepository.deleteById(Integer.valueOf(favoriteForm.getId()));
+		return "redirect:/favorite/list";
 	}
 
 }

@@ -14,29 +14,31 @@
 		<p th:text="#{itemListAdmin.none}"></p>
 	</div>
 
+		<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
+			<tr>
+				<th>商品画像</th>
+				<th>商品名</th>
+				<th>いいねした人</th>
+				<th>価格</th>
+				<th>カテゴリ</th>
+				<th>操作</th>
+			</tr>
+			<tr th:each="item: ${items}" th:if="${session.user.name} == ${item.user.name}">
+				<td class="item_image_area_list"><span
+					th:if="${item.item.image != null}"> <img
+						th:src="@{/img/{image}(image=${item.item.image})}"></img>
+				</span> <span th:if="${item.item.image == null}"> <img
+						th:src="@{/img/common/no_image.jpg}"></img>
+				</span></td>
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.user.name}"></td>
+				<td th:text="${item.item.price}"></td>
+				<td th:text="${item.item.category.name}"></td>
+				<td><form th:action="@{/favorite/delete}" method="post">
+						<input type="hidden" name="id" th:value="${item.id}" />
+						<input type="submit" class="delete" value="削除" />
+					</form></td>
+			</tr>
+		</table>
 
-	<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
-		<tr>
-			<th>商品画像</th>
-			<th>商品名</th>
-			<th>いいねした人</th>
-			<th>価格</th>
-			<th>カテゴリ</th>
-		</tr>
-		<tr th:each="item: ${items}">
-
-			<td class="item_image_area_list"><span
-				th:if="${item.item.image != null}"> <img
-					th:src="@{/img/{image}(image=${item.item.image})}"></img>
-			</span> <span th:if="${item.item.image == null}"> <img
-					th:src="@{/img/common/no_image.jpg}"></img>
-			</span></td>
-			<td th:text="${item.name}"></td>
-			<td th:text="${item.user.name}"></td>
-			<td th:text="${item.item.price}"></td>
-			<td th:text="${item.item.category.name}"></td>  
-		</tr>
-	</table>
-	
-	
 </body>
