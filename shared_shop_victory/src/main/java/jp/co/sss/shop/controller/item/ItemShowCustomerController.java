@@ -143,23 +143,9 @@ public class ItemShowCustomerController {
 		favorite.setItem(item);
 		favorite.setUser(user);
 
-		// favoriteにセットできているのか
-		System.out.println("item" + form.getItem());
-		System.out.println("user" + form.getUser());
-
 		favoriteRepository.save(favorite);
 
-		List<Favorite> favoriteitems = favoriteRepository.findAll();
-
-		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
-
-		model.addAttribute("items", itemBeanList3);
-
-		for (FavoriteBean item3 : itemBeanList3) {
-			System.out.println(item3.getItem().getName());
-			System.out.println(item3.getUser().getName());
-		}
-		return "/item/list/item_favorite";
+		return "redirect:/favorite/list";
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
