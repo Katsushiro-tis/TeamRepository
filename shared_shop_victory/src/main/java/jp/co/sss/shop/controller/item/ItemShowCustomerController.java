@@ -15,7 +15,7 @@ import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.form.ItemForm;
+import jp.co.sss.shop.form.FavoriteForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -125,17 +125,20 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model, ItemForm form) {
+	public String showFavoriteList(Model model, FavoriteForm form) {
 
 		Item item = new Item();
-		/* item.setId(Integer.valueOf(form.getId())); */
+//		item.setId(Integer.valueOf(form.getId())); 
 		item.setName(form.getName());
 
-		System.out.println(form.getId());
-		System.out.println(form.getName());
+		System.out.println("id:" + form.getId());
+		System.out.println("name:" + form.getName());
 
-//		itemRepository.save(item);
-//		
+		//getByIdでitemレコード全部持ってきて全部コピー?
+		
+		//users情報どうしよう
+		
+//		favoriteRepository.save(item);
 
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
