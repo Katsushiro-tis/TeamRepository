@@ -28,10 +28,10 @@ public class OrderRegistCustomerController {
 	@RequestMapping(path = "/address/input", method = RequestMethod.POST)
 
 	public String inputAddress(@ModelAttribute AddressForm addressForm, BindingResult result, HttpSession session,
-			Model model, boolean backflag) {
+			Model model, boolean backflg) {
 
 		// 戻るボタンからの遷移でない場合の処理
-		if (!backflag) {
+		if (!backflg) {
 
 			UserBean sessionUser = (UserBean) session.getAttribute("user");
 			User user = userRepository.getById(sessionUser.getId());
@@ -64,15 +64,16 @@ public class OrderRegistCustomerController {
 	// 支払い方法選択画面へ
 	@RequestMapping(path = "/payment/input", method = RequestMethod.POST)
 	public String inputPayment(@Valid @ModelAttribute AddressForm addressForm, BindingResult result, Model model,
-			HttpSession session) {
+			HttpSession session, boolean backflg) {
 
-		// 入力した住所をsessionに登録（確認画面での表示）
-		session.setAttribute("postalCode", addressForm.getPostalCode());
-		session.setAttribute("address", addressForm.getAddress());
-		session.setAttribute("name", addressForm.getName());
-		session.setAttribute("phoneNumber", addressForm.getPhoneNumber());
-
+		// 入力した住所を登録（確認画面での表示）
+		model.addAttribute("register", addressForm);
 		model.addAttribute("userDetail", addressForm);
+
+		if (backflg) {
+			return "order/regist/order_payment_input";
+		}
+
 		if (result.hasErrors()) {
 			return "order/regist/order_address_input";
 		}
@@ -81,10 +82,11 @@ public class OrderRegistCustomerController {
 
 	// 注文登録確認画面
 	@RequestMapping(path = "/order/check", method = RequestMethod.POST)
-	public String checkOrder(OrderForm oderform, HttpSession session, String selectedRadio) {
+	public String checkOrder(@ModelAttribute OrderForm oderform, Model model, String selectedRadio) {
 
 		// 選んだ支払い方法を登録（確認画面での表示）
-		session.setAttribute("payMethod", selectedRadio);
+		model.addAttribute("register", oderform);
+		model.addAttribute("payMethod", selectedRadio);
 
 		return "order/regist/order_check";
 	}
