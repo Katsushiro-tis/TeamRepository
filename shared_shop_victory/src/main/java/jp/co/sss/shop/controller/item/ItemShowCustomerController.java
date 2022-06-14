@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.shop.bean.FavoriteBean;
 import jp.co.sss.shop.bean.ItemBean;
-import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.entity.Category;
+import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.entity.OrderItem;
+import jp.co.sss.shop.form.FavoriteForm;
 import jp.co.sss.shop.repository.CategoryRepository;
+import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
-import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.util.BeanCopy;
 import jp.co.sss.shop.util.Constant;
 
@@ -35,8 +36,11 @@ public class ItemShowCustomerController {
 	ItemRepository itemRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
+
+//	@Autowired
+//	OrderItemRepository orderItemRepository;
 	@Autowired
-	OrderItemRepository orderItemRepository;
+	FavoriteRepository favoriteRepository;
 
 	/**
 	 * トップ画面 表示処理
@@ -57,21 +61,6 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList);
 
 		return "index";
-	}
-
-	@RequestMapping(path = "/item/list")
-	public String item_list(Model model) {
-
-		// 商品情報を全件検索(新着順)
-		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
-
-		// エンティティ内の検索結果をJavaBeansにコピー
-		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
-
-		// 商品情報をViewへ渡す
-		model.addAttribute("items", itemBeanList);
-		model.addAttribute("url", "/item/list/");
-		return "/item/list/item_list";
 	}
 
 	@RequestMapping(path = "/item/detail/{id}")
@@ -112,23 +101,52 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/item/list/{sortType}", method = RequestMethod.GET)
-	public String showNewerList(Model model) {
-		
-		List<OrderItem> oderitems = orderItemRepository.findAllByOrderByQuantityDesc();
+	public String showNewerList(Model model, @PathVariable int sortType) {
 
-		List<OrderItemBean> itemBeanList2 = BeanCopy.copyEntityToOrderItemBean(oderitems);
-		
-		model.addAttribute("items", itemBeanList2);
-		
-		/* いったんitem_favoritに渡してます。のちのちはitem_listへ */
-		return "/item/list/item_favorite";
+		List<ItemBean> itemBeanList;
+		List<Item> itemList = null;
+
+		if (sortType == 1) {
+			// 商品情報を全件検索(新着順)
+			itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+			model.addAttribute("sort", 1);
+		} else if (sortType == 2) {
+			// 商品情報を売上順で検索
+			itemList = itemRepository.sortSQL();
+			model.addAttribute("sort", 2);
+		}
+
+		// エンティティ内の検索結果をJavaBeansにコピー
+		itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
+		// 商品情報をViewへ渡す
+		model.addAttribute("items", itemBeanList);
+		model.addAttribute("url", "/item/list/");
+		return "/item/list/item_list";
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model) {
+	public String showFavoriteList(Model model, FavoriteForm form) {
+
+		Item item = new Item();
+//		item.setId(Integer.valueOf(form.getId())); 
+		item.setName(form.getName());
+
+		System.out.println("id:" + form.getId());
+		System.out.println("name:" + form.getName());
+
+		//getByIdでitemレコード全部持ってきて全部コピー?
+		
+		//users情報どうしよう
+		
+//		favoriteRepository.save(item);
+
+		List<Favorite> favoriteitems = favoriteRepository.findAll();
+
+		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
+
+		model.addAttribute("items", itemBeanList3);
 
 		return "/item/list/item_favorite";
 	}
-	
-	
+
 }
