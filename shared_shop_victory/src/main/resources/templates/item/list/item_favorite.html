@@ -36,8 +36,7 @@
 			<td th:text="${item.getName()}"></td>
  			<td th:text="${item.getUser().getName()}"></td>
 			<td th:text="${item.getItem().getPrice()}"></td>
-   			<td th:if="${item.getItem().getCategory() != null}" th:text="${item.getItem().getCategory().getName()}"></td>
-<!--   			<td th:if="${Objects.isNull(items.getItem().getCategory().getName())}">nullです</td>  -->
+   			<td th:text="${item.getItem().getCategory().getName()}"></td>
  		</tr>
 	</table>	
 	
