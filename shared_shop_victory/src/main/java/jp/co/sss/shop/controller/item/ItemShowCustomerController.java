@@ -21,7 +21,6 @@ import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.FavoriteForm;
-import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -128,21 +127,34 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping(path = "/favorite/add", method = RequestMethod.GET)
-	public String addFavoriteList(Model model, FavoriteForm form, UserForm userform, HttpSession session) {
+	public String addFavoriteList(Model model, FavoriteForm form, HttpSession session) {
 
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
-
+		
 		// userIDに該当する商品情報を取得
 		UserBean sessionUser = (UserBean) session.getAttribute("user");
 		User user = userRepository.getById(sessionUser.getId());
 
-		// favorite二セーブ
+		// favoriteにセーブ
 		Favorite favorite = new Favorite();
 
 		favorite.setItem(item);
 		favorite.setUser(user);
 
+		List<Favorite> favoriteadd = favoriteRepository.findByItemAndUser(item, user);
+		List<FavoriteBean> itemBeanList4 = BeanCopy.copyEntityToFavoriteBean(favoriteadd);
+
+		for (FavoriteBean f : itemBeanList4) {		  
+			  //すでに保存されているItem/Userと今回addしたItem/Userが同じならsaveせずにリダイレクト
+			  if(item.getName() == f.getItem().getName() && user.getName() == f.getUser().getName()) {
+				  return "redirect:/favorite/list";
+			  }
+			 
+		}
+		
+		
+		
 		favoriteRepository.save(favorite);
 
 		return "redirect:/favorite/list";
