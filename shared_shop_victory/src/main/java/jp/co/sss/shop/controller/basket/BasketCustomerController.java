@@ -94,6 +94,7 @@ public class BasketCustomerController {
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 
+		// かごの中の商品を検索、指定のIDの商品を削除
 		for (BasketBean bean : basketList) {
 			int index = 0;
 			if (bean.getId() == id) {
