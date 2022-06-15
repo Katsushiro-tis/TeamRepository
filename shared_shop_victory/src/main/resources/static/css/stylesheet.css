@@ -167,6 +167,25 @@ p {
 	font-size: 1.1em;
 }
 
+
+/* ---- ページリンクのレイアウト --- */
+.paging {
+ text-align: center;
+ margin: 15px 0;
+ font-size: 1rem;
+ list-style-type: none;
+}
+.paging li{
+ display: inline-block;
+}
+.paging .current,
+.paging a{
+ padding: 0 3px;
+}
+.paging a{
+ display: block;
+}
+
 /* ---- 入力フォーム(検索、登録、変更、削除) ---- */
 .emp_form {
 	margin: 0px auto 30px;

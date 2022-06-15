@@ -17,7 +17,8 @@ import jp.co.sss.shop.entity.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-	/** 商品情報を新着順で検索 */
+	/** 商品情報を新着順で検索 
+	 * @param pageable */
 	public List<Item> findByDeleteFlagOrderByInsertDateDescIdAsc(int deleteFlag);
 
 	public List<Item> findByCategory(Category category);

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.bean.FavoriteBean;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.UserBean;
-import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
@@ -85,23 +84,6 @@ public class ItemShowCustomerController {
 		return "item/detail/item_detail";
 	}
 
-	@RequestMapping(path = "/item/list/category/{sortType}", method = RequestMethod.GET)
-	public String showCategoryList(int categoryId, Model model) {
-
-		Category category = new Category();
-
-		category.setId(categoryId);
-
-		List<Item> items = itemRepository.findByCategory(category);
-
-		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(items);
-
-		model.addAttribute("items", itemBeanList);
-		model.addAttribute("url", "/item/list/");
-
-		return "/item/list/item_list";
-	}
-
 	@RequestMapping(path = "/item/list/{sortType}", method = RequestMethod.GET)
 	public String showNewerList(Model model, @PathVariable int sortType) {
 
@@ -120,6 +102,7 @@ public class ItemShowCustomerController {
 
 		// エンティティ内の検索結果をJavaBeansにコピー
 		itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
+		
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
