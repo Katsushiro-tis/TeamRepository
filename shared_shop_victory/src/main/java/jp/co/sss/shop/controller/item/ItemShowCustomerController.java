@@ -126,9 +126,6 @@ public class ItemShowCustomerController {
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
 	public String showFavoriteList(Model model, FavoriteForm form, HttpSession session) {
-	
-		// favorite二セーブ
-		Favorite favorite = new Favorite();
 
 		//このあとまかせた！！！セーブしたい！
 		
@@ -162,5 +159,32 @@ public class ItemShowCustomerController {
 //		model.addAttribute("items", itemBeanList3);
 //		return "/item/list/item_favorite";
 //	}
+	
+	@RequestMapping(path = "/favorite/Button", method = RequestMethod.POST)
+	public String showFavoriteButtpn(Model model, HttpSession session, String item_id) {
+		System.out.println(item_id);
+
+		//このあとまかせた！！！セーブしたい！
+		
+		//こっから
+		UserBean ub = (UserBean)session.getAttribute("user");
+		
+		
+		Favorite inFavorite = new Favorite();
+		//エンティティのそれぞれのフィールドに中身を設定
+		inFavorite.setItem(itemRepository.getById(Integer.parseInt(item_id)));
+		inFavorite.setUser(userRepository.getById(ub.getId()));
+		//セーブ
+		favoriteRepository.save(inFavorite);
+		//ここまでやったとこ
+		
+		List<Favorite> favoriteitems = favoriteRepository.findByUser(inFavorite.getUser());
+
+		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
+
+		model.addAttribute("items", itemBeanList3);
+		
+		return "item/list/item_favorite";
+	}
 
 }
