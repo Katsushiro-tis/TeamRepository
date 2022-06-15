@@ -163,5 +163,14 @@ public class ItemShowCustomerController {
 		favoriteRepository.deleteById(Integer.valueOf(favoriteForm.getId()));
 		return "redirect:/favorite/list";
 	}
+	
+	
+	
+//	@RequestMapping(path = "/favorite/Button", method = RequestMethod.POST)
+//	public String showFavoriteButtpn(Model model, HttpSession session, String item_id) {
+//		
+//		
+//		return "item/list/item_favorite";
+//	}
 
 }
