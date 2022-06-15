@@ -132,15 +132,22 @@ public class ItemShowCustomerController {
 	@RequestMapping(path = "/favorite/add", method = RequestMethod.GET)
 	public String addFavoriteList(Model model, FavoriteForm form, UserForm userform, HttpSession session) {
 
+		Favorite favorite = new Favorite();
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
 
 		// userIDに該当する商品情報を取得
 		UserBean sessionUser = (UserBean) session.getAttribute("user");
 		User user = userRepository.getById(sessionUser.getId());
+		
+		System.out.println(item.getId());
+		
+		
+		if(item.getId() == null &&  favorite.getId() == null ) {
+		
 
-		// favorite二セーブ
-		Favorite favorite = new Favorite();
+		// favoriteにセーブ
+		//Favorite favorite = new Favorite();
 
 		favorite.setItem(item);
 		favorite.setUser(user);
@@ -148,6 +155,10 @@ public class ItemShowCustomerController {
 		favoriteRepository.save(favorite);
 
 		return "redirect:/favorite/list";
+		
+		}else {
+			return "redirect:/favorite/list";
+		}
 	}
 
 	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
