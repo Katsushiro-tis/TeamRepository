@@ -36,9 +36,6 @@ public class FavoriteController {
 	ItemRepository itemRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
-
-//	@Autowired
-//	OrderItemRepository orderItemRepository;
 	@Autowired
 	FavoriteRepository favoriteRepository;
 	@Autowired
@@ -79,15 +76,7 @@ public class FavoriteController {
 		return "redirect:/favorite/list";
 	}
 
-	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model) {
-		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
-		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
-
-		model.addAttribute("items", itemBeanList3);
-		return "/item/list/item_favorite";
-	}
 
 	@PostMapping("/favorite/delete")
 	public String deleteFavoriteItem(HttpSession session, FavoriteForm favoriteForm) {
@@ -95,6 +84,16 @@ public class FavoriteController {
 		return "redirect:/favorite/list";
 	}
 	
+	
+	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
+	public String showFavoriteList(Model model) {
+		List<Favorite> favoriteitems = favoriteRepository.findAll();
+
+		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
+
+		model.addAttribute("items", itemBeanList3);
+		return "/favorite/item_favorite.html";
+	}
 	
 	
 //	@RequestMapping(path = "/favorite/Button", method = RequestMethod.POST)
