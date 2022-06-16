@@ -3,13 +3,13 @@
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
-<title>Insert title here</title>
+<title>お届け先入力｜シェアードショップ</title>
 </head>
 <body>
 	<!--      ---------　届け先入力画面　---------      -->
 	<div>お届け先入力画面</div>
 	
-	<div th:object="${addressForm}">
+	<div th:object="${addressForm}" class="err">
 		<p th:errors="*{postalCode}"></p>
 		<p th:errors="*{address}"></p>
 		<p th:errors="*{name}"></p>

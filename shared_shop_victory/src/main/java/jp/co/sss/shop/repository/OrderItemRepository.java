@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.OrderItem;
+import jp.co.sss.shop.entity.User;
 
 /**
  * order_itemsテーブル用リポジトリ
@@ -21,6 +21,6 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
 	List<OrderItem> findByItemId(Integer item_id);
 
-	public void save(OrderItemBean orderItemBean);
+	public void save(User user);
 
 }
