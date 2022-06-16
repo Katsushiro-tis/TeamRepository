@@ -11,14 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jp.co.sss.shop.bean.FavoriteBean;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
-import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.entity.User;
-import jp.co.sss.shop.form.FavoriteForm;
-import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -33,6 +28,7 @@ import jp.co.sss.shop.util.Constant;
  */
 @Controller
 public class ItemShowCustomerController {
+	private static final Pageable Pageabel = null;
 	/**
 	 * 商品情報
 	 */
@@ -55,7 +51,7 @@ public class ItemShowCustomerController {
 	 * @return "/" トップ画面へ
 	 */
 	@RequestMapping(path = "/")
-	public String index(Model model, Pageable pageable) {
+	public String index(Model model) {
 
 		// 商品情報を全件検索(新着順)
 		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
@@ -71,21 +67,15 @@ public class ItemShowCustomerController {
 
 	@RequestMapping(path = "/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
-
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(id);
-
 		ItemBean itemBean = new ItemBean();
-
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
 		BeanUtils.copyProperties(item, itemBean);
-
 		// 商品情報にカテゴリ名を設定
 		itemBean.setCategoryName(item.getCategory().getName());
-
 		// 商品情報をViewへ渡す
 		model.addAttribute("item", itemBean);
-
 		return "item/detail/item_detail";
 	}
 
@@ -128,36 +118,6 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
 		return "/item/list/item_list";
-	}
-
-	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model, FavoriteForm form, UserForm userform) {
-
-		// 商品IDに該当する商品情報を取得
-		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
-
-		// userIDに該当する商品情報を取得
-		User user = userRepository.getById(userform.getId());
-
-		// 確認用
-		System.out.println("確認用id:" + item.getName());
-		System.out.println("確認用Name:" + user.getName());
-
-		// favorite二セーブ
-		Favorite favorite = new Favorite();
-
-		favorite.setItem(item);
-		favorite.setUser(user);
-
-		favoriteRepository.save(favorite);
-
-		List<Favorite> favoriteitems = favoriteRepository.findAll();
-
-		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
-
-		model.addAttribute("items", itemBeanList3);
-
-		return "/item/list/item_favorite";
 	}
 
 }
