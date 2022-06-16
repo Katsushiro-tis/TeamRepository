@@ -12,8 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.OrderBean;
@@ -36,8 +35,7 @@ public class OrderRegistCustomerController {
 	ItemRepository itemRepository;
 
 	// 届け先入力画面へ
-	@RequestMapping(path = "/address/input", method = RequestMethod.POST)
-
+	@PostMapping("address/input")
 	public String inputAddress(@ModelAttribute AddressForm addressForm, HttpSession session, Model model,
 			boolean backflg) {
 
@@ -74,7 +72,7 @@ public class OrderRegistCustomerController {
 	}
 
 	// 支払い方法選択画面へ
-	@RequestMapping(path = "/payment/input", method = RequestMethod.POST)
+	@PostMapping("/payment/input")
 	public String inputPayment(@Valid @ModelAttribute AddressForm addressForm, BindingResult result, Model model,
 			HttpSession session, boolean backflg) {
 
@@ -93,7 +91,7 @@ public class OrderRegistCustomerController {
 	}
 
 	// 注文登録確認画面
-	@RequestMapping(path = "/order/check", method = RequestMethod.POST)
+	@PostMapping("/order/check")
 	public String checkOrder(@ModelAttribute OrderForm orderForm, HttpSession session, Model model) {
 
 		// 宛先、支払方法の情報を取得
@@ -152,7 +150,7 @@ public class OrderRegistCustomerController {
 	}
 
 	// 注文登録完了画面
-	@RequestMapping(path = "/order/complete")
+	@GetMapping("/order/complete")
 	public String completeOrder(OrderBean register) {
 
 		return "order/regist/order_complete";

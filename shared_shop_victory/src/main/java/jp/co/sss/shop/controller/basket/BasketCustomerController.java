@@ -26,12 +26,15 @@ public class BasketCustomerController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	HttpSession session;
 
 //	　　　　　買い物かごコントローラー 
 
 // 商品追加処理
 	@PostMapping("/basket/add")
-	public String addItem(int id, HttpSession session, Model model) {
+	public String addItem(int id,  Model model) {
 		// sessionに買い物かご情報があるか確認。なければ作成
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
@@ -74,19 +77,19 @@ public class BasketCustomerController {
 
 	// 買い物かご画面(ナビゲーションバーから遷移)
 	@GetMapping("/basket/list")
-	public String basketListGet(HttpSession session) {
+	public String basketListGet() {
 		return "/basket/shopping_basket";
 	}
 
 	// 買い物かご画面(各種ボタンから遷移)
 	@PostMapping("/basket/list")
-	public String basketList(HttpSession session) {
+	public String basketList() {
 		return "/basket/shopping_basket";
 	}
 
 	// 商品削除（個別）
 	@PostMapping("/basket/delete")
-	public String deleteItem(HttpSession session, int id) {
+	public String deleteItem(int id) {
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 
@@ -110,7 +113,7 @@ public class BasketCustomerController {
 
 	// 商品全削除
 	@PostMapping("basket/deleteAll")
-	public String deleteAll(HttpSession session) {
+	public String deleteAll() {
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 		basketList.clear();
@@ -120,7 +123,7 @@ public class BasketCustomerController {
 	}
 
 	@PostMapping("/basket/test")
-	public String test(HttpSession session) {
+	public String test() {
 		// 画面確認用のbean生成
 
 		BasketBean bean = new BasketBean(1, "りんご", 30, 3);

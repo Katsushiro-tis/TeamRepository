@@ -23,9 +23,12 @@ public class UserShowCustomerController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	HttpSession session;
+	
 	//会員詳細画面用
 	@GetMapping("/user/detail")		
-	public String userShowCustomer(Model model, HttpSession session) {
+	public String userShowCustomer(Model model) {
 		// 表示対象の会員情報を取得
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;
 		User user = userRepository.getById(sessionUser.getId());

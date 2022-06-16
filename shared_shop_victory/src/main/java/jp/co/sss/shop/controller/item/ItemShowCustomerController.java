@@ -32,11 +32,6 @@ public class ItemShowCustomerController {
 	ItemRepository itemRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
-
-//	@Autowired
-//	OrderItemRepository orderItemRepository;
-//	@Autowired
-//	FavoriteRepository favoriteRepository;
 	@Autowired
 	UserRepository userRepository;
 	
