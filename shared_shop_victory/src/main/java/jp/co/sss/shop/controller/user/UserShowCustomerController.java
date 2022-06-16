@@ -18,12 +18,13 @@ import jp.co.sss.shop.repository.UserRepository;
  * @author SystemShared
  */
 @Controller
-public class UserShowCustomerControlle {
+public class UserShowCustomerController {
 
 	@Autowired
 	UserRepository userRepository;
 	
-	@GetMapping("/user/detail")		//会員詳細画面用
+	//会員詳細画面用
+	@GetMapping("/user/detail")		
 	public String userShowCustomer(Model model, HttpSession session) {
 		// 表示対象の会員情報を取得
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;

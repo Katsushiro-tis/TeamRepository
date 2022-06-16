@@ -94,12 +94,4 @@ public class FavoriteController {
 		model.addAttribute("items", itemBeanList3);
 		return "/favorite/item_favorite.html";
 	}
-	
-	
-//	@RequestMapping(path = "/favorite/Button", method = RequestMethod.POST)
-//	public String showFavoriteButtpn(Model model, HttpSession session, String item_id) {
-//		
-//		
-//		return "item/list/item_favorite";
-//	}
 }

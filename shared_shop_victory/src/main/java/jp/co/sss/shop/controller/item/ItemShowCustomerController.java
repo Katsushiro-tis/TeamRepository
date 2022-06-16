@@ -6,9 +6,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
@@ -40,14 +39,14 @@ public class ItemShowCustomerController {
 //	FavoriteRepository favoriteRepository;
 	@Autowired
 	UserRepository userRepository;
-
+	
 	/**
 	 * トップ画面 表示処理
 	 *
 	 * @param model Viewとの値受渡し
 	 * @return "/" トップ画面へ
 	 */
-	@RequestMapping(path = "/")
+	@GetMapping("/")
 	public String index(Model model) {
 
 		// 商品情報を全件検索(新着順)
@@ -61,8 +60,8 @@ public class ItemShowCustomerController {
 
 		return "index";
 	}
-
-	@RequestMapping(path = "/item/detail/{id}")
+	
+	@GetMapping("/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(id);
@@ -75,8 +74,8 @@ public class ItemShowCustomerController {
 		model.addAttribute("item", itemBean);
 		return "item/detail/item_detail";
 	}
-
-	@RequestMapping(path = "/item/list/category/{sortType}", method = RequestMethod.GET)
+	
+	@GetMapping("/item/list/category/{sortType}")
 	public String showCategoryList(int categoryId, Model model) {
 
 		Category category = new Category();
@@ -92,8 +91,8 @@ public class ItemShowCustomerController {
 
 		return "/item/list/item_list";
 	}
-
-	@RequestMapping(path = "/item/list/{sortType}", method = RequestMethod.GET)
+	
+	@GetMapping("/item/list/{sortType}")
 	public String showNewerList(Model model, @PathVariable int sortType) {
 
 		List<ItemBean> itemBeanList;

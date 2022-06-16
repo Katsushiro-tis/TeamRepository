@@ -58,18 +58,14 @@ public class BasketCustomerController {
 		}
 
 		if (basketStock > item.getStock()) {
-			System.out.println("エラー");
 			model.addAttribute("notEnoughName", item.getName());
-			// return "basket/shopping_basket";
 		} else { // 買い物かごをセット
-			// session.setAttribute("basket", basketList);
 			if (basketStock == 0) {
 				// 値を登録
 				BasketBean bean = new BasketBean(item.getId(), item.getName(), item.getPrice(), 1);
 				// 買い物かごに追加
 				basketList.add(bean);
 			}
-			// return "basket/shopping_basket";
 		}
 
 		session.setAttribute("basket", basketList);
