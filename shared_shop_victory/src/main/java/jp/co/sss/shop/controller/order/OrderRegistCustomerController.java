@@ -41,6 +41,10 @@ public class OrderRegistCustomerController {
 
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	OrderRepository oderRepository;
+	@Autowired
+	OrderItemRepository oderItemRepository;
 
 	@Autowired
 	ItemRepository itemRepository;
@@ -167,43 +171,55 @@ public class OrderRegistCustomerController {
 	@RequestMapping(path = "/order/complete")
 	public String completeOrder(Order order, HttpSession session) {
 
-		// ordersテーブルへの登録処理
-		// viewから受け取った情報にセッションスコープのユーザー情報を加えて登録
-		User user = new User();
+		// ユーザ情報を取得し、 userBeanに入れる
 		UserBean userBean = (UserBean) session.getAttribute("user");
-
+		// User型のuserを作成
+		User user = new User();
+		// userBeanをuserにコピー
 		BeanUtils.copyProperties(userBean, user);
+		// Orderエンティティにユーザ情報を入れる
 		order.setUser(user);
+		// オーダー情報を保存
+		oderRepository.save(order);
 
-		orderRepository.save(order);
-
-		// order_itemsテーブルへの登録処理
-		// セッションスコープから注文商品情報のリストを取得
+		// オーダーアイテムリストを取得し、orderItemListに入れる
 		ArrayList<OrderItemBean> orderItemList = (ArrayList<OrderItemBean>) session.getAttribute("orderItemList");
+		// orderItemListの数だけ以下の処理を繰り返す。
+		for (int i = 0; i < orderItemList.size(); i++) {
+			// iのオーダーを取得
+			orderItemList.get(i);
+			// OrderItemBean型のorderItemBeanを作成
+			OrderItemBean orderItemBean = new OrderItemBean();
+			// orderItemBeanへ i のオーダーを代入
+			orderItemBean = orderItemList.get(i);
+			// OrderItem型のorderItemeを作成
+			OrderItem orderIteme = new OrderItem();
+			// orderItemeに注文数と値段、Orderの情報を入れる
+			orderIteme.setQuantity(orderItemBean.getQuantity());
+			orderIteme.setPrice(orderItemBean.getPrice());
+			orderIteme.setOrder(order);
 
-		// 商品ごとにテーブルへ登録
-		for (OrderItemBean orderItemBean : orderItemList) {
-			OrderItem orderItem = new OrderItem();
+			// itemエンティティを作り、Idをもとに商品情報を持ってきて入れる
 			Item item = itemRepository.getById(orderItemBean.getId());
+			// orderItemeにItem情報を入れる
+			orderIteme.setItem(item);
+			// orderItemeに入れた情報を保存
+			oderItemRepository.save(orderIteme);
 
-			orderItem.setOrder(order);
-			orderItem.setPrice(orderItemBean.getPrice());
-			orderItem.setQuantity(orderItemBean.getQuantity());
-			orderItem.setItem(item);
-
-			orderItemRepository.save(orderItem);
-
-			// 登録した商品の在庫を変更
-			int updateStock = item.getStock() - orderItem.getQuantity();
-			item.setStock(updateStock);
+			// 注文した商品を在庫から引く
+			int num = item.getStock() - orderIteme.getQuantity();
+			// 残りの在庫をStockに入れる
+			item.setStock(num);
+			// 在庫から注文数を引いた残りの在庫を保存
 			itemRepository.save(item);
 		}
 
-		// 買い物かごの情報を削除
+		// sessionに登録した情報を削除
+		session.removeAttribute("orderItemList");
 		session.removeAttribute("basket");
-		session.removeAttribute("ordeItemList");
 
 		return "order/regist/order_complete";
+
 	}
 
 }
