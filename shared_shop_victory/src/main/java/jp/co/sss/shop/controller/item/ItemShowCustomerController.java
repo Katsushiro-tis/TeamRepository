@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,7 +55,7 @@ public class ItemShowCustomerController {
 	 * @return "/" トップ画面へ
 	 */
 	@RequestMapping(path = "/")
-	public String index(Model model) {
+	public String index(Model model, Pageable pageable) {
 
 		// 商品情報を全件検索(新着順)
 		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
@@ -137,21 +138,19 @@ public class ItemShowCustomerController {
 
 		// userIDに該当する商品情報を取得
 		User user = userRepository.getById(userform.getId());
-		
-		//確認用
+
+		// 確認用
 		System.out.println("確認用id:" + item.getName());
 		System.out.println("確認用Name:" + user.getName());
-		
-		//favorite二セーブ	
+
+		// favorite二セーブ
 		Favorite favorite = new Favorite();
-		
+
 		favorite.setItem(item);
 		favorite.setUser(user);
 
-		
 		favoriteRepository.save(favorite);
-	
-		
+
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
