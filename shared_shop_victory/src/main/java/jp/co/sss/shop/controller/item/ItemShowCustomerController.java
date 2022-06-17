@@ -28,6 +28,7 @@ import jp.co.sss.shop.util.Constant;
  */
 @Controller
 public class ItemShowCustomerController {
+	private static final Pageable Pageabel = null;
 	/**
 	 * 商品情報
 	 */

@@ -20,7 +20,7 @@
 		<p th:text="#{itemListAdmin.none}"></p>
 	</div>
 
-		<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
+		<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}" id="page">
 			<tr>
 				<th>商品画像</th>
 				<th>商品名</th>
@@ -52,5 +52,6 @@
 	<div id="page_top">
 		<a href="#"></a>
 	</div>
+
 
 </body>

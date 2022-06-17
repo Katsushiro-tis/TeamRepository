@@ -51,19 +51,14 @@ public class SharedShopConfig implements WebMvcConfigurer {
 			}
 		};
 	}
-	
-	//ページング
-	@Configuration
-	public class ShopConfig implements WebMvcConfigurer {
-	 @Override
-	 public void addArgumentResolvers(List<HandlerMethodArgumentResolver>
-	argumentResolvers) {
-	PageableHandlerMethodArgumentResolver resolver = new
-	PageableHandlerMethodArgumentResolver();
-	 //ページ単位に表示する件数
-	 resolver.setFallbackPageable(PageRequest. of (0, 2));
-	 argumentResolvers.add(resolver);
-	 }
+
+	/**
+	 * ページング用ハンドラ
+	 */
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
+		resolver.setFallbackPageable(PageRequest.of(0, 10));
+		argumentResolvers.add(resolver);
 	}
-	
+
 }

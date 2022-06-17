@@ -92,7 +92,7 @@ public class FavoriteController {
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
 
 		model.addAttribute("items", itemBeanList3);
-		return "/favorite/item_favorite.html";
+		return "/favorite/item_favorite";
 	}
 	
 	
