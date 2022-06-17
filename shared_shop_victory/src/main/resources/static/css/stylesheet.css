@@ -16,20 +16,39 @@ p {
 }
 
 /* ---- 入力フォーム(ログイン) ---- */
+.bg_black{
+	background-color: black;
+}
+.bg_white{
+	background-color: white;
+	color: black;
+}
+.login_back{
+	background-color: black;
+	color: white;
+	font-size: 1.5rem;
+	margin: 0 auto;
+	width: 700px;
+}
+
 .login_form {
 	margin-top: 30px;
+	text-align: center;
 }
 
 .login_form .label {
 	width: 45%;
 	padding: 8px 0;
 	text-align: right;
+	background-color: black;
+	color: white;
 }
 
 .login_form .input {
 	width: 55%;
 	padding: 8px 5px;
 	text-align: left;
+	background-color: black;
 }
 
 .login_form .input [type=submit] {
@@ -41,19 +60,14 @@ p {
 	margin: 0;
 	padding-left: 20px;
 }
+
 .login .page_title {
 	font-weight: bold;
 }
+
 .main .page_title {
 	padding-left: 10px;
 	float: left;
-}
-
-/* ---- ナビゲーションバー ---- */
-.navi_menu{
-	display: flex;
-	width: auto;
-	margin: 2px;
 }
 
 /* ---- 社員登録入力画面へのリンク ---- */
@@ -65,7 +79,7 @@ p {
 }
 
 .description {
-	margin-top: 30px;
+	margin-top: 110px;
 	text-align: center;
 }
 
@@ -127,7 +141,7 @@ p {
 
 .item .item_name {
 	padding: 5px 10px;
-	color: #3d98bf;
+	color: black;
 	font-weight: bold;
 	position: absolute;
 	top: 5px;
@@ -167,23 +181,39 @@ p {
 	font-size: 1.1em;
 }
 
+/* ---- 新着順・売れ筋順 --- */
+.form_order {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.form_order select {
+	background-color: black;
+	color: white;
+	width: 100px;
+	height: 30px;
+	font-size: 1.0rem;
+	border-radius: 15px;
+}
 
 /* ---- ページリンクのレイアウト --- */
 .paging {
- text-align: center;
- margin: 15px 0;
- font-size: 1rem;
- list-style-type: none;
+	text-align: center;
+	margin: 15px 0;
+	font-size: 1rem;
+	list-style-type: none;
 }
-.paging li{
- display: inline-block;
+
+.paging li {
+	display: inline-block;
 }
-.paging .current,
-.paging a{
- padding: 0 3px;
+
+.paging .current, .paging a {
+	padding: 0 3px;
 }
-.paging a{
- display: block;
+
+.paging a {
+	display: block;
 }
 
 /* ---- 入力フォーム(検索、登録、変更、削除) ---- */
@@ -203,15 +233,16 @@ p {
 	padding: 10px 5px;
 }
 
-.user_info_form_area,
-.user_detail_area {
+.user_info_form_area, .user_detail_area {
 	display: block;
 	width: 50%;
 	margin: 50px auto 0;
 }
+
 .item_info_form_area {
 	margin: 50px auto 0;
 }
+
 .payment_method_select {
 	margin-bottom: 40px;
 }
@@ -222,11 +253,11 @@ p {
 	margin-bottom: 50px;
 }
 
-.input_list li,
-.input_list dd {
+.input_list li, .input_list dd {
 	margin-bottom: 20px;
 }
-.payment_method_select li{
+
+.payment_method_select li {
 	margin-bottom: 10px;
 }
 
@@ -234,8 +265,7 @@ p {
 	display: block;
 }
 
-.input_list .input_title,
-.input_list .input_value {
+.input_list .input_title, .input_list .input_value {
 	display: block;
 	line-height: 1.1rem;
 }
@@ -246,94 +276,105 @@ p {
 	color: #2a2a2a;
 }
 
-.input_list input,
-.input_list textarea {
+.input_list input, .input_list textarea {
 	width: 100%;
 	padding: 5px;
 	box-sizing: border-box;
 	font-size: 1rem;
 }
+
 .input_list img {
 	width: 100%;
 }
+
 .input_list .comments {
 	font-size: 0.8rem;
 	display: block;
 	margin-top: -5px;
 }
-.input_list .radio_label,
-.payment_method_select .radio_label {
+
+.input_list .radio_label, .payment_method_select .radio_label {
 	font-size: 1.1rem;
 }
-.input_list .radio_label{
+
+.input_list .radio_label {
 	display: inline-block;
 	padding-left: 0.5em;
 }
+
 .input_list [type="radio"] {
 	display: inline;
 	width: auto;
 }
 
 .input_list .error_message {
-
 	display: block;
 	line-height: 0.9em;
 	font-size: 0.9rem;
 	color: #C00;
-
 }
 
-.input_list .error_list{
+.input_list .error_list {
 	display: list-item;
 	line-height: 0.9em;
 	font-size: 0.9rem;
 	list-style-type: disc;
-	color:#C00;
+	color: #C00;
 }
 
-.user_info_form_area [type="submit"],
-.item_info_form_area [type="submit"] {
+.user_info_form_area [type="submit"], .item_info_form_area [type="submit"]
+	{
 	line-height: 2.5rem;
 	min-width: 7rem;
 	margin-right: 20px;
 	font-size: 1rem;
 }
-.user_info_form_area .send_button,
-.item_info_form_area .send_button {
-	background: #edf9fe;
-}
-.user_info_form_area .back_button,
-.item_info_form_area .back_button {
+
+.user_info_form_area .send_button, .item_info_form_area .send_button {
 	background: #ddd;
+	margin-left: 20px;
 }
+
+.user_info_form_area .back_button, .item_info_form_area .back_button {
+	background: #ddd;
+	margin-left: 20px;
+}
+
 .order_check .user_info_form_area {
 	width: 80%;
 }
-.shopping_basket .user_info_form_area, .shopping_button{
+
+.shopping_basket .user_info_form_area, .shopping_button {
 	width: 100%;
 }
 
 .detail_button_area {
 	display: block;
 	width: 100%;
-	margin-top:60px;
+	margin-top: 60px;
 }
-.detail_button_area form{
+
+.detail_button_area form {
 	display: inline-block;
-	width:33%;
-	margin-left:-1%;
+	width: 33%;
+	margin-left: -1%;
 	text-align: center;
 }
-.detail_button_area form:first-of-type{
+
+.detail_button_area form:first-of-type {
 	text-align: right;
 }
-.detail_button_area form:last-of-type{
+
+.detail_button_area form:last-of-type {
 	text-align: left;
 }
-.detail_button_area [type="submit"]{
+
+.detail_button_area [type="submit"] {
+	margin: 0 auto;
 	padding: 0.6em 1.8em;
 	font-size: 1.2em;
 }
+
 .card_info {
 	padding-top: 10px;
 	border-top: 1px solid #e8e8e8;
@@ -342,20 +383,29 @@ p {
 .item_detail_area {
 	overflow: hidden;
 }
+
+.detail_form {
+	display: flex;
+	margin-top: 300px;
+	margin-left: 50px;
+}
+
 .item_image_area {
 	width: 45%;
 	float: left;
 }
-.item_image_area img{
+
+.item_image_area img {
 	width: 100%;
 	height: auto;
 }
+
 .item_detail_list {
 	width: 50%;
 	float: right;
 }
 
-.item_detail_area + .user_info_form {
+.item_detail_area+.user_info_form {
 	clear: both;
 }
 
@@ -375,6 +425,7 @@ p {
 
 .search select {
 	width: 125px;
+	margin-right: 10px;
 }
 
 /* ---- 処理完了メッセージの出力箇所 ---- */
@@ -434,23 +485,27 @@ select {
 
 /* ---- テーブル ---- */
 /* ---- 共通 ---- */
-.list_table,
-.detail_table {
-	border-bottom: 1px solid #f0f8fb;
+.list_table td {
+	border: 2px #eeeeee solid;
+}
+
+.list_table, .detail_table {
+	/* border-bottom: 1px solid #c0c0c0; */
 	background-color: #fff;
-	border-collapse: collapse;
+	/* 	border-collapse: collapse; */
 	margin: 50px auto 20px;
 }
-.list_table th,
-.detail_table th {
+
+.list_table th, .detail_table th {
 	white-space: nowrap;
 	padding: 5px;
-    background: #add8e6;
-    font-weight: normal;
-    position: relative;
+	background: black;
+	font-weight: normal;
+	position: relative;
+	color: white;
 }
-.list_table td,
-.detail_table td {
+
+.list_table td, .detail_table td {
 	padding: 10px;
 }
 
@@ -460,84 +515,97 @@ select {
 	width: 100%;
 	text-align: center;
 }
-.list_table tr:nth-of-type(odd) {
-    background: #f0f8fb;
-}
+
+/* .list_table tr:nth-of-type(odd) {
+	background: #eeeeee;
+} */
 .admin .list_table tr:nth-of-type(odd) {
-    background: #fff0ec;
+	background: #fff0ec;
 }
-.admin .list_table th{
+
+.admin .list_table th {
 	background: #ffc6b9;
 }
+
 .list_table th:after {
-    content: "";
-    display: block;
-    height: 90%;
-    width: 1px;
-    background: #fff;
-    position: absolute;
-    left: 0;
-    top: 5%;
+	content: "";
+	display: block;
+	height: 90%;
+	width: 1px;
+	background: #eeeeee;
+	position: absolute;
+	left: 0;
+	top: 5%;
 }
 
 /* ---- 詳細テーブル ---- */
 .detail_table {
 	width: 80%;
 }
+
 .detail_table caption {
 	text-align: left;
 	font-size: 1.1rem;
 }
-.detail_table th{
+
+.detail_table th {
 	border-bottom: 1px solid #fff;
 	text-align: right;
 	padding-right: 10px;
 }
-.admin .detail_table th{
+
+.admin .detail_table th {
 	background: #ffc6b9;
 }
-.detail_table td{
+
+.detail_table td {
 	border-bottom: 1px solid #f0f8fb;
 }
 /* ---- 会員一覧 ---- */
 .sign_up_form {
 	display: block;
-	margin-top:20px;
+	margin-top: 20px;
 }
-.sign_up_form .menu_button{
+
+.sign_up_form .menu_button {
 	float: right;
 	margin-right: 0px;
-	margin-bottom:8px;
+	margin-bottom: 8px;
 }
-.category_list .sign_up_form .menu_button{
-	width:auto;
+
+.category_list .sign_up_form .menu_button {
+	width: auto;
 }
+
 .list_table.user {
 	clear: both;
 }
 
 /* ---- 商品一覧 ---- */
 .list_table.item_list th:last-of-type {
-	width:20%;
+	width: 20%;
 }
+
 .list_table.item_list th:first-of-type {
-	width:20%;
+	width: 20%;
 }
-.item_image_area_list img{
+
+.item_image_area_list img {
 	width: 60%;
 }
 
 /* ---- 注文一覧 ---- */
-.list_table.order{
+.list_table.order {
 	margin-top: 50px;
 }
-.list_table.order a{
+
+.list_table.order a {
 	text-decoration: underline;
 }
 
 /* ---- カテゴリ一覧 ---- */
 .list_table.category_list th:last-of-type {
-	width:30%;
+	width: 30%;
 }
 
 /* ---- 注文詳細 ---- */
@@ -546,18 +614,20 @@ select {
 }
 
 /* ---- 注文最終確認 ---- */
-.list_table.item_detail td:first-of-type{
+.list_table.item_detail td:first-of-type {
 	width: 20%;
 }
-.list_table.item_detail img{
+
+.list_table.item_detail img {
 	height: 70px;
 	width: auto;
-	vertical-align:middle;
+	vertical-align: middle;
 }
-.detail_table.address,
-.detail_table.pay {
+
+.detail_table.address, .detail_table.pay {
 	width: 100%;
 }
+
 .detail_table.pay {
 	margin-bottom: 50px;
 }
@@ -566,18 +636,21 @@ select {
 .list_table.basket th:first-of-type {
 	width: 45%;
 }
+
 .list_table.basket th:last-of-type {
 	width: 42%;
 }
+
 .list_table.basket td:first-of-type {
 	padding-left: 20px;
 	text-align: left;
 }
-.list_table.basket [type="button"],
-.list_table.basket .delete {
+
+.list_table.basket [type="button"], .list_table.basket .delete {
 	margin: 0 3px;
 }
-.list_table.basket .delete{
+
+.list_table.basket .delete {
 	width: 80px;
 	height: 35px;
 	padding: 0px 10px;
@@ -585,11 +658,7 @@ select {
 	font-weight: bold;
 }
 
-
 /* ---- 商品一覧(運用管理者向け) ---- */
-
-
-
 
 /* ---- 支払い方法入力 ---- */
 .container #checkButton {
@@ -653,18 +722,55 @@ p.link_center {
 	margin: 15px 0;
 	font-size: 1rem;
 }
-.paging li{
+
+.paging li {
 	display: inline-block;
 }
-.paging .current,
-.paging a{
+
+.paging .current, .paging a {
 	padding: 0 3px;
 }
-.paging a{
+
+.paging a {
 	display: block;
 }
 
 /* ---- 買い物かご ---- */
 .err {
 	color: #FF0000;
+}
+
+/* ---- ページトップへ ---- */
+#page_top {
+	width: 50px;
+	height: 50px;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	background: black;
+}
+
+#page_top a {
+	position: relative;
+	display: block;
+	width: 50px;
+	height: 50px;
+	text-decoration: none;
+}
+
+#page_top a::before {
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	content: '\f106';
+	font-size: 25px;
+	color: #fff;
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: auto;
+	text-align: center;
 }

@@ -2,6 +2,8 @@ package jp.co.sss.shop.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,6 +22,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	/** 商品情報を新着順で検索 
 	 * @param pageable */
 	public List<Item> findByDeleteFlagOrderByInsertDateDescIdAsc(int deleteFlag);
+	
+	//ページング
+	//public List<Item> findByDeleteFlagOrderByInsertDateDescIdAsc(Pageable pageable);
 
 	public List<Item> findByCategory(Category category);
 	
@@ -31,6 +36,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 			+ "", nativeQuery = true)
 	public List<Item> sortSQL();
 
-	
+	//ページング
+	public Page<Item> findAll(Pageable pageable);
 
 }

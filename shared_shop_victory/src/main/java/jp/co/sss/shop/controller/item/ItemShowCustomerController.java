@@ -2,24 +2,18 @@ package jp.co.sss.shop.controller.item;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jp.co.sss.shop.bean.FavoriteBean;
 import jp.co.sss.shop.bean.ItemBean;
-import jp.co.sss.shop.bean.UserBean;
-import jp.co.sss.shop.entity.Favorite;
+import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.entity.User;
-import jp.co.sss.shop.form.FavoriteForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -56,12 +50,12 @@ public class ItemShowCustomerController {
 	 * @return "/" トップ画面へ
 	 */
 	@RequestMapping(path = "/")
-	public String index(Model model) {
+	public String index(Model model, Pageable pageable) {
 
 		// 商品情報を全件検索(新着順)
 		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
-
-		// エンティティ内の検索結果をJavaBeansにコピー
+		
+/// エンティティ内の検索結果をJavaBeansにコピー
 		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
 
 		// 商品情報をViewへ渡す
@@ -69,6 +63,22 @@ public class ItemShowCustomerController {
 
 		return "index";
 	}
+
+//	// ページング
+//	@RequestMapping(path = "/")
+//	public String index(Model model, Pageable pageable) {
+//
+//		// ページング
+//		Page<Item> pageList = itemRepository.findAll(pageable);
+//		// 検索結果を保存するための JavaBeans（リスト）を用意
+//		List<Item> itemList = pageList.getContent();
+//
+//		// 商品情報をリクエストスコープに保存
+//		model.addAttribute("pages", pageList);
+//		model.addAttribute("items", itemList);
+//
+//		return "index";
+//	}
 
 	@RequestMapping(path = "/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
@@ -82,6 +92,23 @@ public class ItemShowCustomerController {
 		// 商品情報をViewへ渡す
 		model.addAttribute("item", itemBean);
 		return "item/detail/item_detail";
+	}
+
+	@RequestMapping(path = "/item/list/category/{sortType}", method = RequestMethod.GET)
+	public String showCategoryList(int categoryId, Model model) {
+
+		Category category = new Category();
+
+		category.setId(categoryId);
+
+		List<Item> items = itemRepository.findByCategory(category);
+
+		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(items);
+
+		model.addAttribute("items", itemBeanList);
+		model.addAttribute("url", "/item/list/");
+
+		return "/item/list/item_list";
 	}
 
 	@RequestMapping(path = "/item/list/{sortType}", method = RequestMethod.GET)
@@ -102,61 +129,10 @@ public class ItemShowCustomerController {
 
 		// エンティティ内の検索結果をJavaBeansにコピー
 		itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
-		
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
 		return "/item/list/item_list";
-	}
-
-	@RequestMapping(path = "/favorite/add", method = RequestMethod.GET)
-	public String addFavoriteList(Model model, FavoriteForm form, HttpSession session) {
-
-		// 商品IDに該当する商品情報を取得
-		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
-		
-		// userIDに該当する商品情報を取得
-		UserBean sessionUser = (UserBean) session.getAttribute("user");
-		User user = userRepository.getById(sessionUser.getId());
-
-		// favoriteにセーブ
-		Favorite favorite = new Favorite();
-
-		favorite.setItem(item);
-		favorite.setUser(user);
-
-		List<Favorite> favoriteadd = favoriteRepository.findByItemAndUser(item, user);
-		List<FavoriteBean> itemBeanList4 = BeanCopy.copyEntityToFavoriteBean(favoriteadd);
-
-		for (FavoriteBean f : itemBeanList4) {		  
-			  //すでに保存されているItem/Userと今回addしたItem/Userが同じならsaveせずにリダイレクト
-			  if(item.getName() == f.getItem().getName() && user.getName() == f.getUser().getName()) {
-				  return "redirect:/favorite/list";
-			  }
-			 
-		}
-		
-		
-		
-		favoriteRepository.save(favorite);
-
-		return "redirect:/favorite/list";
-	}
-
-	@RequestMapping(path = "/favorite/list", method = RequestMethod.GET)
-	public String showFavoriteList(Model model) {
-		List<Favorite> favoriteitems = favoriteRepository.findAll();
-
-		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
-
-		model.addAttribute("items", itemBeanList3);
-		return "/item/list/item_favorite";
-	}
-
-	@PostMapping("/favorite/delete")
-	public String deleteFavoriteItem(HttpSession session, FavoriteForm favoriteForm) {
-		favoriteRepository.deleteById(Integer.valueOf(favoriteForm.getId()));
-		return "redirect:/favorite/list";
 	}
 
 }

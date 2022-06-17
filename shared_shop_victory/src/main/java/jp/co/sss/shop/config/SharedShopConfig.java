@@ -1,6 +1,7 @@
 package jp.co.sss.shop.config;
 
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,6 +11,9 @@ import javax.servlet.SessionTrackingMode;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -48,12 +52,18 @@ public class SharedShopConfig implements WebMvcConfigurer {
 		};
 	}
 	
-	/*
-	 * @Override public void
-	 * addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-	 * PageableHandlerMethodArgumentResolver resolver = new
-	 * PageableHandlerMethodArgumentResolver(); //ページ単位に表示する件数
-	 * resolver.setFallbackPageable(PageRequest. of (0, 5));
-	 * argumentResolvers.add(resolver); }
-	 */
+	//ページング
+	@Configuration
+	public class ShopConfig implements WebMvcConfigurer {
+	 @Override
+	 public void addArgumentResolvers(List<HandlerMethodArgumentResolver>
+	argumentResolvers) {
+	PageableHandlerMethodArgumentResolver resolver = new
+	PageableHandlerMethodArgumentResolver();
+	 //ページ単位に表示する件数
+	 resolver.setFallbackPageable(PageRequest. of (0, 2));
+	 argumentResolvers.add(resolver);
+	 }
+	}
+	
 }

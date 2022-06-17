@@ -2,26 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
+<link th:href="@{/css/side.css}" rel="stylesheet" />
 </head>
 <body>
 <aside th:fragment="layout-sidebar" th:class="${session.user == null or session.user.authority == 2} ? ${'search'} : ${'admin_menu'}" >
 	<!--/* 検索メニュー(一般会員用) */-->
 	<div  class="search_area" th:if="${session.user == null or session.user.authority == 2}">
-		<h2 class="title">カテゴリ別検索</h2>
+		<!-- <h2 class="title">カテゴリ別検索</h2> -->
+		<h1 class = "side_title">What are you search?</h1>
 		<div class="form">
 			<!-- 商品一覧画面以外で表示 -->
 			<form th:if="${sortType == null}" th:action="@{/item/list/category/1}">
 				<select name="categoryId">
 					<option th:each="category: ${categories}"
 						th:value="${category.id}" th:text="${category.name}"></option>
-				</select> <input type="submit" value="検索" />
+				</select> <input type="submit" value="category search" />
 			</form>
 			<!-- 商品一覧画面上で表示 -->
 			<form th:unless="${sortType == null}" th:action="@{/item/list/category/} + ${sortType}">
 				<select name="categoryId">
 					<option th:each="category: ${categories}"
 						th:value="${category.id}" th:text="${category.name}"></option>
-				</select> <input type="submit" value="検索" />
+				</select> <input type="submit" value="category search" />
 			</form>
 		</div>
 	</div>
