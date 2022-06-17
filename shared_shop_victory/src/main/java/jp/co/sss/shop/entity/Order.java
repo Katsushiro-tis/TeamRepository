@@ -19,6 +19,7 @@ import javax.persistence.Table;
  *
  * @author SystemShared
  */
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -60,7 +61,6 @@ public class Order {
 	 */
 	@Column
 	private Integer payMethod;
-
 
 	/**
 	 * 注文日付
