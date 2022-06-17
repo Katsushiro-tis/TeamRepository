@@ -88,7 +88,6 @@ public class FavoriteController {
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
-
 		model.addAttribute("items", itemBeanList3);
 		return "/favorite/item_favorite";
 	}

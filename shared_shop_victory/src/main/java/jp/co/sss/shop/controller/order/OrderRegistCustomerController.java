@@ -110,7 +110,7 @@ public class OrderRegistCustomerController {
 
 	// 注文登録確認画面
 	@PostMapping("/order/check")
-	public String checkOrder(@ModelAttribute OrderForm orderForm, HttpSession session, Model model) {
+	public String checkOrder(@ModelAttribute OrderBean orderBean, HttpSession session, Model model) {
 
 		// 買い物かごにある商品の情報を取得
 		ArrayList<OrderItemBean> orderItemList = new ArrayList<OrderItemBean>();
@@ -166,7 +166,7 @@ public class OrderRegistCustomerController {
 	}
 
 	// 注文登録完了画面
-	@GetMapping("/order/complete")
+	@PostMapping("/order/complete")
 	public String completeOrder(AddressForm addressForm, Order order, HttpSession session) {
 
 		// ユーザ情報を取得し、 userBeanに入れる

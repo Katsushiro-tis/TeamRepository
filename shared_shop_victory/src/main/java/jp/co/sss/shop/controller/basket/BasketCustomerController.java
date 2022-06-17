@@ -92,7 +92,6 @@ public class BasketCustomerController {
 	public String deleteItem(int id) {
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
-
 		// かごの中の商品を検索、指定のIDの商品を削除
 		for (BasketBean bean : basketList) {
 			int index = 0;
@@ -118,21 +117,18 @@ public class BasketCustomerController {
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 		basketList.clear();
 		session.setAttribute("basket", basketList);
-
 		return "forward:/basket/list";
 	}
 
 	@PostMapping("/basket/test")
 	public String test() {
 		// 画面確認用のbean生成
-
 		BasketBean bean = new BasketBean(1, "りんご", 30, 3);
 		BasketBean bean2 = new BasketBean(2, "辞書", 5, 1);
 		ArrayList<BasketBean> basketList = new ArrayList<>();
 		basketList.add(bean);
 		basketList.add(bean2);
 		session.setAttribute("basket", basketList);
-
 		return "basket/shopping_basket";
 	}
 }
