@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import jp.co.sss.shop.util.Constant;
  */
 @Controller
 public class ItemShowCustomerController {
+	private static final Pageable Pageabel = null;
 	/**
 	 * 商品情報
 	 */

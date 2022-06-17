@@ -18,7 +18,7 @@
 	
 	<form method="post" th:action="@{/payment/input}"> 
 		郵便番号 <br><input type="number"name="postalCode" th:value="${userDetail.postalCode}"><br>
-		住所 <br><input type="text"name="address" th:value="${userDetail.address}"><br>
+		住所 <br><textarea name="address" cols="30" rows="5" th:text="${userDetail.address}"> </textarea><br>
 		氏名 <br><input type="text"name="name" th:value="${userDetail.name}"><br>
 		電話番号<br><input type="number"name="phoneNumber" th:value="${userDetail.phoneNumber}"><br>
 		<input type="hidden" name="backflg" value="false"/>		

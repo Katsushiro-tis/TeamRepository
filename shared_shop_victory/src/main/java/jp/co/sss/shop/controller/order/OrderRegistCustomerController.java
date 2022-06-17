@@ -23,11 +23,17 @@ import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.AddressForm;
-import jp.co.sss.shop.form.OrderForm;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.repository.UserRepository;
+
+/**
+ * 注文登録用コントローラクラス
+ * 
+ * @author kenji_haga
+ * @author rei_uruma
+ */
 
 @Controller
 public class OrderRegistCustomerController {
@@ -42,6 +48,12 @@ public class OrderRegistCustomerController {
 	@Autowired
 	ItemRepository itemRepository;
 
+	@Autowired
+	OrderRepository orderRepository;
+
+	@Autowired
+	OrderItemRepository orderItemRepository;
+
 	// 届け先入力画面へ
 	@PostMapping("address/input")
 	public String inputAddress(@ModelAttribute AddressForm addressForm, HttpSession session, Model model,
@@ -52,17 +64,13 @@ public class OrderRegistCustomerController {
 
 			UserBean sessionUser = (UserBean) session.getAttribute("user");
 			User user = userRepository.getById(sessionUser.getId());
-			// UserBean userBean = new UserBean();
+			UserBean userBean = new UserBean();
 
 			// Userエンティティの各フィールドの値をUserBeanにコピー
-			// BeanUtils.copyProperties(user, userBean);
-			addressForm.setAddress(user.getAddress());
-			addressForm.setName(user.getName());
-			addressForm.setPhoneNumber(user.getPhoneNumber());
-			addressForm.setPostalCode(user.getPostalCode());
+			BeanUtils.copyProperties(user, userBean);
 
 			// 会員情報をViewに渡す
-			model.addAttribute("userDetail", addressForm);
+			model.addAttribute("userDetail", userBean);
 		}
 
 		// 戻るボタンからの遷移の場合の処理
@@ -85,26 +93,24 @@ public class OrderRegistCustomerController {
 			boolean backflg) {
 
 		// 入力した住所を登録（確認画面での表示）
-		model.addAttribute("register", addressForm);
 		model.addAttribute("userDetail", addressForm);
 
+		// 戻るボタンからの遷移処理
 		if (backflg) {
 			return "order/regist/order_payment_input";
 		}
 
+		// 入力エラーがあった場合の処理
 		if (result.hasErrors()) {
 			return "order/regist/order_address_input";
 		}
+
 		return "order/regist/order_payment_input";
 	}
 
 	// 注文登録確認画面
 	@PostMapping("/order/check")
 	public String checkOrder(@ModelAttribute OrderForm orderForm, HttpSession session, Model model) {
-
-		// 宛先、支払方法の情報を取得
-		OrderBean orderBean = new OrderBean();
-		BeanUtils.copyProperties(orderForm, orderBean);
 
 		// 買い物かごにある商品の情報を取得
 		ArrayList<OrderItemBean> orderItemList = new ArrayList<OrderItemBean>();
@@ -117,9 +123,11 @@ public class OrderRegistCustomerController {
 		for (BasketBean basketBean : basketList) {
 			Item item = itemRepository.getById(basketBean.getId());
 
-			// int orderNum = basketBean.getOrderNum();
-			int orderNum = 10;
+			// 注文数
+			int orderNum = basketBean.getOrderNum();
+			// 在庫
 			int stock = item.getStock();
+			// 小計
 			int subtotal = 0;
 
 			// 確定時点での在庫が0の場合、注文不可

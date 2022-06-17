@@ -29,7 +29,6 @@ public class LoginCheckFilter implements Filter {
 			throws IOException, ServletException {
 		// リクエスト情報を取得
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-
 		if (checkRequestURL(httpRequest)) {
 
 			// セッション情報を取得
@@ -37,7 +36,7 @@ public class LoginCheckFilter implements Filter {
 			
 			if (session.getAttribute("user") == null) {
 				// 不正アクセスの場合、ログイン画面にリダイレクト
-				
+				System.out.println("非会員");
 				// レスポンス情報を取得
 				HttpServletResponse httpResponse = (HttpServletResponse) response;
 
@@ -60,16 +59,18 @@ public class LoginCheckFilter implements Filter {
 	private boolean checkRequestURL(HttpServletRequest httpRequest) {
 		// リクエストURLを取得
 		String requestURL = httpRequest.getRequestURI();
-
 		if (!URLCheck.checkURLForStaticFile(requestURL) && !requestURL.endsWith("/login")
 				&& !requestURL.endsWith(httpRequest.getContextPath() + "/")
 				&& (requestURL.indexOf("/item/list/") == -1 || requestURL.indexOf("/admin") != -1)
 				&& (requestURL.indexOf("/item/detail/") == -1 || requestURL.indexOf("/admin") != -1)
 				&& !requestURL.endsWith("/user/regist/input") && !requestURL.endsWith("/user/regist/check")
-				&& !requestURL.endsWith("/user/regist/complete")) {
+				&& !requestURL.endsWith("/user/regist/complete") || requestURL.indexOf("/basket") != -1
+				|| requestURL.indexOf("/order") != -1 || requestURL.indexOf("/category") != -1) {
+			System.out.println("非会員用実行対象だよ : " + requestURL);
 			// URLのリクエスト先がフィルタ実行対象である場合
 			return true;
 		} else {
+			System.out.println("非会員用実行対象じゃないよ : " + requestURL);
 			// URLのリクエスト先がフィルタ実行対象ではない場合
 			return false;
 		}

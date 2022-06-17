@@ -9,7 +9,7 @@
 	<!-- 　　　　---------買い物かご画面-------　　　　　　　　-->
 	<h2 class="title">買い物かご画面</h2>
 	
-	<p class="err" th:if="${#lists.isEmpty(session.basket)}"
+	<p th:if="${#lists.isEmpty(session.basket)}"
 			th:text="#{basketList.none}"></p>
 	
 	<p class="err" th:if="!${(#strings.isEmpty(notEnoughName))}" th:text="${notEnoughName} + #{basketList.itemStockNone}">
