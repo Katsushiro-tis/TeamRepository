@@ -40,4 +40,18 @@ public class UserShowCustomerControlle {
 		return "user/detail/user_detail";
 	}
 	
+	
+//	@Autowired
+//	private MailSender mailSender;
+//	
+//	public void send() {
+//		SimpleMailMessage msg = new SimpleMailMessage();
+//		msg.setTo("don.gameak@gmail.com");
+////		msg.setBcc("送信先アドレス2");
+////		msg.setCc(new String[] {"送信先アドレス3", "送信先アドレス4"});
+//		msg.setSubject("メールタイトル");
+//		msg.setText("テスト用のメールです。");
+//		mailSender.send(msg);
+//	}
+	
 }
