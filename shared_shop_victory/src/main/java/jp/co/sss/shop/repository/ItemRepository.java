@@ -28,7 +28,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 			+ "group by i.id, i.ID, i.NAME, i.PRICE, i.DESCRIPTION, i.STOCK, i.IMAGE, i.CATEGORY_ID, i.DELETE_FLAG, i.INSERT_DATE\r\n"
 			+ "order by sum(oi.quantity) desc"
 			+ "", nativeQuery = true)
+	
 	public List<Item> sortSQL();
+
 	
 
 }

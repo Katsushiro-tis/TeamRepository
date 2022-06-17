@@ -14,12 +14,9 @@
 				<p th:text="${item.name}"></p>
 		</div>
 		<a th:href="@{/item/detail/{id}(id=${item.id})}">
-		<span th:if="${item.image != null}"> <img
-			th:src="@{/img/{image}(image=${item.image})}"></img>
-		</span> <span th:if="${item.image == null}"> <img
-			th:src="@{/img/common/no_image.jpg}"></img>
-		</span>
-	</a>
+		<span th:if="${item.image != null}"> <img th:src="@{/img/{image}(image=${item.image})}"></img></span>
+		 <span th:if="${item.image == null}"> <img th:src="@{/img/common/no_image.jpg}"></img></span>
+	    </a>
 	</div>
 
 </body>
