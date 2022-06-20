@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.repository.UserRepository;
+import jp.co.sss.shop.util.MailSend;
 
 /**
  * 会員管理　会員詳細表示(一般会員)
@@ -22,6 +23,9 @@ public class UserShowCustomerControlle {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	MailSend sender;
 	
 	@GetMapping("/user/detail")		//会員詳細画面用
 	public String userShowCustomer(Model model, HttpSession session) {
