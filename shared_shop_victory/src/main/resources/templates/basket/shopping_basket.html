@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
 <title>買い物かご｜シェアードショップ</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
 </head>
 <body>
 	<!-- 　　　　---------買い物かご画面-------　　　　　　　　-->
-	<div>買い物かご画面</div>
-	
+
+<h2 class="title">買い物かご</h2>
+
 	<p th:if="${#lists.isEmpty(session.basket)}"
-			th:text="#{basketList.none}"></p>
-	
-	<p class="err" th:if="!${(#strings.isEmpty(notEnoughName))}" th:text="${notEnoughName} + #{basketList.itemStockNone}">
-	
+		th:text="#{basketList.none}"></p>
+
+	<p class="err" th:if="!${(#strings.isEmpty(notEnoughName))}"
+		th:text="${notEnoughName} + #{basketList.itemStockNone}">
 	<div th:if="!${#lists.isEmpty(session.basket)}">
 		<table class="list_table basket">
 			<tr>
@@ -23,31 +26,43 @@
 				<th>在庫</th>
 			</tr>
 			<tr th:each="item:${session.basket}">
-				<td><a th:href="@{/item/detail/} + ${item.id}" th:text="${item.name}"></a></td>
+				<td><a th:href="@{/item/detail/} + ${item.id}"
+					th:text="${item.name}"></a></td>
 				<td th:text="${item.orderNum}"></td>
-				<td><form th:action="@{/basket/delete}" method="post">
+				<td>
+					<form th:action="@{/basket/add}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />
-						<input type="submit" class="delete" value="削除" />
-					</form></td>
-				<td th:text="${item.stock}"></td>
+						<input type="submit" class="add" value="＋" />
+					</form>
+					<form th:action="@{/basket/delete}" method="post">
+						<input type="hidden" name="id" th:value="${item.id}" />
+						<input type="submit" class="delete" value="－" />
+					</form>	
+				</td>
+				<td>
+					<p th:if="${item.stock == 0}"th:text="在庫なし"></p>
+					<p th:if="${item.stock < 5}" th:text="${item.stock}"></p>
+					<p th:if="${item.stock >= 6}"th:text="在庫あり"></p> 
+				</td>
 			</tr>
 		</table>
-		
-		<div style="display: inline-flex">
+
+	<div class="user_info_form_area ">
 		<form method="post" th:action="@{/address/input}">
-			<input type="hidden" name="backflg" value="false" /> 
-			<input type="submit" value="ご注文の手続き" />
+			<input type="hidden" name="backflg" value="false"/> 
+			<input type="submit" value="ご注文の手続き"/>
 		</form>
 		<form th:action="@{/basket/deleteAll}" method="post">
-			<input type="submit" class="delete" value="かごの中身を空にする">
+			<input type="submit" class="allDelete" value="かごの中身を空にする">
 		</form>
+	</div>
+	
 	</div>
 
 	
-	
-	</div>
+	<!-- </div>
 		<form th:action="@{/basket/test}" method="post">
 		<input type="submit" value="テスト用商品追加ボタン"></input>
-	</form>	
+	</form>	 -->
 </body>
 </html>

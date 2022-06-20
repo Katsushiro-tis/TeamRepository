@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
 <title>ご注文詳細 | シェアードショップ</title>
 </head>
 <body class="order_detail">
-	<h2 class="title">注文詳細</h2>
+<!-- 	<h2 class="title">注文詳細</h2> -->
 	<div class="list">
 
 		<table class="detail_table payment">
@@ -44,14 +44,19 @@
 				<th>単価</th>
 				<th>数量</th>
 				<th>小計</th>
+				<th></th>
 			</tr>
 			<tr th:each="item:${orderItemList}">
 				<td th:text="${item.name}" />
 				<td th:text="${item.price}" />
 				<td th:text="${item.orderNum}" />
 				<td th:text="${item.subtotal}" />
+				<td><form method="post" th:action="@{/basket/add}">
+					<input type="submit" value="再購入">
+					<input type="hidden" name="id" th:value="${item.id}">		
+				</form>
 			</tr>
-			<tr>
+			<tr class="list_table total">
 				<td />
 				<td />
 				<td>合計</td>

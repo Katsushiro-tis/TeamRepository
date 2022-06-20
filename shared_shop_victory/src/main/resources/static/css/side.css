@@ -1,0 +1,71 @@
+﻿@CHARSET "UTF-8";
+
+/* ---- サイドバー ---- */
+aside {
+	background-color: black;
+	display: flex;
+	justify-content: center;
+}
+
+.side_title {
+	color: white;
+	font-size: 4rem;
+	white-space: nowrap;
+	margin: 20px;
+}
+
+.search, aside.admin_menu {
+	float: left;
+	width: 20%;
+	background-color: black;
+}
+
+.search .title, .admin_menu .title {
+	border-radius: 6px 6px 0 0;
+	text-align: center;
+	font-size: 1.1em;
+}
+
+.admin_menu .title {
+	background: #ff6c49;
+}
+
+.search .form {
+	padding: 15px 0 50px 5px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.search .price, .admin_menu .display_list {
+	display: block;
+	padding: 10px;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	border-left: 1px solid #aaa;
+	text-align: center;
+	text-decoration: none;
+	transition: background-color 0.18s;
+}
+
+.search .price:link, .search .price:visited, .search .price:hover,
+	.search .price:active, .admin_menu_area .display_list:link,
+	.admin_menu_area .display_list:visited, .admin_menu_area .display_list:hover,
+	.admin_menu_area .display_list:active {
+	color: #2a2a2a;
+}
+
+.search .price:hover {
+	background: #5fb4d9;
+	color: #fff;
+}
+
+.admin_menu_area .display_list:hover {
+	background: #ff8669;
+	color: #fff;
+}
+
+.search li:last-of-type .price, .admin_menu_area li:last-of-type .display_list
+	{
+	border-radius: 0 0 6px 6px;
+}

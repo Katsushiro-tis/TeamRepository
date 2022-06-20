@@ -85,7 +85,7 @@ public class OrderShowAdminController {
 		model.addAttribute("orders", orderBeanList);
 		model.addAttribute("url", "/order/list/admin");
 
-		return "order/list/order_list";
+		return "order/list/order_list_admin";
 
 	}
 
