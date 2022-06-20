@@ -24,6 +24,9 @@ public class MailSend {
 	//使う用
 	//sender.send(必要な引数);
 	
+	//送信日時取得用
+	//getSendDate();
+	
 	@Autowired
 	private MailSender mailSender;
 	
