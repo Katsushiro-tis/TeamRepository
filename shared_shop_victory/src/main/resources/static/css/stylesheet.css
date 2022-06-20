@@ -16,14 +16,16 @@ p {
 }
 
 /* ---- 入力フォーム(ログイン) ---- */
-.bg_black{
+.bg_black {
 	background-color: black;
 }
-.bg_white{
+
+.bg_white {
 	background-color: white;
 	color: black;
 }
-.login_back{
+
+.login_back {
 	background-color: black;
 	color: white;
 	font-size: 1.5rem;
@@ -121,23 +123,27 @@ p {
 }
 
 /* ---- 商品情報 ---- */
+/* .item_contents{
+	display: flex;
+} */
+
 .item {
 	display: inline-block;
-	width: 48.5%;
+	width: 30.0%;
 	height: 200px;
 	border: 1px solid gray;
 	border-radius: 6px;
 	box-sizing: border-box;
 	text-decoration: none;
 	margin-top: 20px;
-	float: left;
 	position: relative;
 	overflow: hidden;
+	margin-right: 2px;
 }
 
-.item:nth-of-type(odd) {
+/* .item:nth-of-type(odd) {
 	margin-right: 3%;
-}
+} */
 
 .item .item_name {
 	padding: 5px 10px;
@@ -333,6 +339,7 @@ p {
 .user_info_form_area .send_button, .item_info_form_area .send_button {
 	background: #ddd;
 	margin-left: 20px;
+	width: fit-content;
 }
 
 .user_info_form_area .back_button, .item_info_form_area .back_button {
@@ -423,7 +430,7 @@ p {
 	width: 115px;
 }
 
-.search select {
+.search select, input {
 	width: 125px;
 	margin-right: 10px;
 }

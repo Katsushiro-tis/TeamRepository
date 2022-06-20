@@ -66,7 +66,8 @@ public class LoginCheckFilter implements Filter {
 				&& (requestURL.indexOf("/item/list/") == -1 || requestURL.indexOf("/admin") != -1)
 				&& (requestURL.indexOf("/item/detail/") == -1 || requestURL.indexOf("/admin") != -1)
 				&& !requestURL.endsWith("/user/regist/input") && !requestURL.endsWith("/user/regist/check")
-				&& !requestURL.endsWith("/user/regist/complete")) {
+				&& !requestURL.endsWith("/user/regist/complete") || requestURL.indexOf("/basket") != -1
+				|| requestURL.indexOf("/order") != -1) {
 			// URLのリクエスト先がフィルタ実行対象である場合
 			return true;
 		} else {

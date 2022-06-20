@@ -1,5 +1,6 @@
 package jp.co.sss.shop.controller.item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -55,7 +56,7 @@ public class ItemShowCustomerController {
 
 		// 商品情報を全件検索(新着順)
 		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
-		
+
 /// エンティティ内の検索結果をJavaBeansにコピー
 		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
 
@@ -125,7 +126,16 @@ public class ItemShowCustomerController {
 		} else if (sortType == 2) {
 			// 商品情報を売上順で検索
 			itemList = itemRepository.sortSQL();
+			for (Item i : itemList) {
+				System.out.println(i.getName());
+			}
 			model.addAttribute("sort", 2);
+		} else if (sortType == 3) {
+			itemList = itemRepository.findAllByOrderByPriceDesc();
+			model.addAttribute("sort", 3);
+		} else if (sortType == 4) {
+			itemList = itemRepository.findAllByOrderByPriceAsc();
+			model.addAttribute("sort", 4);
 		}
 
 		// エンティティ内の検索結果をJavaBeansにコピー
@@ -134,6 +144,50 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
 		return "/item/list/item_list";
+	}
+
+	@RequestMapping("/item/list/findByItemName")
+	public String showItemListByName(String itemName, Model model) {
+
+		System.out.println(itemName);
+		/* Item item = itemRepository.findByName(itemName); */
+
+		Item item = itemRepository.findByNameLike("%" + itemName + "%");
+		ItemBean itemBean = new ItemBean();
+		// Itemエンティティの各フィールドの値をItemBeanにコピー
+		BeanUtils.copyProperties(item, itemBean);
+		itemBean.setName(item.getName());
+		// 商品情報をViewへ渡す
+		model.addAttribute("items", itemBean);
+
+		return "/item/list/item_list";
+	}
+
+	@RequestMapping("/item/list/findByItemPrice")
+	public String showItemListByPrice(int itemMinPrice, int itemMaxPrice, Model model) {
+
+		List<ItemBean> itemBeanList = new ArrayList<ItemBean>();
+		List<Item> item;
+
+		// 商品情報を全件検索(新着順)
+		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+		
+		for(Item i: itemList) {
+			if(itemMinPrice <= i.getPrice() && itemMaxPrice >= i.getPrice()) {
+				
+				item = itemRepository.findAllByName(i.getName());
+				
+				/// エンティティ内の検索結果をJavaBeansにコピー
+				itemBeanList.addAll(BeanCopy.copyEntityToItemBean(item));
+			
+			}
+		}
+		// 商品情報をViewへ渡す
+		model.addAttribute("items", itemBeanList);
+
+		return "/item/list/item_list";
+
+		
 	}
 
 }

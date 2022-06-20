@@ -15,12 +15,14 @@
 			<option value="">TOP</option>
 			<option value="/shared_shop/item/list/1">新着順</option>
 			<option value="/shared_shop/item/list/2">売れ筋順</option>
+			<option value="/shared_shop/item/list/3">高い順</option>
+			<option value="/shared_shop/item/list/4">安い順</option>
 		</select>
 	</div>
 
 
-
-	<div class="item" th:each="item: ${items}">
+    <div class = "item_contents">
+    	<div class="item" th:each="item: ${items}">
 		<div class="item_name">
 			<p th:text="${item.name}"></p>
 		</div>
@@ -32,7 +34,7 @@
 		</span>
 		</a>
 	</div>
-	
+    </div>
 	
 	
 	<link rel="stylesheet"
