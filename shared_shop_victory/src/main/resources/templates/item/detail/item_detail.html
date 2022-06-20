@@ -21,8 +21,18 @@
 				<dd th:text="${item.name}"></dd>
 				<dt>価格：</dt>
 				<dd th:text="${item.price}"></dd>
+				
 				<dt>在庫：</dt>
-				<dd th:text="${item.stock}"></dd>
+				<th:block th:if="${item.stock >= 6}">
+					<dd>在庫あり</dd>
+				</th:block>
+				<th:block th:if="${item.stock <= 5 && item.stock >= 1}">
+					<dd th:text="${item.stock}"></dd>
+				</th:block>
+				<th:block th:if="${item.stock == 0}">
+					<dd>在庫なし</dd>
+				</th:block>
+				
 				<dt>カテゴリ：</dt>
 				<dd th:text="${item.categoryName}"></dd>
 				<dt>説明：</dt>
@@ -45,8 +55,15 @@
 				
 					 <input
 						type="submit" value="お気に入り" class="send_button" />
-				
 			</form>
+			
+
+			<!-- こっそりお気に入りボタン２ -->
+<!-- 			<form action="/shared_shop/favorite/Button" method="post">
+				<input type="hidden" name="item_id" th:value="${item.id}" /> 
+				<input type="submit" value="お気に入り2" class="send_button" />
+				
+			</form> -->
 		</div>
 	</div>
 

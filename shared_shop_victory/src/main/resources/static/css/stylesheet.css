@@ -165,6 +165,7 @@ p {
 	position: absolute;
 	margin-top: 23px;
 	font-size: 1.1em;
+	display:flex;
 }
 
 /* ---- 入力フォーム(検索、登録、変更、削除) ---- */

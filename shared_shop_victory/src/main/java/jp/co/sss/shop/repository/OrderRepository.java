@@ -26,4 +26,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	// 注文日付順で注文情報すべてを検索
 	@Query(JPQLConstant.FIND_ALL_ORDERS_ORDER_BY_INSERT_DATE)
 	List<Order> findAllOrderByInsertDateDesc();
+
 }

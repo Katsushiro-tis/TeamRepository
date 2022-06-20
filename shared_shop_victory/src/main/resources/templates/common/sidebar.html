@@ -6,7 +6,7 @@
 <body>
 <aside th:fragment="layout-sidebar" th:class="${session.user == null or session.user.authority == 2} ? ${'search'} : ${'admin_menu'}" >
 	
-	<!--/* 検索メニュー(一般会員用) */-->
+	<!--/* カテゴリ検索メニュー(一般会員用) */-->
 	<div  class="search_area" th:if="${session.user == null or session.user.authority == 2}">
 		<h2 class="title">カテゴリ別検索</h2>
 		<div class="form">
@@ -29,6 +29,25 @@
 	
 	
 
+	
+		<!--/* キーワード検索メニュー(一般会員用) */-->
+ 	<form method="get" th:action="@{/item/list/itemlike}">
+ 	<h2 class="title">キーワード検索</h2>
+    	 <input type="text" name="itemName" />
+    	 <input type="submit" value="検索" />
+    </form>
+
+
+		<!--/* 金額別検索メニュー(一般会員用) */-->
+	<form method="get" th:action="@{/item/list/pricearray}">
+	<h2 class="title">値段別検索</h2>
+	<select name="pricearray">
+	<option value="1">0～1000円</option>
+	</select>
+	 <input type="submit" value="検索" />
+	</form>
+
+	
 	<!--/* メニュー(運用管理者、及びシステム管理者用) */-->
 	<div th:if="${session.user != null and session.user.authority != 2}">
 		<h2 class="title">メニュー</h2>
