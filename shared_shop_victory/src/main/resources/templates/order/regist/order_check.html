@@ -79,7 +79,7 @@
 	</div>
 
 	<form method="post" action="/shared_shop/order/complete"
-		th:object="${register}">
+		th:object="${register}" th:if="${total != 0}">
 		<input type="hidden" name="postalCode" th:value="*{postalCode}" />
 		<input type="hidden" name="address" th:value="*{address}" /> 
 		<input type="hidden" name="name" th:value="*{name}" /> 

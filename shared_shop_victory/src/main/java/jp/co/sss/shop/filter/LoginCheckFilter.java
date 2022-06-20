@@ -68,7 +68,7 @@ public class LoginCheckFilter implements Filter {
 				&& !requestURL.endsWith("/user/regist/input") && !requestURL.endsWith("/user/regist/check")
 				&& !requestURL.endsWith("/user/regist/complete") || requestURL.indexOf("/basket") != -1
 				|| requestURL.indexOf("/order") != -1) {
-			// URLのリクエスト先がフィルタ実行対象である場合
+			// URLのリクエスト先がフィルタ実行対象の場合場合
 			return true;
 		} else {
 			// URLのリクエスト先がフィルタ実行対象ではない場合
