@@ -44,12 +44,17 @@
 				<th>単価</th>
 				<th>数量</th>
 				<th>小計</th>
+				<th></th>
 			</tr>
 			<tr th:each="item:${orderItemList}">
 				<td th:text="${item.name}" />
 				<td th:text="${item.price}" />
 				<td th:text="${item.orderNum}" />
 				<td th:text="${item.subtotal}" />
+				<td><form method="post" th:action="@{/basket/add}">
+					<input type="submit" value="再購入">
+					<input type="hidden" name="id" th:value="${item.id}">		
+				</form>
 			</tr>
 			<tr>
 				<td />

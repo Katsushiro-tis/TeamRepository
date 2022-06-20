@@ -65,12 +65,10 @@ public class LoginCheckFilter implements Filter {
 				&& (requestURL.indexOf("/item/detail/") == -1 || requestURL.indexOf("/admin") != -1)
 				&& !requestURL.endsWith("/user/regist/input") && !requestURL.endsWith("/user/regist/check")
 				&& !requestURL.endsWith("/user/regist/complete") || requestURL.indexOf("/basket") != -1
-				|| requestURL.indexOf("/order") != -1 || requestURL.indexOf("/category") != -1) {
-			System.out.println("非会員用実行対象だよ : " + requestURL);
-			// URLのリクエスト先がフィルタ実行対象である場合
+				|| requestURL.indexOf("/order") != -1) {
+			// URLのリクエスト先がフィルタ実行対象の場合場合
 			return true;
 		} else {
-			System.out.println("非会員用実行対象じゃないよ : " + requestURL);
 			// URLのリクエスト先がフィルタ実行対象ではない場合
 			return false;
 		}
