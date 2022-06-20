@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
 <title>買い物かご｜シェアードショップ</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
 </head>
 <body>
 	<!-- 　　　　---------買い物かご画面-------　　　　　　　　-->
@@ -11,10 +13,10 @@
 <h2 class="title">買い物かご</h2>
 
 	<p th:if="${#lists.isEmpty(session.basket)}"
-			th:text="#{basketList.none}"></p>
-	
-	<p class="err" th:if="!${(#strings.isEmpty(notEnoughName))}" th:text="${notEnoughName} + #{basketList.itemStockNone}">
-	
+		th:text="#{basketList.none}"></p>
+
+	<p class="err" th:if="!${(#strings.isEmpty(notEnoughName))}"
+		th:text="${notEnoughName} + #{basketList.itemStockNone}">
 	<div th:if="!${#lists.isEmpty(session.basket)}">
 		<table class="list_table basket">
 			<tr>
@@ -24,7 +26,8 @@
 				<th>在庫</th>
 			</tr>
 			<tr th:each="item:${session.basket}">
-				<td><a th:href="@{/item/detail/} + ${item.id}" th:text="${item.name}"></a></td>
+				<td><a th:href="@{/item/detail/} + ${item.id}"
+					th:text="${item.name}"></a></td>
 				<td th:text="${item.orderNum}"></td>
 				<td>
 					<form th:action="@{/basket/add}" method="post">
@@ -43,7 +46,7 @@
 				</td>
 			</tr>
 		</table>
-		
+
 	<div class="user_info_form_area ">
 		<form method="post" th:action="@{/address/input}">
 			<input type="hidden" name="backflg" value="false"/> 

@@ -1,0 +1,94 @@
+﻿@CHARSET "UTF-8";
+
+/* ---- ナビゲーションバー ---- */
+.navi_area {
+	background: #edf9fe;
+}
+
+.navi_menu {
+	width: 960px;
+	padding: 12px 0;
+	margin: 0 auto;
+	display: flex;
+	width: auto;
+	display: flex;
+	justify-content: center;
+	background-color: black;
+}
+
+.navi_menu li {
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+}
+
+.navi_menu img {
+	width: 70px;
+}
+
+.navi_menu a {
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+}
+.navi_menu a:hover {
+	background: white;
+	color: #fff;
+	text-shadow: 1px 1px 1px #12526d;
+	border-color : #3d98bf;
+}
+
+/* .navi_menu a {
+	display: inline-block;
+	width: 100%;
+	font-size: 1.5em;
+	line-height: 2.5em;
+	border: 1px solid #5fb4d9;
+	text-align: center;
+	text-decoration: none;
+	background: #fff;
+	transition: 0.18s;
+}
+.navi_menu a:hover {
+	background: #3d98bf;
+	color: #fff;
+	text-shadow: 1px 1px 1px #12526d;
+	border-color : #3d98bf;
+} */
+.navi_menu li:first-of-type a {
+	border-radius: 6px 0px 0px 6px;
+}
+
+.navi_menu li:last-of-type a {
+	border-radius: 0px 6px 6px 0px;
+}
+
+
+
+.sample1 {
+	width:			100px;
+	height:			80px;
+	overflow:		hidden;
+	margin:			10px 8px 10px 16px;
+	position:		relative;	/* 相対位置指定 */
+}
+.sample1 .caption {
+	font-size:		10px;
+	text-align: 		center;
+	padding-top:		30px;
+	color:			#fff;
+}
+.sample1 .mask {
+	width:			100%;
+	height:			100%;
+	position:		absolute;	/* 絶対位置指定 */
+	top:			0;
+	left:			0;
+	opacity:		0;	/* マスクを表示しない */
+	background-color:	rgba(239, 75, 83,1);	/* マスクは半透明 */
+	-webkit-transition:	all 0.2s ease;
+	transition:		all 0.2s ease;
+}
+.sample1:hover .mask {
+	opacity:		1;	/* マスクを表示する */
+}
