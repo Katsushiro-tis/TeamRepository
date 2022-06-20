@@ -189,6 +189,7 @@ public class OrderRegistCustomerController {
 			// iのオーダーを取得
 			orderItemList.get(i);
 			// OrderItemBean型のorderItemBeanを作成
+
 			OrderItemBean orderItemBean = new OrderItemBean();
 			// orderItemBeanへ i のオーダーを代入
 			orderItemBean = orderItemList.get(i);

@@ -11,7 +11,7 @@
 		<div class="search_area"
 			th:if="${session.user == null or session.user.authority == 2}">
 			<!-- <h2 class="title">カテゴリ別検索</h2> -->
-			<h1 class="side_title">What are you search?</h1>
+			<h1 class="side_title">What do you want?</h1>
 			<div class="form">
 				<!-- キーワード検索 -->
 				<form method="post" th:action="@{/item/list/findByItemName}">
