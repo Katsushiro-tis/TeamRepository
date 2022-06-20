@@ -8,10 +8,8 @@
 	href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
 </head>
 <body>
-	<div th:if="${#lists.isEmpty(orders)}">
-		<p th:text="#{orderList.none}"></p>
-	</div>
-	<div class="list" th:if="!${#lists.isEmpty(orders)}">
+
+	
 		<div class="form_order">
 			<select onChange="location.href=value;">
 				<option value="">TOP</option>
@@ -26,8 +24,13 @@
 			<p th:text="#{itemListAdmin.none}"></p>
 		</div>
 
-		<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}"
-			id="page">
+<!-- <h2 class="title">お気に入り一覧</h2> -->
+
+	<div th:if="${#lists.isEmpty(items)}">
+		<p th:text="#{itemListAdmin.none}"></p>
+	</div>
+
+		<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}" id="page">
 			<tr>
 				<th>商品画像</th>
 				<th>商品名</th>
@@ -36,8 +39,7 @@
 				<th>カテゴリ</th>
 				<th>操作</th>
 			</tr>
-			<tr th:each="item: ${items}"
-				th:if="${session.user.name} == ${item.user.name}">
+			<tr th:each="item: ${items}" th:if="${session.user.name} == ${item.user.name}">
 				<td class="item_image_area_list"><span
 					th:if="${item.item.image != null}"> <img
 						th:src="@{/img/{image}(image=${item.item.image})}"></img>
@@ -49,8 +51,8 @@
 				<td th:text="${item.item.price}"></td>
 				<td th:text="${item.item.category.name}"></td>
 				<td><form th:action="@{/favorite/delete}" method="post">
-						<input type="hidden" name="id" th:value="${item.id}" /> <input
-							type="submit" class="delete" value="削除" />
+						<input type="hidden" name="id" th:value="${item.id}" />
+						<input type="submit" class="delete" value="削除" />
 					</form></td>
 			</tr>
 		</table>
@@ -61,5 +63,5 @@
 			<a href="#"></a>
 		</div>
 
-	</div>
+
 </body>

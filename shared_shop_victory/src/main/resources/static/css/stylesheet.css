@@ -123,9 +123,9 @@ p {
 }
 
 /* ---- 商品情報 ---- */
-/* .item_contents{
-	display: flex;
-} */
+.item_contents {
+	margin-left: 50px;
+}
 
 .item {
 	display: inline-block;
@@ -144,7 +144,6 @@ p {
 /* .item:nth-of-type(odd) {
 	margin-right: 3%;
 } */
-
 .item .item_name {
 	padding: 5px 10px;
 	color: black;
@@ -155,6 +154,22 @@ p {
 	background: rgba(255, 255, 255, 0.8);
 	z-index: 2;
 	width: 100%;
+}
+
+.item .item_icon {
+	padding: 5px 10px;
+	color: black;
+	font-weight: bold;
+	position: absolute;
+	bottom: 5px;
+	left: 0;
+	z-index: 2;
+	width: 100%;
+	text-align: center;
+}
+
+.item .item_icon img {
+	width: 40px;
 }
 
 .item img {
@@ -185,6 +200,48 @@ p {
 	position: absolute;
 	margin-top: 23px;
 	font-size: 1.1em;
+}
+/* ---- お気に入りボタン --- */
+/* ボタン本体のスタイル */
+.heart-button {
+	/* ボタン要素の大きさや色 */
+	margin-top: 7px;
+	position: relative;
+	display: inline-block;
+	background-color: #ef4b53;
+	padding: 0.8em 2.4em;
+	border-radius: 5px;
+	border: 2px solid transparent;
+	/* ボタンの文字の設定 */
+	font-family: 'Quicksand', sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	color: #fff;
+	letter-spacing: 0.1em;
+	/* その他必要なスタイル */
+	transition: all 0.3s ease;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+/* ハートの共通スタイル */
+.heart-button::before, .heart-button::after {
+	content: "";
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	opacity: 0;
+}
+
+/* ========= ホバー時のスタイル ======== */
+
+/* ボタンホバー時のスタイル */
+.heart-button:hover {
+	background-color: #ef4b53;
+	border-color: #fff;
+	color: #fff;
 }
 
 /* ---- 新着順・売れ筋順 --- */
@@ -470,6 +527,7 @@ select {
 	background: #fff;
 	box-shadow: 1px 2px 2px #eee;
 	text-shadow: 1px 1px 1px #d8d8d8;
+	width: fit-content;
 }
 
 /* スキルアップテクニック10

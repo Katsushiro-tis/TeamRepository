@@ -21,22 +21,29 @@
 	</div>
 
 
-    <div class = "item_contents">
-    	<div class="item" th:each="item: ${items}">
-		<div class="item_name">
-			<p th:text="${item.name}"></p>
+	<div class="item_contents">
+		<div class="item" th:each="item: ${items}">
+			<div class="item_name">
+				<p th:text="${item.name}"></p>
+			</div>
+			<a th:href="@{/item/detail/{id}(id=${item.id})}"> <span
+				th:if="${item.image != null}"> <img
+					th:src="@{/img/{image}(image=${item.image})}"></img>
+			</span> <span th:if="${item.image == null}"> <img
+					th:src="@{/img/common/no_image.jpg}"></img>
+			</span>
+			</a>
+			<div class="item_icon">
+				<form action="/shared_shop/favorite/add">
+					<input type="hidden" name="id" th:value="${item.id}" /> <input
+						type="hidden" name="name" th:value="${item.name}" /> <input
+						type="submit" value="お気に入りに追加" class="heart-button" />
+				</form>
+
+			</div>
 		</div>
-		<a th:href="@{/item/detail/{id}(id=${item.id})}"> <span
-			th:if="${item.image != null}"> <img
-				th:src="@{/img/{image}(image=${item.image})}"></img>
-		</span> <span th:if="${item.image == null}"> <img
-				th:src="@{/img/common/no_image.jpg}"></img>
-		</span>
-		</a>
 	</div>
-    </div>
-	
-	
+
 	<link rel="stylesheet"
 		href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
 	<div id="page_top">
