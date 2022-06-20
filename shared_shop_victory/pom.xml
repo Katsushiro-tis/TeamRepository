@@ -65,11 +65,19 @@
 		</dependency>
 		
 		
-		<!-- メール送信用 -->
-<!-- 		<dependency>
+		<!-- メール送信のためのjavamailの依存関係 -->
+	<dependency>
+		<groupId>com.sun.mail</groupId>
+		<artifactId>javax.mail</artifactId>
+		<version>1.6.2</version>
+	</dependency>
+
+		
+		<!-- メール送信のためのspringのメール連携ライブラリの設定 -->
+ 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency> -->
+		</dependency>
 	</dependencies>
 
 	<build>
