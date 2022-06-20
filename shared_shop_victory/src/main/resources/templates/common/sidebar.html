@@ -38,15 +38,7 @@
     </form>
 
 
-		<!--/* 金額別検索メニュー(一般会員用) */-->
-	<form method="get" th:action="@{/item/list/pricearray}">
-	<h2 class="title">値段別検索</h2>
-	<select name="pricearray">
-	<option value="1">0～1000円</option>
-	</select>
-	 <input type="submit" value="検索" />
-	</form>
-
+	
 	
 	<!--/* メニュー(運用管理者、及びシステム管理者用) */-->
 	<div th:if="${session.user != null and session.user.authority != 2}">
