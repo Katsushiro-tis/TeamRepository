@@ -35,7 +35,12 @@
 		<p th:text="#{itemListAdmin.none}"></p>
 	</div>
 
-
+	<div class="user_info_form_area" th:object="${itemForm}">
+		<ul th:if="${#fields.hasErrors('name')}" th:class="input_list">
+			<li th:each="err : ${#fields.errors('name')}" th:text="${err}"
+				th:class="error_list"></li>
+		</ul>
+	</div>
 	<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
 		<tr>
 			<th>商品画像</th>
