@@ -65,7 +65,7 @@ public class BasketCustomerController {
 			// session.setAttribute("basket", basketList);
 			if (basketStock == 0) {
 				// 値を登録
-				BasketBean bean = new BasketBean(item.getId(), item.getName(), item.getPrice(), 1);
+				BasketBean bean = new BasketBean(item.getId(), item.getName(), item.getStock(), 1);
 				// 買い物かごに追加
 				basketList.add(bean);
 			}
@@ -123,17 +123,17 @@ public class BasketCustomerController {
 		return "forward:/basket/list";
 	}
 
-	@PostMapping("/basket/test")
-	public String test(HttpSession session) {
-		// 画面確認用のbean生成
-
-		BasketBean bean = new BasketBean(1, "りんご", 30, 3);
-		BasketBean bean2 = new BasketBean(2, "辞書", 5, 1);
-		ArrayList<BasketBean> basketList = new ArrayList<>();
-		basketList.add(bean);
-		basketList.add(bean2);
-		session.setAttribute("basket", basketList);
-
-		return "basket/shopping_basket";
-	}
+//	@PostMapping("/basket/test")
+//	public String test(HttpSession session) {
+//		// 画面確認用のbean生成
+//
+//		BasketBean bean = new BasketBean(1, "りんご", 30, 3);
+//		BasketBean bean2 = new BasketBean(2, "辞書", 5, 1);
+//		ArrayList<BasketBean> basketList = new ArrayList<>();
+//		basketList.add(bean);
+//		basketList.add(bean2);
+//		session.setAttribute("basket", basketList);
+//
+//		return "basket/shopping_basket";
+//	}
 }

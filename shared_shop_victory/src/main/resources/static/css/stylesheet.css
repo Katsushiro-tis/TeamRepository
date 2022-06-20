@@ -87,11 +87,21 @@ p {
 	width: 80px;
 }
 
-/* ---- ボタン(削除) ---- */
+/* ---- ボタン(+) ---- */
+[type=submit].add {
+	background:  #d44444;
+	color: white;
+	width:80px;
+	height:35px;
+	
+}
+/*-- ボタン（-） --*/
 [type=submit].delete {
-	background: #d22222;
+	background:#0080ff;
 	color: white;
 }
+
+
 
 /* ---- ボタン(商品個数指定) ---- */
 [type=button] {
@@ -402,8 +412,8 @@ select {
  * またlinear-gradientが解釈できないブラウザのために背景色を設定しています。
  * このような、誰にでも同様のデザインを届ける考え方を『プログレッシブエンハンスメント』と言います。
  */
-[type=submit].delete {
-	background: #d44444;
+[type=submit].add {
+	background:#d44444;
 	background-image: -webkit-linear-gradient(top, #d44444, #9e1818);
 	background-image: -moz-linear-gradient(top, #d44444, #9e1818);
 	background-image: -ms-linear-gradient(top, #d44444, #9e1818);
@@ -412,6 +422,30 @@ select {
 	color: #fff;
 	text-shadow: 1px 1px 1px #616161;
 }
+
+[type=submit].delete {
+	background:#4169e1;
+	background-image: -webkit-linear-gradient(top, #4169e1, #0000cd);
+	background-image: -moz-linear-gradient(top, #4169e1, #0000cd);
+	background-image: -ms-linear-gradient(top, #4169e1, #0000cd);
+	background-image: -o-linear-gradient(top, #4169e1, #0000cd);
+	background-image: linear-gradient(to bottom, #4169e1, #0000cd);
+	color: #fff;
+	text-shadow: 1px 1px 1px #616161;
+}
+
+[type=submit].allDelete {
+	background:#d44444;
+	background-image: -webkit-linear-gradient(top, #d44444, #9e1818);
+	background-image: -moz-linear-gradient(top, #d44444, #9e1818);
+	background-image: -ms-linear-gradient(top, #d44444, #9e1818);
+	background-image: -o-linear-gradient(top, #d44444, #9e1818);
+	background-image: linear-gradient(to bottom, #d44444, #9e1818);
+	color: #fff;
+	text-shadow: 1px 1px 1px #616161;
+}
+
+
 
 /* ---- テーブル ---- */
 /* ---- 共通 ---- */

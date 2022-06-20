@@ -25,29 +25,39 @@
 			<tr th:each="item:${session.basket}">
 				<td><a th:href="@{/item/detail/} + ${item.id}" th:text="${item.name}"></a></td>
 				<td th:text="${item.orderNum}"></td>
-				<td><form th:action="@{/basket/delete}" method="post">
+				<td>
+					<form th:action="@{/basket/add}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />
-						<input type="submit" class="delete" value="削除" />
-					</form></td>
-				<td th:text="${item.stock}"></td>
+						<input type="submit" class="add" value="＋" />
+					</form>
+					<form th:action="@{/basket/delete}" method="post">
+						<input type="hidden" name="id" th:value="${item.id}" />
+						<input type="submit" class="delete" value="－" />
+					</form>	
+				</td>
+				<td>
+					<p th:if="${item.stock == 0}"th:text="在庫なし"></p>
+					<p th:if="${item.stock < 5}" th:text="${item.stock}"></p>
+					<p th:if="${item.stock >= 6}"th:text="在庫あり"></p> 
+				</td>
 			</tr>
 		</table>
 		
-		<div style="display: inline-flex">
+	<div style="display: inline-flex">
 		<form method="post" th:action="@{/address/input}">
-			<input type="hidden" name="backflg" value="false" /> 
-			<input type="submit" value="ご注文の手続き" />
+			<input type="hidden" name="backflg" value="false"/> 
+			<input type="submit" value="ご注文の手続き"/>
 		</form>
 		<form th:action="@{/basket/deleteAll}" method="post">
-			<input type="submit" class="delete" value="かごの中身を空にする">
+			<input type="submit" class="allDelete" value="かごの中身を空にする">
 		</form>
 	</div>
 
 	
 	
-	</div>
+	<!-- </div>
 		<form th:action="@{/basket/test}" method="post">
 		<input type="submit" value="テスト用商品追加ボタン"></input>
-	</form>	
+	</form>	 -->
 </body>
 </html>
