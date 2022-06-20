@@ -29,6 +29,7 @@ public class LoginCheckFilter implements Filter {
 			throws IOException, ServletException {
 		// リクエスト情報を取得
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+
 		if (checkRequestURL(httpRequest)) {
 
 			// セッション情報を取得
@@ -36,7 +37,7 @@ public class LoginCheckFilter implements Filter {
 
 			if (session.getAttribute("user") == null) {
 				// 不正アクセスの場合、ログイン画面にリダイレクト
-				System.out.println("非会員");
+				
 				// レスポンス情報を取得
 				HttpServletResponse httpResponse = (HttpServletResponse) response;
 
@@ -59,6 +60,7 @@ public class LoginCheckFilter implements Filter {
 	private boolean checkRequestURL(HttpServletRequest httpRequest) {
 		// リクエストURLを取得
 		String requestURL = httpRequest.getRequestURI();
+
 		if (!URLCheck.checkURLForStaticFile(requestURL) && !requestURL.endsWith("/login")
 				&& !requestURL.endsWith(httpRequest.getContextPath() + "/")
 				&& (requestURL.indexOf("/item/list/") == -1 || requestURL.indexOf("/admin") != -1)

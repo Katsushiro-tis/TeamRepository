@@ -61,10 +61,11 @@ public class LoginController {
 	 */
 	@RequestMapping(path = "/login", method = RequestMethod.POST)
 	public String doLogin(@Valid @ModelAttribute LoginForm form, BindingResult result) {
-
 		if (result.hasErrors()) {
 			// 入力値に誤りがあった場合
+			System.out.println("error");
 			return login(form);
+			
 		} else {
 			Integer authority = ((UserBean) session.getAttribute("user")).getAuthority();
 			if (authority.intValue() == 2) {

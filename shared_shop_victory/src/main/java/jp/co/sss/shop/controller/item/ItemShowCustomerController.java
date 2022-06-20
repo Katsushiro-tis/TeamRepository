@@ -1,5 +1,6 @@
 package jp.co.sss.shop.controller.item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -51,12 +52,12 @@ public class ItemShowCustomerController {
 	 * @return "/" トップ画面へ
 	 */
 	@RequestMapping(path = "/")
-	public String index(Model model) {
+	public String index(Model model, Pageable pageable) {
 
 		// 商品情報を全件検索(新着順)
 		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
 
-		// エンティティ内の検索結果をJavaBeansにコピー
+/// エンティティ内の検索結果をJavaBeansにコピー
 		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
 
 		// 商品情報をViewへ渡す
@@ -64,6 +65,22 @@ public class ItemShowCustomerController {
 
 		return "index";
 	}
+
+//	// ページング
+//	@RequestMapping(path = "/")
+//	public String index(Model model, Pageable pageable) {
+//
+//		// ページング
+//		Page<Item> pageList = itemRepository.findAll(pageable);
+//		// 検索結果を保存するための JavaBeans（リスト）を用意
+//		List<Item> itemList = pageList.getContent();
+//
+//		// 商品情報をリクエストスコープに保存
+//		model.addAttribute("pages", pageList);
+//		model.addAttribute("items", itemList);
+//
+//		return "index";
+//	}
 
 	@RequestMapping(path = "/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
@@ -109,7 +126,16 @@ public class ItemShowCustomerController {
 		} else if (sortType == 2) {
 			// 商品情報を売上順で検索
 			itemList = itemRepository.sortSQL();
+			for (Item i : itemList) {
+				System.out.println(i.getName());
+			}
 			model.addAttribute("sort", 2);
+		} else if (sortType == 3) {
+			itemList = itemRepository.findAllByOrderByPriceDesc();
+			model.addAttribute("sort", 3);
+		} else if (sortType == 4) {
+			itemList = itemRepository.findAllByOrderByPriceAsc();
+			model.addAttribute("sort", 4);
 		}
 
 		// エンティティ内の検索結果をJavaBeansにコピー
@@ -118,6 +144,50 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
 		return "/item/list/item_list";
+	}
+
+	@RequestMapping("/item/list/findByItemName")
+	public String showItemListByName(String itemName, Model model) {
+
+		System.out.println(itemName);
+		/* Item item = itemRepository.findByName(itemName); */
+
+		Item item = itemRepository.findByNameLike("%" + itemName + "%");
+		ItemBean itemBean = new ItemBean();
+		// Itemエンティティの各フィールドの値をItemBeanにコピー
+		BeanUtils.copyProperties(item, itemBean);
+		itemBean.setName(item.getName());
+		// 商品情報をViewへ渡す
+		model.addAttribute("items", itemBean);
+
+		return "/item/list/item_list";
+	}
+
+	@RequestMapping("/item/list/findByItemPrice")
+	public String showItemListByPrice(int itemMinPrice, int itemMaxPrice, Model model) {
+
+		List<ItemBean> itemBeanList = new ArrayList<ItemBean>();
+		List<Item> item;
+
+		// 商品情報を全件検索(新着順)
+		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+		
+		for(Item i: itemList) {
+			if(itemMinPrice <= i.getPrice() && itemMaxPrice >= i.getPrice()) {
+				
+				item = itemRepository.findAllByName(i.getName());
+				
+				/// エンティティ内の検索結果をJavaBeansにコピー
+				itemBeanList.addAll(BeanCopy.copyEntityToItemBean(item));
+			
+			}
+		}
+		// 商品情報をViewへ渡す
+		model.addAttribute("items", itemBeanList);
+
+		return "/item/list/item_list";
+
+		
 	}
 
 }

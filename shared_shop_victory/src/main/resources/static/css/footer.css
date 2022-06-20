@@ -1,0 +1,33 @@
+﻿@CHARSET "UTF-8";
+
+/* ---- フッター ---- */
+
+/* スキルアップテクニック1-3
+ * footer要素の表示位置は画面下、もしくはページ下に設定すると見やすいでしょう。
+ * その為に1-1ではhtml要素の表示位置を広げ、配置基準としました。
+ * 1-2では他の表示とfooter要素が被らないよう余白を設定しました。
+ * ここではfooter要素にpositionプロパティの値をabsoluteにすることで絶対位置表示を行います。
+ * 絶対位置表示の基準はpositionプロパティの値を持つ親要素となり、
+ * 今回は画面いっぱいのhtml要素がそれになります。
+ * bottomプロパティは基準からの配置位置を決定し、今回は0px。
+ * つまりhtml要素の一番下から0pxの位置に表示されることとなり、
+ * footer要素は画面、もしくはページの最下部に表示されるようになります。
+ */
+footer {
+	color: white;
+	background-color: black;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.admin footer {
+	
+	background: #ff8669;
+}
+small {
+	height: 30px;
+	line-height:30px;
+	text-shadow: 1px 1px 1px #fff;
+	font-size: 8pt;
+}
