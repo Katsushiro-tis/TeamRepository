@@ -1,6 +1,7 @@
 package jp.co.sss.shop.form;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -22,6 +23,7 @@ public class ItemForm {
 	 * 商品名
 	 */
 	@NotBlank
+	@NotNull
 	@Size(min = 1, max = 100)
 	private String name;
 
