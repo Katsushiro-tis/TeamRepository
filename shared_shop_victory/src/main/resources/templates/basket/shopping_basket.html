@@ -32,7 +32,7 @@
 				<td>
 					<form th:action="@{/basket/add}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />
-						<input type="submit" class="add" value="＋" />
+						<input type="submit" class="add" value="＋"style="margin-left:10px" />
 					</form>
 					<form th:action="@{/basket/delete}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />
@@ -55,9 +55,9 @@
 		<form th:action="@{/basket/deleteAll}" method="post">
 			<input type="submit" class="allDelete" value="かごの中身を空にする">
 		</form>
-	</div>
 	
 	</div>
+
 
 	
 	<!-- </div>

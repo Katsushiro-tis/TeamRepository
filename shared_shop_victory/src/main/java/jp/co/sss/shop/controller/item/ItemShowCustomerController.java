@@ -124,7 +124,7 @@ public class ItemShowCustomerController {
 			itemList = itemRepository.findAllByOrderByPriceAsc();
 			model.addAttribute("sort", 4);
 		}
-
+	
 		// エンティティ内の検索結果をJavaBeansにコピー
 		itemBeanList = BeanCopy.copyEntityToItemBean(itemList);
 		// 商品情報をViewへ渡す
@@ -133,27 +133,28 @@ public class ItemShowCustomerController {
 		return "item/list/item_list";
 	}
 
-	//キーワード検索
+	
 	@RequestMapping("/item/list/findByItemName")
 //	public String showItemListByName(String itemName, Model model) {
-	public String showItemListByName(@Valid @ModelAttribute ItemForm form, ItemPriceForm pform, BindingResult result,
-			Model model) {
+	public String showItemListByName(@Valid @ModelAttribute ItemForm form, BindingResult result, Model model) {
 
-		if (result.hasErrors()) {
-			System.out.println("エラー");
-			return "item/list/item_list";
-		}
+		
+	
+	
 
 		/* Item item = itemRepository.findByName(itemName); */
 		System.out.println(form.getName());
-//			Item item = itemRepository.findByNameLike("%" + itemName + "%");
+		//Item item = itemRepository.findByNameLike("%" + itemName + "%");
 		Item item = itemRepository.findByNameLike("%" + form.getName() + "%");
+		
 		ItemBean itemBean = new ItemBean();
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
 		BeanUtils.copyProperties(item, itemBean);
 		itemBean.setName(item.getName());
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBean);
+		
+		
 		return "/item/list/item_list";
 
 	}

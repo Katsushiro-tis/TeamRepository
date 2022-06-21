@@ -79,14 +79,14 @@ p {
 	position: relative;
 	font-size: 1.5rem;
 	margin-top: 15px;
-	}
-.title_user a{
+}
+
+.title_user a {
 	list-style: none;
-	    list-style: none;
-    color: white;
-}	
-	
-	
+	list-style: none;
+	color: white;
+}
+
 /* ---- 社員登録入力画面へのリンク ---- */
 .regist_link {
 	margin-top: 25px;
@@ -120,19 +120,16 @@ p {
 
 /* ---- ボタン(+) ---- */
 [type=submit].add {
-	background:  #d44444;
+	background: #d44444;
 	color: white;
-	width:80px;
-	height:35px;
-	
+	width: 80px;
+	height: 35px;
 }
 /*-- ボタン（-） --*/
 [type=submit].delete {
-	background:#0080ff;
+	background: #0080ff;
 	color: white;
 }
-
-
 
 /* ---- ボタン(商品個数指定) ---- */
 [type=button] {
@@ -225,7 +222,7 @@ p {
 	position: absolute;
 	margin-top: 23px;
 	font-size: 1.1em;
-	display:flex;
+	display: flex;
 }
 /* ---- お気に入りボタン --- */
 /* ボタン本体のスタイル */
@@ -514,8 +511,7 @@ p {
 }
 
 .search select, input {
-	width: 125px;
-	margin-right: 10px;
+	width: 113px;
 }
 
 /* ---- 処理完了メッセージの出力箇所 ---- */
@@ -564,7 +560,7 @@ select {
  * このような、誰にでも同様のデザインを届ける考え方を『プログレッシブエンハンスメント』と言います。
  */
 [type=submit].add {
-	background:#d44444;
+	background: #d44444;
 	background-image: -webkit-linear-gradient(top, #d44444, #9e1818);
 	background-image: -moz-linear-gradient(top, #d44444, #9e1818);
 	background-image: -ms-linear-gradient(top, #d44444, #9e1818);
@@ -575,7 +571,7 @@ select {
 }
 
 [type=submit].delete {
-	background:#4169e1;
+	background: #4169e1;
 	background-image: -webkit-linear-gradient(top, #4169e1, #0000cd);
 	background-image: -moz-linear-gradient(top, #4169e1, #0000cd);
 	background-image: -ms-linear-gradient(top, #4169e1, #0000cd);
@@ -586,7 +582,7 @@ select {
 }
 
 [type=submit].allDelete {
-	background:#d44444;
+	background: #d44444;
 	background-image: -webkit-linear-gradient(top, #d44444, #9e1818);
 	background-image: -moz-linear-gradient(top, #d44444, #9e1818);
 	background-image: -ms-linear-gradient(top, #d44444, #9e1818);
@@ -595,8 +591,6 @@ select {
 	color: #fff;
 	text-shadow: 1px 1px 1px #616161;
 }
-
-
 
 /* ---- テーブル ---- */
 /* ---- 共通 ---- */
@@ -747,6 +741,11 @@ select {
 	margin-bottom: 50px;
 }
 
+.confirm {
+	position: relative; /* 今の位置を基準 */
+	left: 180px;
+}
+
 /* ---- 買物カゴ ---- */
 .list_table.basket th:first-of-type {
 	width: 45%;
@@ -890,70 +889,76 @@ p.link_center {
 	text-align: center;
 }
 
+.tooltip1 {
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+}
 
-.tooltip1{
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
+.tooltip1 p {
+	margin: 0;
+	padding: 0;
 }
-.tooltip1 p{
-    margin:0;
-    padding:0;
-}
+
 .description1 {
-    display: none;
-    position: absolute;
-    padding: 10px;
-    font-size: 12px;
-    line-height: 1.6em;
-    color: #fff;
-    border-radius: 5px;
-    background: #000;
-    width: 100px;
+	display: none;
+	position: absolute;
+	padding: 10px;
+	font-size: 12px;
+	line-height: 1.6em;
+	color: #fff;
+	border-radius: 5px;
+	background: #000;
+	width: 100px;
 }
+
 .description1:before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    border: 15px solid transparent;
-    border-top: 15px solid #000;
-    margin-left: -15px;
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	border: 15px solid transparent;
+	border-top: 15px solid #000;
+	margin-left: -15px;
 }
-.tooltip1:hover .description1{
-    display: inline-block;
-    top: -70px;
-    left: -30px;
+
+.tooltip1:hover .description1 {
+	display: inline-block;
+	top: -70px;
+	left: -30px;
 }
 
 /* ----新規登録メッセージ---- */
-.pass{
-    position: relative;
-    cursor: pointer;
-    display: inline-block;
+.pass {
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
 }
+
 .tooltip {
-    display: none;
-    position: absolute;
-    padding: 10px;
-    font-size: 12px;
-    line-height: 1.6em;
-    color: #fff;
-    border-radius: 5px;
-    background: #000;
-    width: 100px;
+	display: none;
+	position: absolute;
+	padding: 10px;
+	font-size: 12px;
+	line-height: 1.6em;
+	color: #fff;
+	border-radius: 5px;
+	background: #000;
+	width: 100px;
 }
+
 .tooltip:before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    border: 15px solid transparent;
-    border-top: 15px solid #000;
-    margin-left: -15px;
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	border: 15px solid transparent;
+	border-top: 15px solid #000;
+	margin-left: -15px;
 }
-.pass:hover .tooltip{
-    display: inline-block;
-    top: -70px;
-    left: -30px;
+
+.pass:hover .tooltip {
+	display: inline-block;
+	top: -70px;
+	left: -30px;
 }
