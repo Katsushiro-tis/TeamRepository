@@ -72,6 +72,21 @@ p {
 	float: left;
 }
 
+.title_user {
+	background-color: black;
+	color: white;
+	padding: 8px 15px;
+	position: relative;
+	font-size: 1.5rem;
+	margin-top: 15px;
+	}
+.title_user a{
+	list-style: none;
+	    list-style: none;
+    color: white;
+}	
+	
+	
 /* ---- 社員登録入力画面へのリンク ---- */
 .regist_link {
 	margin-top: 25px;
@@ -729,6 +744,11 @@ select {
 
 .detail_table.pay {
 	margin-bottom: 50px;
+}
+.confirm{
+	position: relative; /* 今の位置を基準 */
+    left: 180px;
+    
 }
 
 /* ---- 買物カゴ ---- */

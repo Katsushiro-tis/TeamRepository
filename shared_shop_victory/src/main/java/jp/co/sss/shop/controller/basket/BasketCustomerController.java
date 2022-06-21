@@ -16,6 +16,13 @@ import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.repository.UserRepository;
 
+/**
+ * 買い物かご操作用コントローラクラス
+ * 
+ * @author kenji_haga
+ * @author makito_hiraoka
+ *
+ */
 @Controller
 public class BasketCustomerController {
 	@Autowired
@@ -30,9 +37,7 @@ public class BasketCustomerController {
 	@Autowired
 	HttpSession session;
 
-//	　　　　　買い物かごコントローラー 
-
-// 商品追加処理
+	// 商品追加処理
 	@PostMapping("/basket/add")
 	public String addItem(int id,  Model model) {
 		// sessionに買い物かご情報があるか確認。なければ作成
@@ -122,18 +127,4 @@ public class BasketCustomerController {
 		session.setAttribute("basket", basketList);
 		return "forward:/basket/list";
 	}
-
-//	@PostMapping("/basket/test")
-//	public String test(HttpSession session) {
-//		// 画面確認用のbean生成
-//
-//		BasketBean bean = new BasketBean(1, "りんご", 30, 3);
-//		BasketBean bean2 = new BasketBean(2, "辞書", 5, 1);
-//		ArrayList<BasketBean> basketList = new ArrayList<>();
-//		basketList.add(bean);
-//		basketList.add(bean2);
-//		session.setAttribute("basket", basketList);
-//
-//		return "basket/shopping_basket";
-//	}
 }
