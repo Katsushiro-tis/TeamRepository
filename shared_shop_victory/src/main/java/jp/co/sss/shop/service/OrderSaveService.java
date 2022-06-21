@@ -17,22 +17,39 @@ import jp.co.sss.shop.repository.OrderRepository;
 
 /**
  * 
- * @author user データベース登録用クラス
+ * @author kenji_haga
+ * 
+ *         データベース登録用サービスクラス
  * 
  */
 
 @Service
 public class OrderSaveService {
 
+	/**
+	 * 注文情報
+	 */
 	@Autowired
 	OrderRepository orderRepository;
 
+	/**
+	 * 商品情報
+	 */
 	@Autowired
 	ItemRepository itemRepository;
 
+	/**
+	 * 注文商品情報
+	 */
 	@Autowired
 	OrderItemRepository orderItemRepository;
 
+	/**
+	 * ordersテーブル、order_itemsテーブル、itemテーブルの更新
+	 * 
+	 * @param order         注文情報
+	 * @param orderItemList 注文商品情報
+	 */
 	@Transactional
 	public void orderSave(Order order, ArrayList<OrderItemBean> orderItemList) {
 

@@ -24,8 +24,6 @@ import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.AddressForm;
 import jp.co.sss.shop.repository.ItemRepository;
-import jp.co.sss.shop.repository.OrderItemRepository;
-import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.service.OrderSaveService;
 
@@ -39,25 +37,40 @@ import jp.co.sss.shop.service.OrderSaveService;
 @Controller
 public class OrderRegistCustomerController {
 
+	/**
+	 * ユーザー情報
+	 */
 	@Autowired
 	UserRepository userRepository;
 
+	/**
+	 * 商品情報
+	 */
 	@Autowired
 	ItemRepository itemRepository;
 
-	@Autowired
-	OrderRepository orderRepository;
-
-	@Autowired
-	OrderItemRepository orderItemRepository;
-
+	/**
+	 * 注文情報登録用のサービスクラス
+	 */
 	@Autowired
 	OrderSaveService orderSaveService;
 
+	/**
+	 * セッション
+	 */
+	@Autowired
+	HttpSession session;
+
+	/**
+	 * 
+	 * @param addressForm 送付先情報
+	 * @param model       Viewとの値受け渡し
+	 * @param backflg     戻るボタンからの遷移であるか判定するためのフラグ
+	 * @return "order/regist/order_address_input" 送付先入力画面へ
+	 */
 	// 届け先入力画面へ
 	@PostMapping("address/input")
-	public String inputAddress(@ModelAttribute AddressForm addressForm, HttpSession session, Model model,
-			boolean backflg) {
+	public String inputAddress(@ModelAttribute AddressForm addressForm, Model model, boolean backflg) {
 
 		// 戻るボタンからの遷移でない場合の処理
 		if (!backflg) {
@@ -87,7 +100,16 @@ public class OrderRegistCustomerController {
 		return "order/regist/order_address_input";
 	}
 
-	// 支払い方法選択画面へ
+	/**
+	 * 
+	 * @param addressForm 送付先情報
+	 * @param result      入力エラー情報
+	 * @param model       Viewとの値受け渡し
+	 * @param backflg     戻るボタンからの遷移であるか判定するためのフラグ
+	 * 
+	 * @return "order/regist/order_payment_input" 支払方法選択画面へ
+	 * @return "order/regist/order_address_input" 入力エラーがあった場合は送付先入力画面へ
+	 */
 	@PostMapping("/payment/input")
 	public String inputPayment(@Valid @ModelAttribute AddressForm addressForm, BindingResult result, Model model,
 			boolean backflg) {
@@ -108,14 +130,20 @@ public class OrderRegistCustomerController {
 		return "order/regist/order_payment_input";
 	}
 
-	// 注文登録確認画面
+	/**
+	 * 
+	 * @param orderBean 注文情報
+	 * @param model     Viewとの値受け渡し
+	 * @return "order/regist/order_check" 注文確認画面へ
+	 */
 	@PostMapping("/order/check")
-	public String checkOrder(@ModelAttribute OrderBean orderBean, HttpSession session, Model model) {
+	public String checkOrder(OrderBean orderBean, Model model) {
 
 		// 注文商品情報用リスト
 		ArrayList<OrderItemBean> orderItemList = new ArrayList<OrderItemBean>();
 
 		// 買い物かごにある商品の情報を取得
+		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 		Iterator<BasketBean> iterator = basketList.iterator();
 
@@ -135,7 +163,7 @@ public class OrderRegistCustomerController {
 			// 小計
 			int subtotal = 0;
 
-			// 確定時点での在庫が0の場合、注文不可
+			// 確定時点での在庫が0以下の場合、注文不可
 			if (stock <= 0) {
 				shotageList.add(item.getName() + "は在庫切れのため、注文できません。");
 				iterator.remove();
@@ -146,8 +174,8 @@ public class OrderRegistCustomerController {
 			OrderItemBean orderItemBean = new OrderItemBean();
 			BeanUtils.copyProperties(item, orderItemBean);
 
-			// 在庫数 < 注文数の場合は在庫数で注文
-			if (stock < orderNum) {
+			// 注文数 > 在庫数の場合は在庫数で注文
+			if (orderNum > stock) {
 				shotageList.add(item.getName() + "は在庫不足のため、在庫数分のみ注文できます。");
 				orderItemBean.setQuantity(stock);
 				subtotal += item.getPrice() * stock;
@@ -178,9 +206,15 @@ public class OrderRegistCustomerController {
 		return "order/regist/order_check";
 	}
 
-	// 注文登録完了画面
+	/**
+	 * 
+	 * @param order 注文情報
+	 * @return "order/regist/order_complete" 注文完了画面へ
+	 * 
+	 * 
+	 */
 	@PostMapping("/order/complete")
-	public String completeOrder(AddressForm addressForm, Order order, HttpSession session) {
+	public String completeOrder(Order order, Model model) {
 
 		// ユーザ情報を取得し、 userBeanに入れる
 		UserBean userBean = (UserBean) session.getAttribute("user");
@@ -190,25 +224,27 @@ public class OrderRegistCustomerController {
 		BeanUtils.copyProperties(userBean, user);
 		// Orderエンティティにユーザ情報を入れる
 		order.setUser(user);
-		// オーダー情報を保存
-		// orderRepository.save(order);
 
 		// オーダーアイテムリストを取得し、orderItemListに入れる
+		@SuppressWarnings("unchecked")
 		ArrayList<OrderItemBean> orderItemList = (ArrayList<OrderItemBean>) session.getAttribute("orderItemList");
 
+		// DB登録操作
+		// エラーが発生した場合は登録しない
 		try {
 			// 注文情報と在庫数のDB登録
 			orderSaveService.orderSave(order, orderItemList);
 		} catch (Exception e) {
 			System.out.println("エラーが発生しました。");
 			session.removeAttribute("orderItemList");
-			return "/basket/shopping_basket";
+			return "order/regist/order_complete";
 		}
 
 		// sessionに登録した情報を削除
 		session.removeAttribute("orderItemList");
 		session.removeAttribute("basket");
 
+		model.addAttribute("isCompete", true);
 		return "order/regist/order_complete";
 
 	}
