@@ -36,7 +36,7 @@ public class UserDeleteCustomerController {
 	@Autowired
 	MailSend sender;
 	
-	@RequestMapping(path = "/user/delete/check", method = RequestMethod.POST)
+	@PostMapping("/user/delete/check")
 	public String userDeleteCheck(Model model, @ModelAttribute UserForm form) {
 
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;
