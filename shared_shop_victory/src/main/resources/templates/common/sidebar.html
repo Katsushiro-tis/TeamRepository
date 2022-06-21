@@ -45,7 +45,23 @@
 
 		</div>
 	
+<!-- 	<!--/* 金額別検索メニュー(一般会員用) */-->
+	<form method="get" th:action="@{/item/list/pricearray}">
 	
+	<select name="pricearray">
+	<option th:value="1">0円～1000円</option>
+	<option th:value="2">1001円～2000円</option>
+	<option th:value="3">2001円～3000円</option>
+	<option th:value="4">3001円～4000円</option>
+	<option th:value="5">4001円～5000円</option>
+	<option th:value="6">5001円～6000円</option>
+	<option th:value="7">6001円～7000円</option>
+	<option th:value="8">7001円～8000円</option>
+	<option th:value="9">8001円～9000円</option>
+	<option th:value="10">9001円～10000円～</option>
+	</select>
+	<button type="submit" class="heart-button">検索</button>
+	</form> -->
 
 
 

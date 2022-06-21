@@ -96,6 +96,7 @@ public class ItemShowCustomerController {
 		return "item/detail/item_detail";
 	}
 
+	
 	@RequestMapping(path = "/item/list/category/{sortType}", method = RequestMethod.GET)
 	public String showCategoryList(int categoryId, Model model) {
 
@@ -189,5 +190,64 @@ public class ItemShowCustomerController {
 
 		
 	}
-
+	
+	//商品の値段別検索
+	/*
+	 * @RequestMapping(path = "/item/list/pricearray", method = RequestMethod.GET)
+	 * public String priceViewList(int pricearray, Model model) {
+	 * System.out.println(pricearray);
+	 * 
+	 * //安い順で全件検索 List<Item> item = itemRepository.findAllByOrderByPriceAsc();
+	 * List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(item);
+	 * 
+	 * 
+	 * List<Item> prices = new ArrayList<Item>();
+	 * 
+	 * //配列を表示してプライスの金額を表示する。 for( Item price : item){
+	 * System.out.println(price.getPrice());
+	 * 
+	 * //1000円以下のアイテムを表示 if (pricearray == 1 && price.getPrice() <= 1000) {
+	 * prices.add(price);
+	 * 
+	 * 
+	 * }else if (pricearray == 2 && price.getPrice() >= 1001 && price.getPrice() <=
+	 * 2000) { prices.add(price);
+	 * 
+	 * 
+	 * 
+	 * 
+	 * }else if (pricearray == 3 && price.getPrice() >= 2001 && price.getPrice() <=
+	 * 3000) { prices.add(price);
+	 * 
+	 * }else if (pricearray == 4 && price.getPrice() >= 3001 && price.getPrice() <=
+	 * 4000) { prices.add(price);
+	 * 
+	 * }else if (pricearray == 5 && price.getPrice() >= 4001 && price.getPrice() <=
+	 * 5000) { prices.add(price);
+	 * 
+	 * }else if (pricearray == 6 && price.getPrice() >= 5001 && price.getPrice() <=
+	 * 6000) { prices.add(price);
+	 * 
+	 * }else if (pricearray == 7 && price.getPrice() >= 6001 && price.getPrice() <=
+	 * 7000) { prices.add(price);
+	 * 
+	 * }else if (pricearray == 8 && price.getPrice() >= 7001 && price.getPrice() <=
+	 * 8000) { prices.add(price);
+	 * 
+	 * }else if (pricearray == 9 && price.getPrice() >= 8001 && price.getPrice() <=
+	 * 9000) { prices.add(price);
+	 * 
+	 * }else if (pricearray == 10 && price.getPrice() >= 9001 && price.getPrice() <=
+	 * 10000) {
+	 * 
+	 * prices.add(price);
+	 * 
+	 * 
+	 * }else if (pricearray == 11 && price.getPrice() > 10000) {
+	 * 
+	 * prices.add(price); } }
+	 * 
+	 * itemBeanList = BeanCopy.copyEntityToItemBean(prices);
+	 * model.addAttribute("items", itemBeanList); return "/item/list/item_list"; }
+	 */
 }

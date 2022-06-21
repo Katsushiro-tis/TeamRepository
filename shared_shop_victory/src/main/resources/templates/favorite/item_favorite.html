@@ -34,7 +34,7 @@
 			<tr>
 				<th>商品画像</th>
 				<th>商品名</th>
-				<th>いいねした人</th>
+			<!-- 	<th>いいねした人</th> -->
 				<th>価格</th>
 				<th>カテゴリ</th>
 				<th>操作</th>
@@ -47,7 +47,7 @@
 						th:src="@{/img/common/no_image.jpg}"></img>
 				</span></td>
 				<td th:text="${item.name}"></td>
-				<td th:text="${item.user.name}"></td>
+				<!-- <td th:text="${item.user.name}"></td> -->
 				<td th:text="${item.item.price}"></td>
 				<td th:text="${item.item.category.name}"></td>
 				<td><form th:action="@{/favorite/delete}" method="post">
