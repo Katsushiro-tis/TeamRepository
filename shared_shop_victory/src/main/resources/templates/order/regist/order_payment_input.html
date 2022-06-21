@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-		th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+		th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8">
 <title>お支払方法選択｜シェアードショップ</title>
@@ -14,7 +14,7 @@
 	
 	<h2 class="title">お支払方法選択</h2>
 	<!--       ---------　支払方法選択画面　 ---------     -->
-	
+	<h2 class="title">お支払い方法選択</h2>
 	<form method="post"action="/shared_shop/order/check">	
 		<input type="radio" name="payMethod" th:text="クレジットカード" value="1"checked><br>
 		<input type="radio" name="payMethod" th:text="銀行振り込み"th:value="2"><br>

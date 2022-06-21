@@ -1,0 +1,68 @@
+﻿@CHARSET "UTF-8";
+
+/* ---- ヘッダー ---- */
+header {
+	background: white;
+	color: black;
+	padding: 10px 0;
+}
+
+/* header img {
+	width: 50px;
+} */
+.admin header {
+	background: #ff8669;
+}
+
+/* スキルアップテクニック4
+ * font-sizeの単位emは親要素に設定されたfont-sizeの相対指定となります。
+ * 親要素のfont-sizeが16px設定だとしたら、1.8emでは1.8倍、即ち28.8pxの大きさとなります。
+ * デザインにはジャンプ率の考え方があり、基本の大きさからの倍率で文字サイズを決めることが多々あります。
+ * その様な場合、em指定をしておくと便利です。
+ * 基本サイズが変更になったとしても、比例して大きさが変化します。
+ */
+.site_title {
+	float: left;
+	font-size: 2.0em;
+	font-weight: normal;
+	margin: 0;
+	font-family: 'Sacramento', cursive;
+}
+
+.site_title a {
+	text-decoration: none;
+	color: black;
+}
+
+.site_title a:hover {
+	text-decoration: underline;
+}
+
+/* スキルアップテクニック5
+ * 横幅の％指定はブロックの数が決まっている際、設定が容易に行えます。
+ * また、レスポンシブにも対応できるため、px指定と比べ柔軟性に優れます。
+ */
+.user_info {
+	width: 40%;
+	float: right;
+	text-align: right;
+	padding-top: 15px;
+}
+
+.user_info a {
+	text-decoration: none;
+	color: black;
+}
+
+/* スキルアップテクニック6
+ * :hoverは擬似クラスの一種で、カーソルをその要素に重ねることで動作します。
+ * user_infoクラスがつけられた要素の子要素であるa要素にカーソルが重なると、
+ * 下線が表示されます。
+ */
+.user_info a:hover {
+	text-decoration: underline;
+}
+
+.user_info .pipeline {
+	padding: 0 8px;
+}

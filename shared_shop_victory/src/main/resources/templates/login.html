@@ -3,16 +3,19 @@
 <!-- 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" -->
 <!-- 	layout:decorator="common/layout_3block"> -->
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_3block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_7block :: layout(~{::title},~{::body/content()})}">
 <head>
 <title>シェアードショップ</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body th:object="${loginForm}" class="user login">
+<div class = "login_back">
 
-	<h2 class="page_title">ログイン</h2>
+	<!-- <h2 class="page_title">ログイン</h2> -->
 	<p class="description">メールアドレスとパスワードを入力してください。</p>
+</div>
+
 	<form method="post" th:action="@{/login}" th:object="${loginForm}">
 		<div class="user_info_form_area">
 			<ul th:if="${#fields.hasErrors('*')}" th:class="input_list">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8">
 <title>注文内容最終確認｜シェアードショップ</title>
@@ -77,26 +77,28 @@
 			</tr>
 		</table>
 	</div>
-	<div class="confirm">
-		<form method="post" action="/shared_shop/order/complete"
-			th:object="${register}" class="oder_info">
-			<input type="hidden" name="postalCode" th:value="*{postalCode}" />
-			<input type="hidden" name="address" th:value="*{address}" /> 
-			<input type="hidden" name="name" th:value="*{name}" /> 
-			<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
-			<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
-			<input type="submit"value="ご注文の確定"class="next" />
-		</form>
-		<form method="post" action="/shared_shop/payment/input"
-			th:object="${register}">
-			<input type="hidden" name="backflg" value="true" /> 
-			<input type="hidden" name="postalCode" th:value="*{postalCode}" /> 
-			<input type="hidden" name="address" th:value="*{address}" /> 
-			<input type="hidden" name="name" th:value="*{name}" /> 
-			<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
-			<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
-			<input type="submit"value="戻る" class="back"/>
-		</form>
-	</div>
+
+	<form method="post" action="/shared_shop/order/complete"
+		th:object="${register}" th:if="${total != 0}">
+		<input type="hidden" name="postalCode" th:value="*{postalCode}" />
+		<input type="hidden" name="address" th:value="*{address}" /> 
+		<input type="hidden" name="name" th:value="*{name}" /> 
+		<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
+		<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
+		<input type="submit"value="ご注文の確定" />
+	</form>
+
+	<form method="post" action="/shared_shop/payment/input"
+		th:object="${register}">
+		<input type="hidden" name="backflg" value="true" /> 
+		<input type="hidden" name="postalCode" th:value="*{postalCode}" /> 
+		<input type="hidden" name="address" th:value="*{address}" /> 
+		<input type="hidden" name="name" th:value="*{name}" /> 
+		<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
+		<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
+		<input type="submit"value="戻る" />
+	</form>
+
+
 </body>
 </html>

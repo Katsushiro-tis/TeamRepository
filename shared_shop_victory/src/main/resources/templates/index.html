@@ -1,26 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <title>トップ | シェアードショップ</title>
 <meta charset="UTF-8" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+
 </head>
 <body class="user index">
-	<h2 class="title">売れ筋商品</h2>
 
-
-	<div class="item" th:each="item: ${items}">
-		<div class="item_name">
-				<p th:text="${item.name}"></p>
-		</div>
-		<a th:href="@{/item/detail/{id}(id=${item.id})}">
-		<span th:if="${item.image != null}"> <img
-			th:src="@{/img/{image}(image=${item.image})}"></img>
-		</span> <span th:if="${item.image == null}"> <img
-			th:src="@{/img/common/no_image.jpg}"></img>
-		</span>
-	</a>
+	<div class="form_order">
+		<select onChange="location.href=value;">
+			<option value="">TOP</option>
+			<option value="/shared_shop/item/list/1">新着順</option>
+			<option value="/shared_shop/item/list/2">売れ筋順</option>
+			<option value="/shared_shop/item/list/3">高い順</option>
+			<option value="/shared_shop/item/list/4">安い順</option>
+		</select>
 	</div>
+
+
+	<div class="item_contents">
+		<div class="item" th:each="item: ${items}">
+			<div class="item_name">
+				<p th:text="${item.name}"></p>
+			</div>
+			<a th:href="@{/item/detail/{id}(id=${item.id})}"> <span
+				th:if="${item.image != null}"> <img
+					th:src="@{/img/{image}(image=${item.image})}"></img>
+			</span> <span th:if="${item.image == null}"> <img
+					th:src="@{/img/common/no_image.jpg}"></img>
+			</span>
+			</a>
+			<div class="item_icon">
+				<form action="/shared_shop/favorite/add">
+					<input type="hidden" name="id" th:value="${item.id}" /> <input
+						type="hidden" name="name" th:value="${item.name}" /> <input
+						type="submit" value="お気に入りに追加" class="heart-button" />
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+	<div id="page_top">
+		<a href="#"></a>
+	</div>
+	<!-- ページリンク -->
+
+	<!-- 	<ul class="paging">
+		先頭のページリンク
+		<li><span th:if="${pages.first}">&lt;&lt;</span> <a
+			th:if="${not pages.first}" th:href="@{/(page=0)}">&lt;&lt;</a></li>
+		中間のページリンク
+		<li th:each="i : ${#numbers.sequence(0, pages.totalPages-1)}"><span
+			th:if="${i}==${pages.number}" th:text="${i+1}"></span> <a
+			th:if="${i}!=${pages.number}" th:href="@{/(page=${i})}"> <span
+				th:text="${i+1}"></span>
+		</a></li>
+		末尾のページリンク
+		<li><span th:if="${pages.last}">&gt;&gt;</span> <a
+			th:if="${not pages.last}"
+			th:href="@{/(page=(${pages.totalPages}-1))}">&gt;&gt;</a></li>
+	</ul> -->
+
+
+
 
 </body>
 </html>

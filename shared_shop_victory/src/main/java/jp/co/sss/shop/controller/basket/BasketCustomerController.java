@@ -40,7 +40,9 @@ public class BasketCustomerController {
 		}
 		// 追加対象商品の在庫数確認
 		Item item = itemRepository.getById(id);
+
 		// 追加できる数ならば、買い物かごに追加(この時点では、在庫数が減らない為、買い物かご数は在庫数を超えてはいけない)
+
 		// 買い物かご個数
 		int basketStock = 0;
 		// 配列番号カウント
@@ -57,7 +59,7 @@ public class BasketCustomerController {
 			count++;
 		}
 
-		if (basketStock > item.getStock()) {
+		if (basketStock > item.getStock() || item.getStock() <= 0) {
 			System.out.println("エラー");
 			model.addAttribute("notEnoughName", item.getName());
 			// return "basket/shopping_basket";
@@ -94,11 +96,12 @@ public class BasketCustomerController {
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 
-		// かごの中の商品を検索、指定のIDの商品を削除
+		// かごの中の商品を検索、指定のIDの商品を減らして0以下なら削除
 		for (BasketBean bean : basketList) {
 			int index = 0;
 			if (bean.getId() == id) {
 				int orderNum = bean.getOrderNum();
+				// 注文数を1減らして0以下なら削除
 				if (--orderNum <= 0) {
 					basketList.remove(index);
 				} else {
