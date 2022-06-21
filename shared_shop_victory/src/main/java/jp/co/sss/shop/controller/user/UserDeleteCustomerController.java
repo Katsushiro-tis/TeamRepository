@@ -10,8 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.User;
@@ -37,7 +36,7 @@ public class UserDeleteCustomerController {
 	@Autowired
 	MailSend sender;
 	
-	@RequestMapping(path = "/user/delete/check", method = RequestMethod.POST)
+	@PostMapping("/user/delete/check")
 	public String userDeleteCheck(Model model, @ModelAttribute UserForm form) {
 
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;
@@ -55,12 +54,11 @@ public class UserDeleteCustomerController {
 		// 会員情報をViewに渡す
 		model.addAttribute("user", userBean);
 
-//		System.out.println("確認画面入ります");
+
 		return "user/delete/user_delete_check";
 	}
 	
-	
-	@RequestMapping(path = "/user/delete/complete", method = RequestMethod.POST)
+	@PostMapping("/user/delete/complete")
 	public String userDeleteComplete(@ModelAttribute UserForm form) {
 
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;
@@ -113,7 +111,6 @@ public class UserDeleteCustomerController {
 	
 	@GetMapping("/user/delete/complete")
 	public String userDeleteComplete() {
-//		System.out.println("完了画面(get)入ります");
 		return "/user/delete/user_delete_complete";
 	}
 }

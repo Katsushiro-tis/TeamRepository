@@ -13,8 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.OrderBean;
@@ -70,8 +69,7 @@ public class OrderRegistCustomerController {
 	 * @return "order/regist/order_address_input" 送付先入力画面へ
 	 */
 	// 届け先入力画面へ
-	@RequestMapping(path = "/address/input", method = RequestMethod.POST)
-
+	@PostMapping("address/input")
 	public String inputAddress(@ModelAttribute AddressForm addressForm, Model model, boolean backflg) {
 
 		// 戻るボタンからの遷移でない場合の処理
@@ -112,7 +110,7 @@ public class OrderRegistCustomerController {
 	 * @return "order/regist/order_payment_input" 支払方法選択画面へ
 	 * @return "order/regist/order_address_input" 入力エラーがあった場合は送付先入力画面へ
 	 */
-	@RequestMapping(path = "/payment/input", method = RequestMethod.POST)
+	@PostMapping("/payment/input")
 	public String inputPayment(@Valid @ModelAttribute AddressForm addressForm, BindingResult result, Model model,
 			boolean backflg) {
 
@@ -138,7 +136,7 @@ public class OrderRegistCustomerController {
 	 * @param model     Viewとの値受け渡し
 	 * @return "order/regist/order_check" 注文確認画面へ
 	 */
-	@RequestMapping(path = "/order/check", method = RequestMethod.POST)
+	@PostMapping("/order/check")
 	public String checkOrder(OrderBean orderBean, Model model) {
 
 		// 注文商品情報用リスト
@@ -215,7 +213,7 @@ public class OrderRegistCustomerController {
 	 * 
 	 * 
 	 */
-	@RequestMapping(path = "/order/complete")
+	@PostMapping("/order/complete")
 	public String completeOrder(Order order, Model model) {
 
 		// ユーザ情報を取得し、 userBeanに入れる

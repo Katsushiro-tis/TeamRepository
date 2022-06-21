@@ -36,6 +36,9 @@ public class OrderShowCustomerController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	HttpSession session;
 
 	/**
 	 * 
@@ -44,7 +47,7 @@ public class OrderShowCustomerController {
 	 * @return "order/list/order_list" 注文一覧画面へ
 	 */
 	@GetMapping("order/list")
-	public String showOrderList(HttpSession session, Model model) {
+	public String showOrderList(Model model) {
 		Integer userId = ((UserBean) session.getAttribute("user")).getId();
 
 		List<Order> orderList = orderRepository.findByUserIdOrderByInsertDateDescIdAsc(userId);
@@ -76,7 +79,6 @@ public class OrderShowCustomerController {
 
 		// 注文情報リストをViewへ渡す
 		model.addAttribute("orders", orderBeanList);
-		// model.addAttribute("url", "/order/list/admin");
 
 		return "order/list/order_list";
 	}
