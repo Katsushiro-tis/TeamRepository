@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.repository.UserRepository;
+import jp.co.sss.shop.util.MailSend;
 
 /**
  * 会員管理　会員詳細表示(一般会員)
@@ -22,6 +23,9 @@ public class UserShowCustomerController {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	MailSend sender;
 	
 	@Autowired
 	HttpSession session;
@@ -43,19 +47,5 @@ public class UserShowCustomerController {
 		
 		return "user/detail/user_detail";
 	}
-	
-	
-//	@Autowired
-//	private MailSender mailSender;
-//	
-//	public void send() {
-//		SimpleMailMessage msg = new SimpleMailMessage();
-//		msg.setTo("don.gameak@gmail.com");
-////		msg.setBcc("送信先アドレス2");
-////		msg.setCc(new String[] {"送信先アドレス3", "送信先アドレス4"});
-//		msg.setSubject("メールタイトル");
-//		msg.setText("テスト用のメールです。");
-//		mailSender.send(msg);
-//	}
 	
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <title>商品詳細 | シェアードショップ</title>
 <meta charset="UTF-8" />
 </head>
 <body class="admin item_detail_admin">
-	<h2 class="title">商品詳細</h2>
+<!-- 	<h2 class="title">商品詳細</h2> -->
 	<div class="item_info_form_area">
 		<div class="item_detail_area">
 			<div class="item_image_area">
@@ -40,26 +40,26 @@
 			</dl>
 
 			<form method="post" class="user_info_form"
-				action="/shared_shop/basket/add">
+				action="/shared_shop/basket/add" th:if="${item.stock > 0}">
 				<input type="hidden" name="id" th:value="${item.id}" /> <input
 					type="submit" value="買い物かごに入れる" class="send_button" />
 
-			</form>
-			<form action="/shared_shop/item/list/1">
-				<input type="submit" value="戻る" class="back_button" />
-			</form>
+				</form>
+				<form action="/shared_shop/item/list/1">
+					<input type="submit" value="戻る" class="back_button" />
+				</form>
 
-			<form method="post" action="/shared_shop/favorite/add">
-				<input type="hidden" name="id" th:value="${item.id}" /> 
-				<input type="hidden" name="name" th:value="${item.name}" />
-				
-					 <input
+				<form action="/shared_shop/favorite/add">
+					<input type="hidden" name="id" th:value="${item.id}" /> <input
+						type="hidden" name="name" th:value="${item.name}" /> <input
 						type="submit" value="お気に入り" class="send_button" />
-			</form>
-			
+				</form>
+			</div>
+
+
 
 			<!-- こっそりお気に入りボタン２ -->
-<!-- 			<form action="/shared_shop/favorite/Button" method="post">
+			<!-- 			<form action="/shared_shop/favorite/Button" method="post">
 				<input type="hidden" name="item_id" th:value="${item.id}" /> 
 				<input type="submit" value="お気に入り2" class="send_button" />
 				

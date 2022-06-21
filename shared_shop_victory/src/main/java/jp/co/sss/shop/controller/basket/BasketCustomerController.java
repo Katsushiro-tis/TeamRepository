@@ -43,7 +43,9 @@ public class BasketCustomerController {
 		}
 		// 追加対象商品の在庫数確認
 		Item item = itemRepository.getById(id);
+
 		// 追加できる数ならば、買い物かごに追加(この時点では、在庫数が減らない為、買い物かご数は在庫数を超えてはいけない)
+
 		// 買い物かご個数
 		int basketStock = 0;
 		// 配列番号カウント
@@ -60,12 +62,12 @@ public class BasketCustomerController {
 			count++;
 		}
 
-		if (basketStock > item.getStock()) {
+		if (basketStock > item.getStock() || item.getStock() <= 0) {
 			model.addAttribute("notEnoughName", item.getName());
 		} else { // 買い物かごをセット
 			if (basketStock == 0) {
 				// 値を登録
-				BasketBean bean = new BasketBean(item.getId(), item.getName(), item.getPrice(), 1);
+				BasketBean bean = new BasketBean(item.getId(), item.getName(), item.getStock(), 1);
 				// 買い物かごに追加
 				basketList.add(bean);
 			}
@@ -92,11 +94,12 @@ public class BasketCustomerController {
 	public String deleteItem(int id) {
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
-		// かごの中の商品を検索、指定のIDの商品を削除
+		// かごの中の商品を検索、指定のIDの商品を減らして0以下なら削除
 		for (BasketBean bean : basketList) {
 			int index = 0;
 			if (bean.getId() == id) {
 				int orderNum = bean.getOrderNum();
+				// 注文数を1減らして0以下なら削除
 				if (--orderNum <= 0) {
 					basketList.remove(index);
 				} else {
@@ -120,15 +123,17 @@ public class BasketCustomerController {
 		return "forward:/basket/list";
 	}
 
-	@PostMapping("/basket/test")
-	public String test() {
-		// 画面確認用のbean生成
-		BasketBean bean = new BasketBean(1, "りんご", 30, 3);
-		BasketBean bean2 = new BasketBean(2, "辞書", 5, 1);
-		ArrayList<BasketBean> basketList = new ArrayList<>();
-		basketList.add(bean);
-		basketList.add(bean2);
-		session.setAttribute("basket", basketList);
-		return "basket/shopping_basket";
-	}
+//	@PostMapping("/basket/test")
+//	public String test(HttpSession session) {
+//		// 画面確認用のbean生成
+//
+//		BasketBean bean = new BasketBean(1, "りんご", 30, 3);
+//		BasketBean bean2 = new BasketBean(2, "辞書", 5, 1);
+//		ArrayList<BasketBean> basketList = new ArrayList<>();
+//		basketList.add(bean);
+//		basketList.add(bean2);
+//		session.setAttribute("basket", basketList);
+//
+//		return "basket/shopping_basket";
+//	}
 }

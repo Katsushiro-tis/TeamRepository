@@ -4,33 +4,41 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/admin_stylesheet.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}" />
+<link th:href="@{/css/header.css}" rel="stylesheet" />
+<link th:href="@{/css/footer.css}" rel="stylesheet" />
+<link th:href="@{/css/menu.css}" rel="stylesheet" />
+<link th:href="@{/css/side.css}" rel="stylesheet" />
 <title th:replace="${title}">シェアードショップ</title>
 </head>
 <body
 	th:classappend="${(session.user != null and (session.user.authority == 0 or session.user.authority == 1)) ? 'admin' : '' }">
-<body
-	th:classappend="${(session.user != null and (session.user.authority == 2)) ? 'user' : '' }">
 	<!--/* ヘッダー */-->
 	<header>
 		<div th:replace="~{common/header :: layout-header}"></div>
 	</header>
 
-	<div class="container">
-		<!--/*メニュー */-->
-		<!-- <nav>
-			<div th:replace="~{common/menu :: layout-menu}"></div>
-		</nav> -->
+	<div class="sideandmenu">
 		<!--/* サイドバー */-->
 		<aside>
 			<div th:replace="~{common/sidebar :: layout-sidebar}"></div>
 		</aside>
-		<!--/* メイン */-->
-		<article class="main">
-			<div th:replace="${body}"></div>
-		</article>
+		<!--/*メニュー */-->
+		<nav>
+			<div th:replace="~{common/menu :: layout-menu}"></div>
+		</nav>
+
 	</div>
+
+
+
+
+	<!--/* メイン */-->
+	<article class="container content">
+		<div th:replace="${body}"></div>
+	</article>
+
 	<!--/* フッター */-->
 	<footer>
 		<div th:replace="~{common/footer :: layout-footer}"></div>

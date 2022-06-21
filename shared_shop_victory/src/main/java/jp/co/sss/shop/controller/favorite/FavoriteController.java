@@ -44,14 +44,14 @@ public class FavoriteController {
 	
 	@PostMapping("/favorite/add")
 	public String addFavoriteList(Model model,FavoriteForm form) {
-
+		
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
 		
 		// userIDに該当する商品情報を取得
 		UserBean sessionUser = (UserBean) session.getAttribute("user");
 		User user = userRepository.getById(sessionUser.getId());
-
+		
 		// favoriteにセーブ
 		Favorite favorite = new Favorite();
 
@@ -68,10 +68,8 @@ public class FavoriteController {
 			  }
 			 
 		}
-		
-		
 		favoriteRepository.save(favorite);
-
+		
 		return "redirect:/favorite/list";
 	}
 
@@ -89,6 +87,10 @@ public class FavoriteController {
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
 
+		for(FavoriteBean f: itemBeanList3) {
+			System.out.println(f.getName());
+		}
+		
 		model.addAttribute("items", itemBeanList3);
 		return "/favorite/item_favorite";
 	}

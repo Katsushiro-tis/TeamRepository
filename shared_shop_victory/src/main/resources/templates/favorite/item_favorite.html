@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
 <title>お気に入り一覧 | シェアードショップ</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
 </head>
 <body>
 
+	
+		<div class="form_order">
+			<select onChange="location.href=value;">
+				<option value="">TOP</option>
+				<option value="/shared_shop/item/list/1">新着順</option>
+				<option value="/shared_shop/item/list/2">売れ筋順</option>
+				<option value="/shared_shop/item/list/3">高い順</option>
+				<option value="/shared_shop/item/list/4">安い順</option>
+			</select>
+		</div>
 
-	<h2 class="title">お気に入り一覧</h2>
+		<div th:if="${#lists.isEmpty(items)}">
+			<p th:text="#{itemListAdmin.none}"></p>
+		</div>
+
+<!-- <h2 class="title">お気に入り一覧</h2> -->
 
 	<div th:if="${#lists.isEmpty(items)}">
 		<p th:text="#{itemListAdmin.none}"></p>
@@ -40,6 +56,12 @@
 					</form></td>
 			</tr>
 		</table>
+
+		<link rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+		<div id="page_top">
+			<a href="#"></a>
+		</div>
 
 
 </body>

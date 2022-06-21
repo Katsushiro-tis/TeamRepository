@@ -18,6 +18,7 @@ import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.UserRepository;
+import jp.co.sss.shop.util.MailSend;
 
 /**
  * 会員管理　会員変更(一般会員)
@@ -32,6 +33,9 @@ public class UserUpdateCustomerController {
 	
 	@Autowired
 	HttpSession session;
+	
+	@Autowired
+	MailSend sender;
 	
 	@PostMapping("/user/update/input")	//会員変更入力画面へ
 	public String userUpdateInput(boolean backFlg, Model model, @ModelAttribute UserForm form) {
@@ -123,6 +127,27 @@ public class UserUpdateCustomerController {
 			// 会員情報をViewに渡す
 			session.setAttribute("user", userBean);
 		}
+		
+		
+		sender.send(user.getEmail(),"[Shared shop]会員情報変更の確認", "----------------------------------------\n"
+																+ "　[shared shop]会員情報変更の確認メール\n"
+																+ "----------------------------------------\n"
+																+ "\n"
+																+ "この度はshared shopをご利用いただきありがとうございます。\n"
+																+ "会員情報の変更が完了しました。"
+																+ "サイトへログイン後会員詳細ページより変更後の情報をご確認いただけます。\n"
+																+ "変更申し込み日\n"
+																+ sender.getSendDate()
+																+ "\n\n"
+																+ "Shared shopログインページ\n"
+																+ "http://localhost:55000/shared_shop/login\n"
+																+ "\n\n"
+																+ "----------------------------------------\n"
+																+ "※本メールは送信専用メールです。お問い合わせは下記のwebページよりお願いいたします。\n"
+																+ "----------------------------------------\n"
+																+ "資料の請求・お問い合わせ|【公式】東京ITスクール-株式会社システムシェアード\n"
+																+ "https://tokyoitschool.jp/inquiry/ \n"
+																+ "----------------------------------------\n");
 
 		return "redirect:/user/update/complete";
 	}

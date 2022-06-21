@@ -85,6 +85,7 @@ public class OrderShowCustomerController {
 		for (OrderItem orderItem : order.getOrderItemsList()) {
 			OrderItemBean orderItemBean = new OrderItemBean();
 
+			orderItemBean.setId(orderItem.getItem().getId());
 			orderItemBean.setPrice(orderItem.getPrice());
 			orderItemBean.setName(orderItem.getItem().getName());
 			orderItemBean.setOrderNum(orderItem.getQuantity());
@@ -105,5 +106,4 @@ public class OrderShowCustomerController {
 
 		return "order/detail/order_detail";
 	}
-
 }

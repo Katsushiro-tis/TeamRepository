@@ -1,6 +1,7 @@
 package jp.co.sss.shop.controller.order;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -20,13 +21,13 @@ import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.Order;
-import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.AddressForm;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.repository.UserRepository;
+import jp.co.sss.shop.service.OrderSaveService;
 
 /**
  * 注文登録用コントローラクラス
@@ -40,10 +41,6 @@ public class OrderRegistCustomerController {
 
 	@Autowired
 	UserRepository userRepository;
-	@Autowired
-	OrderRepository oderRepository;
-	@Autowired
-	OrderItemRepository oderItemRepository;
 
 	@Autowired
 	ItemRepository itemRepository;
@@ -53,6 +50,9 @@ public class OrderRegistCustomerController {
 
 	@Autowired
 	OrderItemRepository orderItemRepository;
+
+	@Autowired
+	OrderSaveService orderSaveService;
 
 	// 届け先入力画面へ
 	@PostMapping("address/input")
@@ -112,15 +112,20 @@ public class OrderRegistCustomerController {
 	@PostMapping("/order/check")
 	public String checkOrder(@ModelAttribute OrderBean orderBean, HttpSession session, Model model) {
 
-		// 買い物かごにある商品の情報を取得
+		// 注文商品情報用リスト
 		ArrayList<OrderItemBean> orderItemList = new ArrayList<OrderItemBean>();
+
+		// 買い物かごにある商品の情報を取得
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
+		Iterator<BasketBean> iterator = basketList.iterator();
+
 		int total = 0;
 
 		// 在庫不足時のメッセージリスト
 		ArrayList<String> shotageList = new ArrayList<String>();
 
-		for (BasketBean basketBean : basketList) {
+		while (iterator.hasNext()) {
+			BasketBean basketBean = iterator.next();
 			Item item = itemRepository.getById(basketBean.getId());
 
 			// 注文数
@@ -133,9 +138,11 @@ public class OrderRegistCustomerController {
 			// 確定時点での在庫が0の場合、注文不可
 			if (stock <= 0) {
 				shotageList.add(item.getName() + "は在庫切れのため、注文できません。");
+				iterator.remove();
 				continue;
 			}
 
+			// orderItemBeanに商品情報を保存
 			OrderItemBean orderItemBean = new OrderItemBean();
 			BeanUtils.copyProperties(item, orderItemBean);
 
@@ -157,6 +164,12 @@ public class OrderRegistCustomerController {
 			orderItemList.add(orderItemBean);
 		}
 
+		if (total == 0) {
+			shotageList.add("注文できる商品がありません。");
+			session.setAttribute("basket", basketList);
+		}
+
+		// 注文情報、送付先情報、エラー情報をスコープに保存
 		session.setAttribute("orderItemList", orderItemList);
 		model.addAttribute("register", orderBean);
 		model.addAttribute("shotageList", shotageList);
@@ -178,38 +191,18 @@ public class OrderRegistCustomerController {
 		// Orderエンティティにユーザ情報を入れる
 		order.setUser(user);
 		// オーダー情報を保存
-		oderRepository.save(order);
+		// orderRepository.save(order);
 
 		// オーダーアイテムリストを取得し、orderItemListに入れる
 		ArrayList<OrderItemBean> orderItemList = (ArrayList<OrderItemBean>) session.getAttribute("orderItemList");
-		// orderItemListの数だけ以下の処理を繰り返す。
-		for (int i = 0; i < orderItemList.size(); i++) {
-			// iのオーダーを取得
-			orderItemList.get(i);
-			// OrderItemBean型のorderItemBeanを作成
-			OrderItemBean orderItemBean = new OrderItemBean();
-			// orderItemBeanへ i のオーダーを代入
-			orderItemBean = orderItemList.get(i);
-			// OrderItem型のorderItemeを作成
-			OrderItem orderIteme = new OrderItem();
-			// orderItemeに注文数と値段、Orderの情報を入れる
-			orderIteme.setQuantity(orderItemBean.getQuantity());
-			orderIteme.setPrice(orderItemBean.getPrice());
-			orderIteme.setOrder(order);
 
-			// itemエンティティを作り、Idをもとに商品情報を持ってきて入れる
-			Item item = itemRepository.getById(orderItemBean.getId());
-			// orderItemeにItem情報を入れる
-			orderIteme.setItem(item);
-			// orderItemeに入れた情報を保存
-			oderItemRepository.save(orderIteme);
-
-			// 注文した商品を在庫から引く
-			int num = item.getStock() - orderIteme.getQuantity();
-			// 残りの在庫をStockに入れる
-			item.setStock(num);
-			// 在庫から注文数を引いた残りの在庫を保存
-			itemRepository.save(item);
+		try {
+			// 注文情報と在庫数のDB登録
+			orderSaveService.orderSave(order, orderItemList);
+		} catch (Exception e) {
+			System.out.println("エラーが発生しました。");
+			session.removeAttribute("orderItemList");
+			return "/basket/shopping_basket";
 		}
 
 		// sessionに登録した情報を削除
@@ -219,5 +212,4 @@ public class OrderRegistCustomerController {
 		return "order/regist/order_complete";
 
 	}
-
 }
