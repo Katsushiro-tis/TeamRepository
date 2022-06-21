@@ -156,11 +156,6 @@ public class ItemShowCustomerController {
 //	public String showItemListByName(String itemName, Model model) {
 	public String showItemListByName(@Valid @ModelAttribute ItemForm form, BindingResult result, Model model) {
 
-		if (result.hasErrors()) {
-			System.out.println("エラー");
-			return "/item/list/item_list";
-		}
-
 		/* Item item = itemRepository.findByName(itemName); */
 		System.out.println(form.getName());
 //			Item item = itemRepository.findByNameLike("%" + itemName + "%");
