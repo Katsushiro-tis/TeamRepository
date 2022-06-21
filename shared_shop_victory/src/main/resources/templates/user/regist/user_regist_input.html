@@ -3,7 +3,7 @@
 		th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8">
-<title>新規登録</title>
+<title>会員登録入力 | シェアードショップ</title>
 </head>
 <body>
 <!-- <h2 class="title">会員登録入力</h2> -->
@@ -15,40 +15,58 @@
 				
 					<ul class="input_list">
 						<li>
+							<div class = "pass">
 							<label>
 								<span class="input_title">メールアドレス</span>
-								<input type="text" name="email" th:value="${userForm.email}" th:field="*{email}" />
+								<input type="text" name="email" th:value="${userForm.email}" th:field="*{email}"  placeholder="メールアドレス"/>
 							</label>
+							<div class="tooltip">使用されていないメールアドレス</div>
+							</div>
 						</li>
 						<li>
+							<div class = "pass">
 							<label>
 								<span class="input_title">パスワード</span>
-								<input type="password" name="password" th:value="${userForm.password}" />
+								<input type="password" name="password" th:value="${userForm.password}"  placeholder="パスワード"/>
 							</label>
+							<div class="tooltip">半角文字8文字以上16文字以下</div>
+							</div>
 						</li>
 						<li>
+							<div class = "pass">
 							<label>
 								<span class="input_title">氏名</span>
-								<input type="text" name="name" th:value="${userForm.name}" />
+								<input type="text" name="name" th:value="${userForm.name}"  placeholder="氏名"/>
 							</label>
+							<div class="tooltip">1文字以上30文字以下</div>
+							</div>
 						</li>
 						<li>
+							<div class = "pass">
 							<label>
 								<span class="input_title">郵便番号</span>
-								<input type="text" name="postalCode" th:value="${userForm.postalCode}" />
+								<input type="text" name="postalCode" th:value="${userForm.postalCode}"  placeholder="郵便番号"/>
 							</label>
+							<div class="tooltip">ハイフンなし半角数字7文字で入力</div>
+							</div>
 						</li>
 						<li>
+							<div class = "pass">
 							<label>
 								<span class="input_title">住所</span>
-								<textarea name="address" rows="6" th:text="${userForm.address}"></textarea>
+								<textarea name="address" rows="6" th:text="${userForm.address}"  placeholder="住所"></textarea>
 							</label>
+							<div class="tooltip">1文字以上150文字以下</div>
+							</div>
 						</li>
 						<li>
+							<div class = "pass">
 							<label>
 								<span class="input_title">電話番号</span>
-								<input type="text" name="phoneNumber" th:value="${userForm.phoneNumber}" />
+								<input type="text" name="phoneNumber" th:value="${userForm.phoneNumber}"  placeholder="電話番号"/>
 							</label>
+							<div class="tooltip">ハイフンなし半角数字10文字 or 11文字</div>
+							</div>
 						</li>
 						<li>
 							<label>
