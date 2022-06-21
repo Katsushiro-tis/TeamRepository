@@ -69,7 +69,7 @@ public class FavoriteController {
 			 
 		}
 		favoriteRepository.save(favorite);
-		
+	
 		return "redirect:/favorite/list";
 	}
 
@@ -92,6 +92,6 @@ public class FavoriteController {
 		}
 		
 		model.addAttribute("items", itemBeanList3);
-		return "/favorite/item_favorite";
+		return "favorite/item_favorite";
 	}
 }

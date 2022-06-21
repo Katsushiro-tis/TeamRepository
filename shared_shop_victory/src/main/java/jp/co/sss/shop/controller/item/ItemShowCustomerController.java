@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
@@ -44,7 +45,7 @@ public class ItemShowCustomerController {
 	CategoryRepository categoryRepository;
 	@Autowired
 	UserRepository userRepository;
-	
+
 	/**
 	 * トップ画面 表示処理
 	 *
@@ -66,21 +67,7 @@ public class ItemShowCustomerController {
 		return "index";
 	}
 
-//	// ページング
-//	@RequestMapping(path = "/")
-//	public String index(Model model, Pageable pageable) {
-//
-//		// ページング
-//		Page<Item> pageList = itemRepository.findAll(pageable);
-//		// 検索結果を保存するための JavaBeans（リスト）を用意
-//		List<Item> itemList = pageList.getContent();
-//
-//		// 商品情報をリクエストスコープに保存
-//		model.addAttribute("pages", pageList);
-//		model.addAttribute("items", itemList);
-//
-//		return "index";
-//	}
+
 
 	@RequestMapping(path = "/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
@@ -95,7 +82,7 @@ public class ItemShowCustomerController {
 		model.addAttribute("item", itemBean);
 		return "item/detail/item_detail";
 	}
-	
+
 	@GetMapping("/item/list/category/{sortType}")
 	public String showCategoryList(int categoryId, Model model) {
 
@@ -110,9 +97,9 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
 
-		return "/item/list/item_list";
+		return "item/list/item_list";
 	}
-	
+
 	@GetMapping("/item/list/{sortType}")
 	public String showNewerList(Model model, @PathVariable int sortType) {
 
@@ -143,12 +130,19 @@ public class ItemShowCustomerController {
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
-		return "/item/list/item_list";
+		return "item/list/item_list";
 	}
 
+	//キーワード検索
 	@RequestMapping("/item/list/findByItemName")
 //	public String showItemListByName(String itemName, Model model) {
-	public String showItemListByName(@Valid @ModelAttribute ItemForm form, BindingResult result, Model model) {
+	public String showItemListByName(@Valid @ModelAttribute ItemForm form, ItemPriceForm pform, BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			System.out.println("エラー");
+			return "item/list/item_list";
+		}
 
 		/* Item item = itemRepository.findByName(itemName); */
 		System.out.println(form.getName());
@@ -161,19 +155,18 @@ public class ItemShowCustomerController {
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBean);
 		return "/item/list/item_list";
-		
 
 	}
 
 	@RequestMapping("/item/list/findByItemPrice")
 //	public String showItemListByPrice(int itemMinPrice, int itemMaxPrice, Model model) {
 	public String showItemListByPrice(@Valid @ModelAttribute ItemPriceForm pform, BindingResult result, Model model) {
-		
+
 		if (result.hasErrors()) {
 			System.out.println("エラー");
-			return "/item/list/item_list";
+			return "item/list/item_list";
 		}
-		
+
 		List<ItemBean> itemBeanList = new ArrayList<ItemBean>();
 		List<Item> item;
 
@@ -187,73 +180,75 @@ public class ItemShowCustomerController {
 
 				/// エンティティ内の検索結果をJavaBeansにコピー
 				itemBeanList.addAll(BeanCopy.copyEntityToItemBean(item));
-				
+
 			}
 		}
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
 
-		return "/item/list/item_list";
+		return "item/list/item_list";
 
 	}
+
 	
-	//商品の値段別検索
-	/*
-	 * @RequestMapping(path = "/item/list/pricearray", method = RequestMethod.GET)
-	 * public String priceViewList(int pricearray, Model model) {
-	 * System.out.println(pricearray);
-	 * 
-	 * //安い順で全件検索 List<Item> item = itemRepository.findAllByOrderByPriceAsc();
-	 * List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(item);
-	 * 
-	 * 
-	 * List<Item> prices = new ArrayList<Item>();
-	 * 
-	 * //配列を表示してプライスの金額を表示する。 for( Item price : item){
-	 * System.out.println(price.getPrice());
-	 * 
-	 * //1000円以下のアイテムを表示 if (pricearray == 1 && price.getPrice() <= 1000) {
-	 * prices.add(price);
-	 * 
-	 * 
-	 * }else if (pricearray == 2 && price.getPrice() >= 1001 && price.getPrice() <=
-	 * 2000) { prices.add(price);
-	 * 
-	 * 
-	 * 
-	 * 
-	 * }else if (pricearray == 3 && price.getPrice() >= 2001 && price.getPrice() <=
-	 * 3000) { prices.add(price);
-	 * 
-	 * }else if (pricearray == 4 && price.getPrice() >= 3001 && price.getPrice() <=
-	 * 4000) { prices.add(price);
-	 * 
-	 * }else if (pricearray == 5 && price.getPrice() >= 4001 && price.getPrice() <=
-	 * 5000) { prices.add(price);
-	 * 
-	 * }else if (pricearray == 6 && price.getPrice() >= 5001 && price.getPrice() <=
-	 * 6000) { prices.add(price);
-	 * 
-	 * }else if (pricearray == 7 && price.getPrice() >= 6001 && price.getPrice() <=
-	 * 7000) { prices.add(price);
-	 * 
-	 * }else if (pricearray == 8 && price.getPrice() >= 7001 && price.getPrice() <=
-	 * 8000) { prices.add(price);
-	 * 
-	 * }else if (pricearray == 9 && price.getPrice() >= 8001 && price.getPrice() <=
-	 * 9000) { prices.add(price);
-	 * 
-	 * }else if (pricearray == 10 && price.getPrice() >= 9001 && price.getPrice() <=
-	 * 10000) {
-	 * 
-	 * prices.add(price);
-	 * 
-	 * 
-	 * }else if (pricearray == 11 && price.getPrice() > 10000) {
-	 * 
-	 * prices.add(price); } }
-	 * 
-	 * itemBeanList = BeanCopy.copyEntityToItemBean(prices);
-	 * model.addAttribute("items", itemBeanList); return "/item/list/item_list"; }
-	 */
+	 //商品の値段別検索
+	  
+	  @RequestMapping(path = "/item/list/pricearray", method = RequestMethod.GET)
+	  public String priceViewList(int pricearray, Model model) {
+	  System.out.println(pricearray);
+	  
+	  //安い順で全件検索
+	  List<Item> item = itemRepository.findAllByOrderByPriceAsc();
+	  List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(item);
+	  
+	  
+	  List<Item> prices = new ArrayList<Item>();
+	  
+	  //配列を表示してプライスの金額を表示する。
+	  for( Item price : item){
+	  System.out.println(price.getPrice());
+	  
+	  //1000円以下のアイテムを表示
+	  if (pricearray == 1 && price.getPrice() <= 1000) {
+	  prices.add(price);
+	  
+	  
+	 }else if (pricearray == 2 && price.getPrice() >= 1001 && price.getPrice() <=2000) { prices.add(price);
+
+	 
+	 }else if (pricearray == 3 && price.getPrice() >= 2001 && price.getPrice() <=3000) { prices.add(price);
+	  
+	 }else if (pricearray == 4 && price.getPrice() >= 3001 && price.getPrice() <= 4000) { prices.add(price);
+	 
+	  }else if (pricearray == 5 && price.getPrice() >= 4001 && price.getPrice() <= 5000) { prices.add(price);
+	  
+	  }else if (pricearray == 6 && price.getPrice() >= 5001 && price.getPrice() <=6000) { prices.add(price);
+	  
+	 }else if (pricearray == 7 && price.getPrice() >= 6001 && price.getPrice() <=7000) { prices.add(price);
+	  
+	  }else if (pricearray == 8 && price.getPrice() >= 7001 && price.getPrice() <= 8000) { prices.add(price);
+	  
+	  }else if (pricearray == 9 && price.getPrice() >= 8001 && price.getPrice() <=9000) { prices.add(price);
+	  
+	  }else if (pricearray == 10 && price.getPrice() >= 9001 && price.getPrice() <= 10000) {
+	  
+	  prices.add(price);
+	 
+	  
+	 }else if (pricearray == 11 && price.getPrice() > 10000) {
+	 
+	  prices.add(price);
+	  
+	  } 
+	}
+	  itemBeanList = BeanCopy.copyEntityToItemBean(prices);
+	  model.addAttribute("items", itemBeanList);
+	  return "item/list/item_list"; }
+
+	  
+	//int strt;
+	//int end;
+
+		//if (pricearray == strt && price.getPrice() >= 9001 && price.getPrice() <= end) {
+	 
 }
