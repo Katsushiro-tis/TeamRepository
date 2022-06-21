@@ -16,8 +16,8 @@
 	<!--       ---------　支払方法選択画面　 ---------     -->
 	<h2 class="title">お支払い方法選択</h2>
 	<form method="post"action="/shared_shop/order/check">	
-		<input type="radio" name="payMethod" th:text="クレジットカード" value="1" onchange="formSwitch()"><br>
-		<input type="radio" name="payMethod" th:text="銀行振り込み"th:value="2" onchange="formSwitch()" checked><br>
+		<input type="radio" name="payMethod" th:text="クレジットカード" value="1" onchange="formSwitch()" checked><br>
+		<input type="radio" name="payMethod" th:text="銀行振り込み"th:value="2" onchange="formSwitch()"><br>
 		<input type="radio" name="payMethod" th:text="着払い"th:value="3" onchange="formSwitch()"><br>
 		<input type="radio" name="payMethod" th:text="電子マネー"th:value="4" onchange="formSwitch()"><br>
 		<input type="radio" name="payMethod" th:text="コンビニ決済"th:value="5" onchange="formSwitch()"><br>
