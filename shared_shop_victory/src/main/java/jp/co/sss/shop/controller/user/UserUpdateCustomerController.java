@@ -13,8 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.User;
@@ -75,8 +73,7 @@ public class UserUpdateCustomerController {
 		return "user/update/user_update_input";
 	}
 	
-	
-	@RequestMapping(path = "/user/update/check", method = RequestMethod.POST)
+	@PostMapping("/user/update/check")
 	public String userUpdateCheck( Model model, @Valid @ModelAttribute UserForm form, BindingResult result) {
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;
 		
@@ -100,7 +97,7 @@ public class UserUpdateCustomerController {
 	}
 	
 	
-	@RequestMapping(path = "/user/update/complete", method = RequestMethod.POST)
+	@PostMapping("/user/update/complete")
 	public String userUpdateComplete(Model model, @ModelAttribute UserForm form) {
 
 		// 変更対象の会員情報を取得

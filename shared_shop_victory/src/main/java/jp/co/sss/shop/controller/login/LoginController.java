@@ -6,9 +6,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.form.LoginForm;
@@ -40,7 +40,7 @@ public class LoginController {
 	 * @param form ログインフォーム
 	 * @return "login" ログイン画面へ
 	 */
-	@RequestMapping(path = "/login", method = RequestMethod.GET)
+	@GetMapping("/login")
 	public String login(@ModelAttribute LoginForm form) {
 
 		// セッション情報を無効にする
@@ -59,7 +59,7 @@ public class LoginController {
 			一般会員の場合 "/" トップ画面へ
 			運用管理者、システム管理者の場合 "admin_menu"へ
 	 */
-	@RequestMapping(path = "/login", method = RequestMethod.POST)
+	@PostMapping("/login")
 	public String doLogin(@Valid @ModelAttribute LoginForm form, BindingResult result) {
 		if (result.hasErrors()) {
 			// 入力値に誤りがあった場合
@@ -70,7 +70,6 @@ public class LoginController {
 			Integer authority = ((UserBean) session.getAttribute("user")).getAuthority();
 			if (authority.intValue() == 2) {
 				// 一般会員ログインした場合、トップ画面に遷移
-				System.out.println("一般会員");
 				return "redirect:/";
 			}
 			else {
