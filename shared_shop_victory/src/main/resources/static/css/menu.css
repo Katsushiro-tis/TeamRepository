@@ -14,6 +14,7 @@
 	display: flex;
 	justify-content: center;
 	background-color: black;
+	padding-right: 40px;
 }
 
 .navi_menu li {
@@ -31,11 +32,12 @@
 	text-align: center;
 	text-decoration: none;
 }
+
 .navi_menu a:hover {
 	background: white;
 	color: #fff;
 	text-shadow: 1px 1px 1px #12526d;
-	border-color : #3d98bf;
+	border-color: #3d98bf;
 }
 
 /* .navi_menu a {
@@ -63,32 +65,33 @@
 	border-radius: 0px 6px 6px 0px;
 }
 
-
-
 .sample1 {
-	width:			100px;
-	height:			80px;
-	overflow:		hidden;
-	margin:			10px 8px 10px 16px;
-	position:		relative;	/* 相対位置指定 */
+	width: 100px;
+	height: 80px;
+	overflow: hidden;
+	margin: 10px 8px 10px 16px;
+	position: relative; /* 相対位置指定 */
 }
+
 .sample1 .caption {
-	font-size:		10px;
-	text-align: 		center;
-	padding-top:		30px;
-	color:			#fff;
+	font-size: 10px;
+	text-align: center;
+	padding-top: 30px;
+	color: #fff;
 }
+
 .sample1 .mask {
-	width:			100%;
-	height:			100%;
-	position:		absolute;	/* 絶対位置指定 */
-	top:			0;
-	left:			0;
-	opacity:		0;	/* マスクを表示しない */
-	background-color:	rgba(239, 75, 83,1);	/* マスクは半透明 */
-	-webkit-transition:	all 0.2s ease;
-	transition:		all 0.2s ease;
+	width: 100%;
+	height: 100%;
+	position: absolute; /* 絶対位置指定 */
+	top: 0;
+	left: 0;
+	opacity: 0; /* マスクを表示しない */
+	background-color: rgba(239, 75, 83, 1); /* マスクは半透明 */
+	-webkit-transition: all 0.2s ease;
+	transition: all 0.2s ease;
 }
+
 .sample1:hover .mask {
-	opacity:		1;	/* マスクを表示する */
+	opacity: 1; /* マスクを表示する */
 }
