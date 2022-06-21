@@ -3,11 +3,15 @@ package jp.co.sss.shop.controller.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.form.ItemForm;
+import jp.co.sss.shop.form.ItemPriceForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -148,39 +154,52 @@ public class ItemShowCustomerController {
 	}
 
 	@RequestMapping("/item/list/findByItemName")
-	public String showItemListByName(String itemName, Model model) {
+//	public String showItemListByName(String itemName, Model model) {
+	public String showItemListByName(@Valid @ModelAttribute ItemForm form, BindingResult result, Model model) {
 
-		System.out.println(itemName);
+		if (result.hasErrors()) {
+			System.out.println("エラー");
+			return "/item/list/item_list";
+		}
+
 		/* Item item = itemRepository.findByName(itemName); */
-
-		Item item = itemRepository.findByNameLike("%" + itemName + "%");
+		System.out.println(form.getName());
+//			Item item = itemRepository.findByNameLike("%" + itemName + "%");
+		Item item = itemRepository.findByNameLike("%" + form.getName() + "%");
 		ItemBean itemBean = new ItemBean();
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
 		BeanUtils.copyProperties(item, itemBean);
 		itemBean.setName(item.getName());
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBean);
-
 		return "/item/list/item_list";
+		
+
 	}
 
 	@RequestMapping("/item/list/findByItemPrice")
-	public String showItemListByPrice(int itemMinPrice, int itemMaxPrice, Model model) {
-
+//	public String showItemListByPrice(int itemMinPrice, int itemMaxPrice, Model model) {
+	public String showItemListByPrice(@Valid @ModelAttribute ItemPriceForm pform, BindingResult result, Model model) {
+		
+		if (result.hasErrors()) {
+			System.out.println("エラー");
+			return "/item/list/item_list";
+		}
+		
 		List<ItemBean> itemBeanList = new ArrayList<ItemBean>();
 		List<Item> item;
 
 		// 商品情報を全件検索(新着順)
 		List<Item> itemList = itemRepository.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
-		
-		for(Item i: itemList) {
-			if(itemMinPrice <= i.getPrice() && itemMaxPrice >= i.getPrice()) {
-				
+
+		for (Item i : itemList) {
+			if (pform.getItemMinPrice() <= i.getPrice() && pform.getItemMaxPrice() >= i.getPrice()) {
+
 				item = itemRepository.findAllByName(i.getName());
-				
+
 				/// エンティティ内の検索結果をJavaBeansにコピー
 				itemBeanList.addAll(BeanCopy.copyEntityToItemBean(item));
-			
+				
 			}
 		}
 		// 商品情報をViewへ渡す
@@ -188,7 +207,6 @@ public class ItemShowCustomerController {
 
 		return "/item/list/item_list";
 
-		
 	}
 	
 	//商品の値段別検索
