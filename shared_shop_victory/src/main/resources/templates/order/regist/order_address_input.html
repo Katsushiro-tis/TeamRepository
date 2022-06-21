@@ -7,7 +7,7 @@
 </head>
 <body>
 	<!--      ---------　届け先入力画面　---------      -->
-	<div>お届け先入力画面</div>
+	<h2 class="title">お届け先入力画面</h2>
 	
 	<div th:object="${addressForm}" class="err">
 		<p th:errors="*{postalCode}"></p>
@@ -22,12 +22,12 @@
 		氏名 <br><input type="text"name="name" th:value="${userDetail.name}"><br>
 		電話番号<br><input type="number"name="phoneNumber" th:value="${userDetail.phoneNumber}"><br>
 		<input type="hidden" name="backflg" value="false"/>		
-		<input type="submit" value="次へ"/>
+		<input type="submit" value="次へ" class="next"/>
 	</form>
 	
 	<form method="get" action="/shared_shop/basket/list">
 		<input type="hidden" name="backflg" value="true"/>
-		<input type="submit" value="戻る"/>
+		<input type="submit" value="戻る"class="back"/>
 	</form>
 	
 </body>

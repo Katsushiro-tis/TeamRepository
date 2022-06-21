@@ -576,6 +576,11 @@ select {
 .detail_table.pay {
 	margin-bottom: 50px;
 }
+.confirm{
+	position: relative; /* 今の位置を基準 */
+    left: 180px;
+    
+}
 
 /* ---- 買物カゴ ---- */
 .list_table.basket th:first-of-type {
@@ -682,4 +687,11 @@ p.link_center {
 /* ---- 買い物かご ---- */
 .err {
 	color: #FF0000;
+}
+
+.next{
+	background-color: #f0f8ff;
+}
+.back{
+	background-color: #c0c0c0;
 }

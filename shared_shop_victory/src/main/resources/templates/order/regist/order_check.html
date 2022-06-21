@@ -77,28 +77,26 @@
 			</tr>
 		</table>
 	</div>
-
-	<form method="post" action="/shared_shop/order/complete"
-		th:object="${register}">
-		<input type="hidden" name="postalCode" th:value="*{postalCode}" />
-		<input type="hidden" name="address" th:value="*{address}" /> 
-		<input type="hidden" name="name" th:value="*{name}" /> 
-		<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
-		<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
-		<input type="submit"value="ご注文の確定" />
-	</form>
-
-	<form method="post" action="/shared_shop/payment/input"
-		th:object="${register}">
-		<input type="hidden" name="backflg" value="true" /> 
-		<input type="hidden" name="postalCode" th:value="*{postalCode}" /> 
-		<input type="hidden" name="address" th:value="*{address}" /> 
-		<input type="hidden" name="name" th:value="*{name}" /> 
-		<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
-		<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
-		<input type="submit"value="戻る" />
-	</form>
-
-
+	<div class="confirm">
+		<form method="post" action="/shared_shop/order/complete"
+			th:object="${register}" class="oder_info">
+			<input type="hidden" name="postalCode" th:value="*{postalCode}" />
+			<input type="hidden" name="address" th:value="*{address}" /> 
+			<input type="hidden" name="name" th:value="*{name}" /> 
+			<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
+			<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
+			<input type="submit"value="ご注文の確定"class="next" />
+		</form>
+		<form method="post" action="/shared_shop/payment/input"
+			th:object="${register}">
+			<input type="hidden" name="backflg" value="true" /> 
+			<input type="hidden" name="postalCode" th:value="*{postalCode}" /> 
+			<input type="hidden" name="address" th:value="*{address}" /> 
+			<input type="hidden" name="name" th:value="*{name}" /> 
+			<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
+			<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
+			<input type="submit"value="戻る" class="back"/>
+		</form>
+	</div>
 </body>
 </html>
