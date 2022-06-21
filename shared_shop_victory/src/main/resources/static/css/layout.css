@@ -352,3 +352,7 @@ small {
 	text-shadow: 1px 1px 1px #fff;
 	font-size: 8pt;
 }
+
+.store td{
+	text-align:center;
+}

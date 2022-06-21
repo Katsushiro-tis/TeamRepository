@@ -42,8 +42,8 @@ public class FavoriteController {
 	@Autowired
 	HttpSession session;
 	
-	@GetMapping("/favorite/add")
-	public String addFavoriteList(Model model, FavoriteForm form) {
+	@PostMapping("/favorite/add")
+	public String addFavoriteList(Model model,FavoriteForm form) {
 
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
@@ -88,6 +88,7 @@ public class FavoriteController {
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
+
 		model.addAttribute("items", itemBeanList3);
 		return "/favorite/item_favorite";
 	}
