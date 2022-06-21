@@ -49,7 +49,7 @@
 					<input type="submit" value="戻る" class="back_button" />
 				</form>
 
-				<form action="/shared_shop/favorite/add">
+				<form action="/shared_shop/favorite/add" method="post">
 					<input type="hidden" name="id" th:value="${item.id}" /> <input
 						type="hidden" name="name" th:value="${item.name}" /> <input
 						type="submit" value="お気に入り" class="send_button" />
