@@ -42,8 +42,8 @@
 				<!-- 価格検索 -->
 				<form method="post" th:action="@{/item/list/findByItemPrice}"
 					style="color: white;">
-					<span>価格</span> <input type="number" name=itemMinPrice>円〜 <input
-						type="number" name=itemMaxPrice style="margin-left: 18px;">円<br>
+					<span>価格</span> <input type="number" name=itemMinPrice min="0">円〜 <input
+						type="number" name=itemMaxPrice min="0" style="margin-left: 18px;">円<br>
 					<button type="submit" class="heart-button">価格検索</button>
 				</form>
 
