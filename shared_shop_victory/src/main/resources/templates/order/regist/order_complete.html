@@ -3,13 +3,12 @@
 		th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>注文登録完了画面</title>
 </head>
 <body>
 	<!--           ---------　注文登録完了画面 ---------          -->
-	<div>注文登録完了画面</div>
-	
-	<div>ご注文ありがとうございます。<br>注文手続きが完了しました。</div>
+	<div th:if="${isComplete == null}">エラーが発生しました。</div>
+	<div th:if="${isComplete == true}">ご注文ありがとうございます。<br>注文手続きが完了しました。</div>
 	
 	<a href="/shared_shop">トップ画面へ</a>
 </body>
