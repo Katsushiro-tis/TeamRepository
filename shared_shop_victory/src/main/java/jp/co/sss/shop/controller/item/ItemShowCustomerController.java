@@ -149,17 +149,20 @@ public class ItemShowCustomerController {
 	@RequestMapping("/item/list/findByItemName")
 //	public String showItemListByName(String itemName, Model model) {
 	public String showItemListByName(@Valid @ModelAttribute ItemForm form, BindingResult result, Model model) {
-
+		
 		/* Item item = itemRepository.findByName(itemName); */
 		System.out.println(form.getName());
-//			Item item = itemRepository.findByNameLike("%" + itemName + "%");
+		//Item item = itemRepository.findByNameLike("%" + itemName + "%");
 		Item item = itemRepository.findByNameLike("%" + form.getName() + "%");
+		
 		ItemBean itemBean = new ItemBean();
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
 		BeanUtils.copyProperties(item, itemBean);
 		itemBean.setName(item.getName());
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBean);
+		
+		
 		return "/item/list/item_list";
 		
 
