@@ -11,10 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
@@ -22,7 +22,6 @@ import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemForm;
 import jp.co.sss.shop.form.ItemPriceForm;
 import jp.co.sss.shop.repository.CategoryRepository;
-import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.util.BeanCopy;
@@ -43,21 +42,16 @@ public class ItemShowCustomerController {
 	ItemRepository itemRepository;
 	@Autowired
 	CategoryRepository categoryRepository;
-
-//	@Autowired
-//	OrderItemRepository orderItemRepository;
-	@Autowired
-	FavoriteRepository favoriteRepository;
 	@Autowired
 	UserRepository userRepository;
-
+	
 	/**
 	 * トップ画面 表示処理
 	 *
 	 * @param model Viewとの値受渡し
 	 * @return "/" トップ画面へ
 	 */
-	@RequestMapping(path = "/")
+	@GetMapping("/")
 	public String index(Model model, Pageable pageable) {
 
 		// 商品情報を全件検索(新着順)
@@ -101,9 +95,8 @@ public class ItemShowCustomerController {
 		model.addAttribute("item", itemBean);
 		return "item/detail/item_detail";
 	}
-
 	
-	@RequestMapping(path = "/item/list/category/{sortType}", method = RequestMethod.GET)
+	@GetMapping("/item/list/category/{sortType}")
 	public String showCategoryList(int categoryId, Model model) {
 
 		Category category = new Category();
@@ -119,8 +112,8 @@ public class ItemShowCustomerController {
 
 		return "/item/list/item_list";
 	}
-
-	@RequestMapping(path = "/item/list/{sortType}", method = RequestMethod.GET)
+	
+	@GetMapping("/item/list/{sortType}")
 	public String showNewerList(Model model, @PathVariable int sortType) {
 
 		List<ItemBean> itemBeanList;

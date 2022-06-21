@@ -3,7 +3,7 @@
 	th:replace="~{common/layout_6block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
-<title>お気に入り｜シェアードショップ</title>
+<title>お気に入り一覧 | シェアードショップ</title>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
 </head>
@@ -47,7 +47,6 @@
 						th:src="@{/img/common/no_image.jpg}"></img>
 				</span></td>
 				<td th:text="${item.name}"></td>
-				<!-- <td th:text="${item.user.name}"></td> -->
 				<td th:text="${item.item.price}"></td>
 				<td th:text="${item.item.category.name}"></td>
 				<td><form th:action="@{/favorite/delete}" method="post">

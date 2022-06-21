@@ -3,7 +3,7 @@ package jp.co.sss.shop.controller.login;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * ログアウト機能のコントローラクラス
@@ -19,10 +19,11 @@ public class LogoutController {
 	 * @param session セッション情報
 	 * @return "/" トップ画面へ
 	 */
-	@RequestMapping(path = "/logout")
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		// セッション情報を無効にする
 		session.invalidate();
+		
 		return "redirect:/";
 	}
 }

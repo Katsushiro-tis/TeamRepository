@@ -15,21 +15,112 @@
 	<!--       ---------　支払方法選択画面　 ---------     -->
 	<h2 class="title">お支払い方法選択</h2>
 	<form method="post"action="/shared_shop/order/check">	
-		<input type="radio" name="payMethod" th:text="クレジットカード" value="1"checked><br>
-		<input type="radio" name="payMethod" th:text="銀行振り込み"th:value="2"><br>
-		<input type="radio" name="payMethod" th:text="着払い"th:value="3"><br>
-		<input type="radio" name="payMethod" th:text="電子マネー"th:value="4"><br>
-		<input type="radio" name="payMethod" th:text="コンビニ決済"th:value="5"><br>
+		<input type="radio" name="payMethod" th:text="クレジットカード" value="1" onchange="formSwitch()"><br>
+		<input type="radio" name="payMethod" th:text="銀行振り込み"th:value="2" onchange="formSwitch()" checked><br>
+		<input type="radio" name="payMethod" th:text="着払い"th:value="3" onchange="formSwitch()"><br>
+		<input type="radio" name="payMethod" th:text="電子マネー"th:value="4" onchange="formSwitch()"><br>
+		<input type="radio" name="payMethod" th:text="コンビニ決済"th:value="5" onchange="formSwitch()"><br>
 		<input type="hidden" name="postalCode" th:value="${userDetail.postalCode}" />
 		<input type="hidden" name="address" th:value="${userDetail.address}" />
 		<input type="hidden" name="phoneNumber" th:value="${userDetail.phoneNumber}" />
 		<input type="hidden" name="name" th:value="${userDetail.name}" />
 		<input type="hidden" name="backflg" value="false"/>
+		
+		
+		<!-- <script src="../js/pay.js"></script> -->
+		
+		<div id="creditMenu">
+			<!-- <th:block th:with="a=1">
+				<th:block th:if="${a == 1}">
+				<br>
+				<hr>
+				<br>
+		        	<table class="store">
+					<tr>
+						<th colspan="2">カード情報入力</th>
+					</tr>
+					<tr>
+						<td>カード番号</td>
+						<td>
+									<input type="number" name="cardNumber" maxlength="16" size="16" required="required">
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td>有効期限</td>
+						<td><input type="number" name="cardMonth" min="1" max="12" style="width:30px;" required="required">月
+						    <input type="number" name="cardYear" min="2022" max="2100" style="width:50px;"  required="required">年</td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td>暗証番号</td>
+						<td><input type="password" name="password" maxlength="4" size="1"  required="required"></td>
+					</tr>
+				 </table>
+				</th:block>
+			</th:block> -->
+	    </div>
+	    <div id="bankMenu">
+	    	<th:block th:with="b=2">
+	    	</th:block>
+	    </div>
+	    <div id="tyakuMenu">
+	    	<th:block th:with="b=2">
+	    	</th:block>
+	    </div>
+	    <div id="elementMenu">
+	    	<th:block th:with="b=2">
+	    	</th:block>
+	    	<br>
+			<hr>
+			<br>
+	        <table class="store">
+				<tr>
+					<th colspan="2">お支払する電子マネーを選択してください</th>
+				</tr>
+				<tr>
+					<td><input type="radio" name="element" th:text="boarcard" value="1" checked></td>
+					<td><img th:src="@{/img/boar.png}" width="100" height="100"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="element" th:text="RIZA"th:value="2"></td>
+					<td><img th:src="@{/img/rizard.png}" width="100" height="100"/></td>
+				</tr>
+		 	</table>
+	    </div>
+	    <div id="storeMenu">
+	    	<th:block th:with="b=2">
+	    	</th:block>
+	    	<br>
+			<hr>
+			<br>
+		    <table class="store">
+				<tr>
+					<th colspan="2">お支払店舗</th>
+				</tr>
+				<tr>
+					<td><input type="radio" name="store" th:text="ika-ra" value="1" checked></td>
+					<td><img th:src="@{/img/geso.png}" width="100" height="100"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="store" th:text="古代店ケファラ" th:value="2"></td>
+					<td><img th:src="@{/img/old.png}" width="100" height="100"/></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="store" th:text="カープC" th:value="3"></td>
+					<td><img th:src="@{/img/fish.png}" width="100" height="100"/></td>
+				</tr>
+			 </table>
+		</div>
 
 		<input type="submit" value="次へ"/>
 	</form>
-	
-	<form method="post" action="/shared_shop/address/input">
+   
+    <form method="post" action="/shared_shop/address/input">
 		<input type="hidden" name="backflg" value="true"/>
 		<input type="hidden" name="postalCode" th:value="${userDetail.postalCode}" />
 		<input type="hidden" name="address" th:value="${userDetail.address}" />
@@ -37,5 +128,6 @@
 		<input type="hidden" name="name" th:value="${userDetail.name}" />
 		<input type="submit" value="戻る"/>
 	</form>
+	<script type="text/javascript" th:src="@{/js/pay.js}"></script>
 </body>
 </html>

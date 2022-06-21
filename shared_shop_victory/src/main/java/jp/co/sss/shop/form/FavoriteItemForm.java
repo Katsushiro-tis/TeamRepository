@@ -12,7 +12,7 @@ public class FavoriteItemForm {
 	 */
 	private String id;
 	/**
-	 * username
+	 * ユーザー名
 	 */
 	private String name;
 

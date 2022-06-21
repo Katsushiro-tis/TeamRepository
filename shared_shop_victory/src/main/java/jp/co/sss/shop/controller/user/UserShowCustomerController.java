@@ -19,7 +19,7 @@ import jp.co.sss.shop.util.MailSend;
  * @author SystemShared
  */
 @Controller
-public class UserShowCustomerControlle {
+public class UserShowCustomerController {
 
 	@Autowired
 	UserRepository userRepository;
@@ -27,8 +27,12 @@ public class UserShowCustomerControlle {
 	@Autowired
 	MailSend sender;
 	
-	@GetMapping("/user/detail")		//会員詳細画面用
-	public String userShowCustomer(Model model, HttpSession session) {
+	@Autowired
+	HttpSession session;
+	
+	//会員詳細画面用
+	@GetMapping("/user/detail")		
+	public String userShowCustomer(Model model) {
 		// 表示対象の会員情報を取得
 		UserBean sessionUser = (UserBean) session.getAttribute("user") ;
 		User user = userRepository.getById(sessionUser.getId());

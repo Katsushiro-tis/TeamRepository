@@ -13,8 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.OrderBean;
@@ -56,8 +55,7 @@ public class OrderRegistCustomerController {
 	OrderSaveService orderSaveService;
 
 	// 届け先入力画面へ
-	@RequestMapping(path = "/address/input", method = RequestMethod.POST)
-
+	@PostMapping("address/input")
 	public String inputAddress(@ModelAttribute AddressForm addressForm, HttpSession session, Model model,
 			boolean backflg) {
 
@@ -90,7 +88,7 @@ public class OrderRegistCustomerController {
 	}
 
 	// 支払い方法選択画面へ
-	@RequestMapping(path = "/payment/input", method = RequestMethod.POST)
+	@PostMapping("/payment/input")
 	public String inputPayment(@Valid @ModelAttribute AddressForm addressForm, BindingResult result, Model model,
 			boolean backflg) {
 
@@ -111,8 +109,8 @@ public class OrderRegistCustomerController {
 	}
 
 	// 注文登録確認画面
-	@RequestMapping(path = "/order/check", method = RequestMethod.POST)
-	public String checkOrder(OrderBean orderBean, HttpSession session, Model model) {
+	@PostMapping("/order/check")
+	public String checkOrder(@ModelAttribute OrderBean orderBean, HttpSession session, Model model) {
 
 		// 注文商品情報用リスト
 		ArrayList<OrderItemBean> orderItemList = new ArrayList<OrderItemBean>();
@@ -181,8 +179,8 @@ public class OrderRegistCustomerController {
 	}
 
 	// 注文登録完了画面
-	@RequestMapping(path = "/order/complete")
-	public String completeOrder(Order order, HttpSession session) {
+	@PostMapping("/order/complete")
+	public String completeOrder(AddressForm addressForm, Order order, HttpSession session) {
 
 		// ユーザ情報を取得し、 userBeanに入れる
 		UserBean userBean = (UserBean) session.getAttribute("user");
