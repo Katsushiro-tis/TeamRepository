@@ -18,22 +18,12 @@
 
 		
 		<form method="post" th:action="@{/payment/input}" class="order_form">
-			<div>
-			郵便番号 <br>
-			<input type="number" name="postalCode"
-				th:value="${userDetail.postalCode}" ><br> 住所 <br>
-			<textarea name="address" cols="30" rows="5"
-				th:text="${userDetail.address}"> </textarea>
-			<br> 氏名 <br>
-			<input type="text" name="name" th:value="${userDetail.name}"><br>
-			電話番号<br>
-			<input type="number" name="phoneNumber"
-				th:value="${userDetail.phoneNumber}" style="margin-bottom:20px"><br> <input
-				type="hidden" name="backflg" value="false" /> 
-				</div>
-				<input type="submit"
-				value="次へ" />
-				
+			郵便番号 <br><input type="number" name="postalCode" th:value="${userDetail.postalCode}" ><br> 
+			住所 <br><textarea name="address" cols="30" rows="5" th:text="${userDetail.address}"> </textarea><br>
+			氏名 <br><input type="text" name="name" th:value="${userDetail.name}"><br>
+			電話番号<br><input type="number" name="phoneNumber" th:value="${userDetail.phoneNumber}" style="margin-bottom:20px"><br>
+			<input type="hidden" name="backflg" value="false" /> 
+				<input type="submit" value="次へ" />
 		</form>
 
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                                                                                                                                                          <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{common/layout_4block :: layout(~{::title},~{::body/content()})}">
 <head>
@@ -28,7 +28,7 @@
 		<tr th:each="item: ${items}">
 			<td th:text="${item.id}"></td>
 			<td><a th:href="@{/item/detail/admin/{id}(id=${item.id})}"
-				th:text="${item.name}"></a></td>
+				th:text="${item.name}"></a></td>                                                                                                                                                          
 			<td th:text="${item.price}"></td>
 			<td th:text="${item.categoryName}"></td>
 		</tr>

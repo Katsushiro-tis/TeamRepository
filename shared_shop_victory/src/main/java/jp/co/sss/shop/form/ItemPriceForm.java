@@ -21,14 +21,17 @@ public class ItemPriceForm {
 	public void setItemMinPrice(int itemMinPrice) {
 		this.itemMinPrice = itemMinPrice;
 	}
+	
+	@NotNull
+	private int itemMaxPrice;
+	
 	public int getItemMaxPrice() {
 		return itemMaxPrice;
 	}
 	public void setItemMaxPrice(int itemMaxPrice) {
 		this.itemMaxPrice = itemMaxPrice;
 	}
-	@NotNull
-	private int itemMaxPrice;
+	
 
 
 }

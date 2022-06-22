@@ -20,5 +20,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
 	// カテゴリ情報を登録日付順に取得
 	List<Category> findByDeleteFlagOrderByInsertDateDescIdAsc(int deleteFlag);
+	
 
 }
