@@ -16,11 +16,9 @@
 				<!-- キーワード検索 -->
 				<form method="post" th:action="@{/item/list/findByItemName}">
 					<!-- <input type="text" name="itemName" />	 -->
-					<input type="text" th:name="name" />
-				
-					 <input type="submit"
+					<input type="text" th:name="name" /> <input type="submit"
 						value="キーワード検索" class="heart-button" />
-				
+
 				</form>
 				<!-- 商品一覧画面以外で表示 -->
 				<form th:if="${sortType == null}"
@@ -39,17 +37,42 @@
 					</select> <input type="submit" value="カテゴリー検索" class="heart-button" />
 				</form>
 
-				<!-- 価格検索 -->
-				<form method="post" th:action="@{/item/list/findByItemPrice}"
-					style="color: white;">
-					<span>価格</span> <input type="number" name=itemMinPrice min="0">円〜 <input
-						type="number" name=itemMaxPrice min="0" style="margin-left: 18px;">円<br>
-					<button type="submit" class="heart-button">価格検索</button>
-				</form>
+				<div class="price_contents">
+					<!-- 価格検索 -->
+					<form method="post" th:action="@{/item/list/findByItemPrice}"
+						style="color: white;">
+						<div class="price_inner">
+							<input type="number" name=itemMinPrice min="0">円〜 <input
+								type="number" name=itemMaxPrice min="0">円
+							<button type="submit" class="heart-button">詳細価格検索</button>
+						</div>
+					</form>
+
+					<!--/* 金額別検索メニュー(一般会員用) */-->
+					<form method="get" th:action="@{/item/list/pricearray}">
+						<div class="price_inner">
+							<select name="pricearray">
+								<option th:value="1">0円～1000円</option>
+								<option th:value="2">1001円～2000円</option>
+								<option th:value="3">2001円～3000円</option>
+								<option th:value="4">3001円～4000円</option>
+								<option th:value="5">4001円～5000円</option>
+								<option th:value="6">5001円～6000円</option>
+								<option th:value="7">6001円～7000円</option>
+								<option th:value="8">7001円～8000円</option>
+								<option th:value="9">8001円～9000円</option>
+								<option th:value="10">9001円～10000円～</option>
+							</select>
+							<button type="submit" class="heart-button">価格帯検索</button>
+						</div>
+					</form>
+				</div>
+
 
 			</div>
 
 		</div>
+
 
 
 

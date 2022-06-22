@@ -19,19 +19,21 @@
 	</div>
 
 	<!-- 	<div class="sorted_by">
-		<div th:if="${sort == 1}">
+
 			<a th:href="@{/item/list/2}"> 売れ筋順 </a>
-		</div>
-		<div th:if="${sort == 2}">
-			<a th:href="@{/item/list/1}"> 新着順 </a>
-		</div>
+	
+			<a th:href="@{/item/list/1}"> /新着順 </a>
+		
+			<a th:href="@{/item/list/3}"> /安い順 </a>
+		
+			<a th:href="@{/item/list/4}"> /高い順 </a>
+		
 	</div> -->
 
 	<div th:if="${#lists.isEmpty(items)}">
 		<p th:text="#{itemListAdmin.none}"></p>
 	</div>
 	
-
 
 	<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
 		<tr>

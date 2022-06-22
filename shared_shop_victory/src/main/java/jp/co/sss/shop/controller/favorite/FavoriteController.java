@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.FavoriteBean;
 import jp.co.sss.shop.bean.UserBean;
+import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
@@ -21,6 +22,7 @@ import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.util.BeanCopy;
+import jp.co.sss.shop.util.Constant;
 
 /**
  * 商品管理 一覧表示機能(一般会員用)のコントローラクラス
@@ -41,6 +43,7 @@ public class FavoriteController {
 	UserRepository userRepository;
 	@Autowired
 	HttpSession session;
+	
 	
 	@PostMapping("/favorite/add")
 	public String addFavoriteList(Model model,FavoriteForm form) {
@@ -69,7 +72,7 @@ public class FavoriteController {
 			 
 		}
 		favoriteRepository.save(favorite);
-		
+	
 		return "redirect:/favorite/list";
 	}
 
@@ -91,7 +94,16 @@ public class FavoriteController {
 			System.out.println(f.getName());
 		}
 		
+		// カテゴリ情報を取得する
+		List<Category> categoryList = categoryRepository
+		        .findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+
+		// カテゴリ情報をViewへ渡す
+		model.addAttribute("categories", categoryList);
+		
 		model.addAttribute("items", itemBeanList3);
-		return "favorite/item_favorite";
+		
+
+		return "/favorite/item_favorite";
 	}
 }
