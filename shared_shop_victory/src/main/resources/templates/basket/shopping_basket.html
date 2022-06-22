@@ -10,7 +10,7 @@
 <body>
 	<!-- 　　　　---------買い物かご画面-------　　　　　　　　-->
 
-<h2 class="title">買い物かご</h2>
+<h1 class="order_title">買い物かご</h1>
 
 	<p th:if="${#lists.isEmpty(session.basket)}"
 		th:text="#{basketList.none}"></p>
@@ -47,7 +47,7 @@
 			</tr>
 		</table>
 
-	<div class="user_info_form_area ">
+	<div class="user_info_form_area" style="display:inline-flex">
 		<form method="post" th:action="@{/address/input}">
 			<input type="hidden" name="backflg" value="false"/> 
 			<input type="submit" value="ご注文の手続き"/>
@@ -59,10 +59,5 @@
 	
 	</div>
 
-	
-	<!-- </div>
-		<form th:action="@{/basket/test}" method="post">
-		<input type="submit" value="テスト用商品追加ボタン"></input>
-	</form>	 -->
 </body>
 </html>
