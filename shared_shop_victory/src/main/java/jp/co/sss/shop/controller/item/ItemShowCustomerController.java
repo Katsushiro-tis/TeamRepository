@@ -49,7 +49,7 @@ public class ItemShowCustomerController {
 	 * トップ画面 表示処理
 	 *
 	 * @param model Viewとの値受渡し
-	 * @return "/" トップ画面へ
+	 * @return "" トップ画面へ
 	 */
 	@GetMapping("/")
 	public String index(Model model, Pageable pageable) {
@@ -110,7 +110,7 @@ public class ItemShowCustomerController {
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
 
-		return "/item/list/item_list";
+		return "item/list/item_list";
 	}
 	
 	@GetMapping("/item/list/{sortType}")
@@ -143,7 +143,7 @@ public class ItemShowCustomerController {
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
 		model.addAttribute("url", "/item/list/");
-		return "/item/list/item_list";
+		return "item/list/item_list";
 	}
 
 	@RequestMapping("/item/list/findByItemName")
@@ -160,7 +160,7 @@ public class ItemShowCustomerController {
 		itemBean.setName(item.getName());
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBean);
-		return "/item/list/item_list";
+		return "item/list/item_list";
 		
 
 	}
@@ -171,7 +171,7 @@ public class ItemShowCustomerController {
 		
 		if (result.hasErrors()) {
 			System.out.println("エラー");
-			return "/item/list/item_list";
+			return "item/list/item_list";
 		}
 		
 		List<ItemBean> itemBeanList = new ArrayList<ItemBean>();
@@ -193,7 +193,7 @@ public class ItemShowCustomerController {
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
 
-		return "/item/list/item_list";
+		return "item/list/item_list";
 
 	}
 

@@ -61,7 +61,7 @@ public class UserShowAdminController {
 	 * @param model Viewとの値受渡し
 	 * @param form 会員情報フォーム
 	 * @param session セッション情報
-	 * @return "/user/detail/user_detail_admin" 会員詳細表示画面へ
+	 * @return "user/detail/user_detail_admin" 会員詳細表示画面へ
 	 */
 	@RequestMapping(path = "/user/detail/admin/{id}")
 	public String showUser(@PathVariable int id, Model model, @ModelAttribute UserForm form, HttpSession session) {

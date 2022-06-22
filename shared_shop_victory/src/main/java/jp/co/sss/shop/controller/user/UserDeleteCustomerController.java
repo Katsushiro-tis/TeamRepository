@@ -111,6 +111,6 @@ public class UserDeleteCustomerController {
 	
 	@GetMapping("/user/delete/complete")
 	public String userDeleteComplete() {
-		return "/user/delete/user_delete_complete";
+		return "user/delete/user_delete_complete";
 	}
 }

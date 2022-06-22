@@ -85,13 +85,13 @@ public class BasketCustomerController {
 	// 買い物かご画面(ナビゲーションバーから遷移)
 	@GetMapping("/basket/list")
 	public String basketListGet() {
-		return "/basket/shopping_basket";
+		return "basket/shopping_basket";
 	}
 
 	// 買い物かご画面(各種ボタンから遷移)
 	@PostMapping("/basket/list")
 	public String basketList() {
-		return "/basket/shopping_basket";
+		return "basket/shopping_basket";
 	}
 
 	// 商品削除（個別）

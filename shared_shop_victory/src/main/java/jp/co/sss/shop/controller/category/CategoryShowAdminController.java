@@ -57,7 +57,7 @@ public class CategoryShowAdminController {
 	 *
 	 * @param model Viewとの値受渡し
 	 * @param form カテゴリ情報
-	 * @return "/category/detail/category_detail" カテゴリ情報 詳細画面へ
+	 * @return "category/detail/category_detail" カテゴリ情報 詳細画面へ
 	 */
 	@RequestMapping(path = "/category/detail/{id}")
 	public String showCategory(@PathVariable int id, Model model, @ModelAttribute CategoryForm form) {
