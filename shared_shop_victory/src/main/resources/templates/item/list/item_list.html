@@ -18,18 +18,6 @@
 		</select>
 	</div>
 
-	<!-- 	<div class="sorted_by">
-
-			<a th:href="@{/item/list/2}"> 売れ筋順 </a>
-	
-			<a th:href="@{/item/list/1}"> /新着順 </a>
-		
-			<a th:href="@{/item/list/3}"> /安い順 </a>
-		
-			<a th:href="@{/item/list/4}"> /高い順 </a>
-		
-	</div> -->
-
 	<div th:if="${#lists.isEmpty(items)}">
 		<p th:text="#{itemListAdmin.none}"></p>
 	</div>
@@ -62,9 +50,5 @@
 	<div id="page_top">
 		<a href="#"></a>
 	</div>
-
-
-
-
 </body>
 </html>
