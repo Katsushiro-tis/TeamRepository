@@ -10,16 +10,20 @@
 		<!--/* 検索メニュー(一般会員用) */-->
 		<div class="search_area"
 			th:if="${session.user == null or session.user.authority == 2}">
-			<!-- <h2 class="title">カテゴリ別検索</h2> -->
 			<h1 class="side_title">What do you want?</h1>
 			<div class="form">
+			
+			
 				<!-- キーワード検索 -->
-				<form method="post" th:action="@{/item/list/findByItemName}">
-					<!-- <input type="text" name="itemName" />	 -->
+				<form method="post" th:action="@{/item/list/findByItemName}" >
+						
 					<input type="text" th:name="name" /> <input type="submit"
 						value="キーワード検索" class="heart-button" />
-
 				</form>
+		
+				 
+					
+				<!-- カテゴリ検索 -->
 				<!-- 商品一覧画面以外で表示 -->
 				<form th:if="${sortType == null}"
 					th:action="@{/item/list/category/1}">
@@ -37,6 +41,7 @@
 					</select> <input type="submit" value="カテゴリー検索" class="heart-button" />
 				</form>
 
+				<!-- 価格検索 -->
 				<div class="price_contents">
 					<!-- 価格検索 -->
 					<form method="post" th:action="@{/item/list/findByItemPrice}"
@@ -48,7 +53,7 @@
 						</div>
 					</form>
 
-					<!--/* 金額別検索メニュー(一般会員用) */-->
+					<!--/* 金額別検索) */-->
 					<form method="get" th:action="@{/item/list/pricearray}">
 						<div class="price_inner">
 							<select name="pricearray">

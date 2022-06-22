@@ -8,7 +8,7 @@
 <body>
 
 	<!--    　 ---------　注文登録確認画面　---------　　　　 -->
-	<h2 class="title">注文内容最終確認</h2>
+	<h1 class="order_title">注文内容最終確認</h1>
 	<br>
 
 	<div>
@@ -41,7 +41,6 @@
 		</tr>
 
 	</table>
-	<div class="user_info_form_area">
 
 		<table class="detail_table address" th:object="${register}">
 			<caption class="table_caption">お届け先</caption>
@@ -76,10 +75,10 @@
 				</td>
 			</tr>
 		</table>
-	</div>
-
-	<form method="post" action="/shared_shop/order/complete"
-		th:object="${register}" th:if="${total != 0}">
+		
+		<div class="user_info_form_area">
+		<form method="post" action="/shared_shop/order/complete"
+		th:object="${register}" th:if="${total != 0}" class="order_form">
 		<input type="hidden" name="postalCode" th:value="*{postalCode}" />
 		<input type="hidden" name="address" th:value="*{address}" /> 
 		<input type="hidden" name="name" th:value="*{name}" /> 
@@ -89,16 +88,17 @@
 	</form>
 
 	<form method="post" action="/shared_shop/payment/input"
-		th:object="${register}">
+		th:object="${register}" class="order_form">
 		<input type="hidden" name="backflg" value="true" /> 
 		<input type="hidden" name="postalCode" th:value="*{postalCode}" /> 
 		<input type="hidden" name="address" th:value="*{address}" /> 
 		<input type="hidden" name="name" th:value="*{name}" /> 
 		<input type="hidden"name="phoneNumber" th:value="*{phoneNumber}" /> 
 		<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
-		<input type="submit"value="戻る" />
+		<input type="submit"value="戻る" class="back_button" />
 	</form>
-
+	</div>
+	
 
 </body>
 </html>
