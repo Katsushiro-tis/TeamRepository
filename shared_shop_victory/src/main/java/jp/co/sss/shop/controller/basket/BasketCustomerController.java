@@ -33,13 +33,13 @@ public class BasketCustomerController {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	HttpSession session;
 
 	// 商品追加処理
 	@PostMapping("/basket/add")
-	public String addItem(int id,  Model model) {
+	public String addItem(int id, Model model) {
 		// sessionに買い物かご情報があるか確認。なければ作成
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
@@ -85,13 +85,13 @@ public class BasketCustomerController {
 	// 買い物かご画面(ナビゲーションバーから遷移)
 	@GetMapping("/basket/list")
 	public String basketListGet() {
-		return "/basket/shopping_basket";
+		return "basket/shopping_basket";
 	}
 
 	// 買い物かご画面(各種ボタンから遷移)
 	@PostMapping("/basket/list")
 	public String basketList() {
-		return "/basket/shopping_basket";
+		return "basket/shopping_basket";
 	}
 
 	// 商品削除（個別）
