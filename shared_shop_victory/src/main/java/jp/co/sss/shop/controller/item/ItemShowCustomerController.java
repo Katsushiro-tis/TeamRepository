@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
@@ -134,7 +135,7 @@ public class ItemShowCustomerController {
 	}
 
 //キーワード検索	
-	@GetMapping(path = "/item/list/findByItemName")
+	@PostMapping(path = "/item/list/findByItemName")
 	//public String showItemListByName(@Valid @ModelAttribute ItemForm form, BindingResult result, Model model) {
 		public String showItemListByName(@Valid @ModelAttribute LikeForm likeform, BindingResult result, Model model) {
 		
