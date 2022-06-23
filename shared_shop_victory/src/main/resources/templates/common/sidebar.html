@@ -15,7 +15,7 @@
 			
 			
 				<!-- キーワード検索 -->
-				<form method="get" th:action="@{/item/list/findByItemName}" >
+				<form method="post" th:action="@{/item/list/findByItemName}" >
 						
 					<input type="text" th:name="name" /> <input type="submit"
 						value="キーワード検索" class="heart-button" />
@@ -25,7 +25,7 @@
 					
 				<!-- カテゴリ検索 -->
 				<!-- 商品一覧画面以外で表示 -->
-				<form method="get" th:if="${sortType == null}"
+				<form th:if="${sortType == null}"
 					th:action="@{/item/list/category/1}">
 					<select name="categoryId">
 						<option th:each="category: ${categories}"
