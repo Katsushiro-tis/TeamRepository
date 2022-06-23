@@ -48,7 +48,7 @@ public class ItemShowCustomerController {
 	 * トップ画面 表示処理
 	 *
 	 * @param model Viewとの値受渡し
-	 * @return "/" トップ画面へ
+	 * @return "" トップ画面へ
 	 */
 	@GetMapping("/")
 	public String index(Model model, Pageable pageable) {

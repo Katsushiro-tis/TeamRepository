@@ -98,7 +98,7 @@ public class OrderShowAdminController {
 	 *            表示用注文情報
 	 * @param session
 	 *            セッション情報
-	 * @return "/order/detail/order_detail_admin" 注文情報 詳細画面へ
+	 * @return "order/detail/order_detail_admin" 注文情報 詳細画面へ
 	 */
 	@RequestMapping(path = "/order/detail/admin/{id}")
 	public String showOrder(@PathVariable int id, Model model, @ModelAttribute OrderShowForm form) {

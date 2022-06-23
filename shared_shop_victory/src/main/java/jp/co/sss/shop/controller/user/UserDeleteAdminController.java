@@ -91,7 +91,7 @@ public class UserDeleteAdminController {
 	 *
 	 * @param model Viewとの値受渡し
 	 * @param form  会員情報フォーム
-	 * @return "/user/detail/admin/{id}" 会員情報 詳細画面へ
+	 * @return "user/detail/admin/{id}" 会員情報 詳細画面へ
 	 */
 	@RequestMapping(path = "/user/delete/check/admin", method = RequestMethod.GET)
 	public String deleteBack(Model model, @ModelAttribute UserForm form) {
