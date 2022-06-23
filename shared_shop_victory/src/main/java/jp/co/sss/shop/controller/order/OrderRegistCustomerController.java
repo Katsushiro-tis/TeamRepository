@@ -244,7 +244,7 @@ public class OrderRegistCustomerController {
 		session.removeAttribute("orderItemList");
 		session.removeAttribute("basket");
 
-		model.addAttribute("isCompete", true);
+		model.addAttribute("isComplete", true);
 		return "order/regist/order_complete";
 
 	}

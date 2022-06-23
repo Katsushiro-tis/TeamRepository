@@ -779,6 +779,32 @@ select {
 
 /* ---- 商品一覧(運用管理者向け) ---- */
 
+/* ----注文情報画面 ---- */
+.order_title{
+	background-color:black;
+	color:white;
+	text-align:center;
+}
+
+.address_title{
+	background-color:black;
+	color:white;
+	text-align:center;
+}
+
+.input_list{
+	margin-bottom:20px;
+}
+
+.address_form{
+	width:250px;
+	margin:0px;
+}
+.order_form{
+	width:50%;
+	display:inline;
+}
+
 /* ---- 支払い方法入力 ---- */
 .container #checkButton {
 	margin: 10px 0;
