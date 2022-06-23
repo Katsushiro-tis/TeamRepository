@@ -153,7 +153,7 @@ public class ItemShowCustomerController {
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBean);
 	
-		return "/item/list/item_list";
+		return "item/list/item_list";
 
 	}
 	
