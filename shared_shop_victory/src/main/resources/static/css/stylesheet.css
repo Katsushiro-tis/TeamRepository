@@ -559,7 +559,7 @@ select {
  * またlinear-gradientが解釈できないブラウザのために背景色を設定しています。
  * このような、誰にでも同様のデザインを届ける考え方を『プログレッシブエンハンスメント』と言います。
  */
-[type=submit].add {
+[type=submit].delete {
 	background: #d44444;
 	background-image: -webkit-linear-gradient(top, #d44444, #9e1818);
 	background-image: -moz-linear-gradient(top, #d44444, #9e1818);
@@ -570,7 +570,7 @@ select {
 	text-shadow: 1px 1px 1px #616161;
 }
 
-[type=submit].delete {
+[type=submit].add {
 	background: #4169e1;
 	background-image: -webkit-linear-gradient(top, #4169e1, #0000cd);
 	background-image: -moz-linear-gradient(top, #4169e1, #0000cd);
