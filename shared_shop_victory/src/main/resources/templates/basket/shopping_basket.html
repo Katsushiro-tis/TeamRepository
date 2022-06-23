@@ -41,7 +41,7 @@
 				</td>
 				<td>
 					<p th:if="${item.stock == 0}"th:text="在庫なし"></p>
-					<p th:if="${item.stock < 5}" th:text="${item.stock}"></p>
+					<p th:if="${item.stock <= 5}" th:text="${item.stock}"></p>
 					<p th:if="${item.stock >= 6}"th:text="在庫あり"></p> 
 				</td>
 			</tr>
