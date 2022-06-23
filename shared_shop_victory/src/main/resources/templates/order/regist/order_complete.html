@@ -7,8 +7,8 @@
 </head>
 <body>
 	<!--           ---------　注文登録完了画面 ---------          -->
-	<div th:if="${isComplete == null}">エラーが発生しました。</div>
-	<div th:if="${isComplete == true}">ご注文ありがとうございます。<br>注文手続きが完了しました。</div>
+	<p th:if="${isComplete == null}" class="err">エラーが発生しました。</p>
+	<p th:if="${isComplete == true}">ご注文ありがとうございます。<br>注文手続きが完了しました。</p>
 	
 	<a href="/shared_shop">トップ画面へ</a>
 </body>
