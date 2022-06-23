@@ -925,3 +925,7 @@ p.link_center {
     top: -40px;
     left: 120px;
 }
+
+.buttoncenter{
+	text-align:center;
+}
