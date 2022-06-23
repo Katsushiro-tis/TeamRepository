@@ -44,7 +44,7 @@
 				<!-- 価格検索 -->
 				<div class="price_contents">
 					<!-- 価格検索 -->
-					<form method="post" th:action="@{/item/list/findByItemPrice}"
+					<form method="get" th:action="@{/item/list/findByItemPrice}"
 						style="color: white;">
 						<div class="price_inner">
 							<input type="number" name=itemMinPrice min="0">円〜 <input

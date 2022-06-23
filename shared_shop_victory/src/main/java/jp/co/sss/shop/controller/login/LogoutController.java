@@ -17,7 +17,7 @@ public class LogoutController {
 	 * ログアウト処理
 	 *
 	 * @param session セッション情報
-	 * @return "/" トップ画面へ
+	 * @return "" トップ画面へ
 	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

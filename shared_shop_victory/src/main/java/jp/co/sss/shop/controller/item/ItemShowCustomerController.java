@@ -14,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
@@ -50,7 +48,7 @@ public class ItemShowCustomerController {
 	 * トップ画面 表示処理
 	 *
 	 * @param model Viewとの値受渡し
-	 * @return "/" トップ画面へ
+	 * @return "" トップ画面へ
 	 */
 	@GetMapping("/")
 	public String index(Model model, Pageable pageable) {
@@ -69,7 +67,7 @@ public class ItemShowCustomerController {
 
 
 
-	@RequestMapping(path = "/item/detail/{id}")
+	@GetMapping(path = "/item/detail/{id}")
 	public String showItem(@PathVariable int id, Model model) {
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(id);
@@ -83,6 +81,7 @@ public class ItemShowCustomerController {
 		return "item/detail/item_detail";
 	}
 
+//カテゴリ検索
 	@GetMapping("/item/list/category/{sortType}")
 	public String showCategoryList(int categoryId, Model model) {
 
@@ -100,6 +99,7 @@ public class ItemShowCustomerController {
 		return "item/list/item_list";
 	}
 
+//売れ筋順検索
 	@GetMapping("/item/list/{sortType}")
 	public String showNewerList(Model model, @PathVariable int sortType) {
 
@@ -133,8 +133,8 @@ public class ItemShowCustomerController {
 		return "item/list/item_list";
 	}
 
-//あいまい検索	
-	@RequestMapping(path = "/item/list/findByItemName")
+//キーワード検索	
+	@GetMapping(path = "/item/list/findByItemName")
 	//public String showItemListByName(@Valid @ModelAttribute ItemForm form, BindingResult result, Model model) {
 		public String showItemListByName(@Valid @ModelAttribute LikeForm likeform, BindingResult result, Model model) {
 		
@@ -156,8 +156,9 @@ public class ItemShowCustomerController {
 		return "item/list/item_list";
 
 	}
-	
-	@RequestMapping(path = "/item/list/findByItemPrice")
+
+//値段検索
+	@GetMapping(path = "/item/list/findByItemPrice")
 	public String showItemListByPrice(@Valid @ModelAttribute ItemPriceForm pform, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
@@ -192,7 +193,7 @@ public class ItemShowCustomerController {
 	
 	 //商品の値段別検索
 	  
-	  @RequestMapping(path = "/item/list/pricearray", method = RequestMethod.GET)
+	@GetMapping( "/item/list/pricearray")
 	  public String priceViewList(int pricearray, Model model) {
 	  System.out.println(pricearray);
 	  
@@ -246,7 +247,5 @@ public class ItemShowCustomerController {
 	  
 	//int strt;
 	//int end;
-
-		//if (pricearray == strt && price.getPrice() >= 9001 && price.getPrice() <= end) {
 	 
 }

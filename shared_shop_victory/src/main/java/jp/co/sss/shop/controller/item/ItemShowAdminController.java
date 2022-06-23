@@ -48,14 +48,14 @@ public class ItemShowAdminController {
 
 		return "item/list/item_list_admin";
 	}
-
+	
 	/**
 	 * 商品情報詳細表示処理
 	 *
 	 * @param id 商品ID
 	 * @param model Viewとの値受渡し
 	 * @param session セッション情報
-	 * @return "/item/detail/item_detail_admin" 商品情報 詳細画面へ
+	 * @return "item/detail/item_detail_admin" 商品情報 詳細画面へ
 	 */
 	@RequestMapping(path = "/item/detail/admin/{id}")
 	public String showItem(@PathVariable int id, Model model) {
