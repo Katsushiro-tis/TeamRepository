@@ -7,7 +7,8 @@
 </head>
 <body>
 	<!--      ---------　届け先入力画面　---------      -->
-	<h2 class="title">お届け先入力</h2>
+<div class="user_info_form_area">
+	<h1 class="address_title">お届け先入力</h1>
 	<div th:object="${addressForm}" class="err">
 		<p th:errors="*{postalCode}"></p>
 		<p th:errors="*{address}"></p>
@@ -15,20 +16,23 @@
 		<p th:errors="*{phoneNumber}"></p>
 	</div>
 
+		
+		<form method="post" th:action="@{/payment/input}" class="order_form">
+			郵便番号 <br><input type="number" name="postalCode" th:value="${userDetail.postalCode}" ><br> 
+			住所 <br><textarea name="address" cols="30" rows="5" th:text="${userDetail.address}"> </textarea><br>
+			氏名 <br><input type="text" name="name" th:value="${userDetail.name}"><br>
+			電話番号<br><input type="number" name="phoneNumber" th:value="${userDetail.phoneNumber}" style="margin-bottom:20px"><br>
+			<input type="hidden" name="backflg" value="false" /> 
+				<input type="submit" value="次へ" />
+		</form>
 
-	<form method="post" th:action="@{/payment/input}">			
-		郵便番号 <br><input type="number" name="postalCode"th:value="${userDetail.postalCode}"><br> 
-		住所 <br><textarea name="address" cols="30" rows="5"th:text="${userDetail.address}"> </textarea><br>
-		氏名 <br><input type="text" name="name" th:value="${userDetail.name}"><br>
-		電話番号<br><input type="number" name="phoneNumber"th:value="${userDetail.phoneNumber}"><br>
-			<input type="hidden" name="backflg" value="false" />
-			<input type="submit"value="次へ" />
-	</form>
 
+		<form method="get" action="/shared_shop/basket/list"  class="order_form">
+			<input type="hidden" name="backflg" value="true" /> <input
+				type="submit" value="戻る" class="back_button" />
+		</form>
 
-	<form method="get" action="/shared_shop/basket/list">
-		<input type="hidden" name="backflg" value="true" /> 
-		<input type="submit" value="戻る" />
-	</form>
+</div>
+   
 </body>
 </html>

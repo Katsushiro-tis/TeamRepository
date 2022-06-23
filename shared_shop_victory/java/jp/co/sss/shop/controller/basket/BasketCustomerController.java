@@ -79,7 +79,7 @@ public class BasketCustomerController {
 		}
 
 		session.setAttribute("basket", basketList);
-		return "forward:/basket/list";
+		return "basket/shopping_basket";
 	}
 
 	// 買い物かご画面(ナビゲーションバーから遷移)
@@ -100,8 +100,8 @@ public class BasketCustomerController {
 		@SuppressWarnings("unchecked")
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 		// かごの中の商品を検索、指定のIDの商品を減らして0以下なら削除
+		int index = 0;
 		for (BasketBean bean : basketList) {
-			int index = 0;
 			if (bean.getId() == id) {
 				int orderNum = bean.getOrderNum();
 				// 注文数を1減らして0以下なら削除
@@ -115,7 +115,7 @@ public class BasketCustomerController {
 			index++;
 		}
 		session.setAttribute("basket", basketList);
-		return "forward:/basket/list";
+		return "basket/shopping_basket";
 	}
 
 	// 商品全削除
@@ -125,6 +125,6 @@ public class BasketCustomerController {
 		ArrayList<BasketBean> basketList = (ArrayList<BasketBean>) session.getAttribute("basket");
 		basketList.clear();
 		session.setAttribute("basket", basketList);
-		return "forward:/basket/list";
+		return "basket/shopping_basket";
 	}
 }
