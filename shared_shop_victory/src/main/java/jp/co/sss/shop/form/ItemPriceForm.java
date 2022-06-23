@@ -31,7 +31,4 @@ public class ItemPriceForm {
 	public void setItemMaxPrice(int itemMaxPrice) {
 		this.itemMaxPrice = itemMaxPrice;
 	}
-	
-
-
 }
