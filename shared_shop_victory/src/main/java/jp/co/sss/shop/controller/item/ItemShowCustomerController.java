@@ -14,12 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemPriceForm;
-import jp.co.sss.shop.form.LikeForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.UserRepository;
@@ -132,30 +132,23 @@ public class ItemShowCustomerController {
 		model.addAttribute("url", "/item/list/");
 		return "item/list/item_list";
 	}
-
-//キーワード検索	
-	@GetMapping(path = "/item/list/findByItemName")
-	//public String showItemListByName(@Valid @ModelAttribute ItemForm form, BindingResult result, Model model) {
-		public String showItemListByName(@Valid @ModelAttribute LikeForm likeform, BindingResult result, Model model) {
-		
-		if (result.hasErrors()) {
-			System.out.println("エラー");
-			return "item/list/item_list";
-		}
-		
-		System.out.println(likeform.getName());
-		Item item = itemRepository.findByNameLike("%" + likeform.getName() + "%");
-		
+	//キーワード検索
+	@PostMapping("/item/list/findByItemName")
+	public String showItemListByName(String itemName, Model model) {
+		List<Item> item = itemRepository.findByNameLike("%" + itemName + "%");
 		ItemBean itemBean = new ItemBean();
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
 		BeanUtils.copyProperties(item, itemBean);
-		itemBean.setName(item.getName());
+		List<ItemBean> itemBeanList;
+		// エンティティ内の検索結果をJavaBeansにコピー
+		itemBeanList = BeanCopy.copyEntityToItemBean(item);
+		// itemBean.setName(item.getName());
 		// 商品情報をViewへ渡す
-		model.addAttribute("items", itemBean);
-	
-		return "item/list/item_list";
-
+		model.addAttribute("items", itemBeanList);
+		return "/item/list/item_list";
 	}
+		
+	
 
 //値段検索
 	@GetMapping(path = "/item/list/findByItemPrice")

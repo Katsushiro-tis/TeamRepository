@@ -41,7 +41,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 	public Item findByName(String itemName);
 
-	public Item findByNameLike(String string);
+	public List<Item> findByNameLike(String itemName);
 
 	public List<Item> findAllByName(String itemName);
 
