@@ -105,6 +105,7 @@ public class UserDeleteCustomerController {
 															+ "https://tokyoitschool.jp/inquiry/ \n"
 															+ "----------------------------------------\n");
 		
+		
 		return "redirect:/user/delete/complete";
 	}
 	
