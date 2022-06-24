@@ -20,6 +20,7 @@ import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemPriceForm;
+import jp.co.sss.shop.form.LikeForm;
 import jp.co.sss.shop.repository.CategoryRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.UserRepository;
@@ -146,19 +147,19 @@ public class ItemShowCustomerController {
 		System.out.println(likeform.getName());
 		Item item = itemRepository.findByNameLikeAndDeleteFlag("%" + likeform.getName() + "%", Constant.NOT_DELETED);
 		
-		ItemBean itemBean = new ItemBean();
-		// Itemエンティティの各フィールドの値をItemBeanにコピー
-		BeanUtils.copyProperties(item, itemBean);
-		List<ItemBean> itemBeanList;
-		// エンティティ内の検索結果をJavaBeansにコピー
-		itemBeanList = BeanCopy.copyEntityToItemBean(item);
-		// itemBean.setName(item.getName());
-		// 商品情報をViewへ渡す
-		model.addAttribute("items", itemBeanList);
-		return "/item/list/item_list";
-	}
-		
+		if(item != null) {
+			ItemBean itemBean = new ItemBean();	
+			// Itemエンティティの各フィールドの値をItemBeanにコピー
+			BeanUtils.copyProperties(item, itemBean);
+			itemBean.setName(item.getName());
 	
+			// 商品情報をViewへ渡す
+			model.addAttribute("items", itemBean);
+		}
+	
+		return "item/list/item_list";
+
+	}
 
 //値段検索
 	@GetMapping(path = "/item/list/findByItemPrice")
