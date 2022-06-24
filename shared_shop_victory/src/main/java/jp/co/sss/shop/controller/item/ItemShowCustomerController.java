@@ -90,7 +90,7 @@ public class ItemShowCustomerController {
 
 		category.setId(categoryId);
 
-		List<Item> items = itemRepository.findByCategory(category);
+		List<Item> items = itemRepository.findByCategoryAndDeleteFlag(category,Constant.NOT_DELETED);
 
 		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(items);
 
@@ -119,10 +119,10 @@ public class ItemShowCustomerController {
 			}
 			model.addAttribute("sort", 2);
 		} else if (sortType == 3) {
-			itemList = itemRepository.findAllByOrderByPriceDesc();
+			itemList = itemRepository.findByDeleteFlagOrderByPriceDesc(Constant.NOT_DELETED);
 			model.addAttribute("sort", 3);
 		} else if (sortType == 4) {
-			itemList = itemRepository.findAllByOrderByPriceAsc();
+			itemList = itemRepository.findByDeleteFlagOrderByPriceAsc(Constant.NOT_DELETED);
 			model.addAttribute("sort", 4);
 		}
 	
@@ -145,14 +145,17 @@ public class ItemShowCustomerController {
 		}
 		
 		System.out.println(likeform.getName());
-		Item item = itemRepository.findByNameLike("%" + likeform.getName() + "%");
+		Item item = itemRepository.findByNameLikeAndDeleteFlag("%" + likeform.getName() + "%", Constant.NOT_DELETED);
 		
-		ItemBean itemBean = new ItemBean();
-		// Itemエンティティの各フィールドの値をItemBeanにコピー
-		BeanUtils.copyProperties(item, itemBean);
-		itemBean.setName(item.getName());
-		// 商品情報をViewへ渡す
-		model.addAttribute("items", itemBean);
+		if(item != null) {
+			ItemBean itemBean = new ItemBean();	
+			// Itemエンティティの各フィールドの値をItemBeanにコピー
+			BeanUtils.copyProperties(item, itemBean);
+			itemBean.setName(item.getName());
+	
+			// 商品情報をViewへ渡す
+			model.addAttribute("items", itemBean);
+		}
 	
 		return "item/list/item_list";
 
@@ -199,7 +202,7 @@ public class ItemShowCustomerController {
 	  System.out.println(pricearray);
 	  
 	  //安い順で全件検索
-	  List<Item> item = itemRepository.findAllByOrderByPriceAsc();
+	  List<Item> item = itemRepository.findByDeleteFlagOrderByPriceAsc(Constant.NOT_DELETED);
 	  List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(item);
 	  
 	  

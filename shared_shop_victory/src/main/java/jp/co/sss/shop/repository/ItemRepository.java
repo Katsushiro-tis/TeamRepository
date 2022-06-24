@@ -24,7 +24,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	//ページング
 	//public List<Item> findByDeleteFlagOrderByInsertDateDescIdAsc(Pageable pageable);
 
-	public List<Item> findByCategory(Category category);
+	public List<Item> findByCategoryAndDeleteFlag(Category category, Integer deleteFlag);
 	
 
 	@Query(value = "select i.id, i.ID, i.NAME, i.PRICE, i.DESCRIPTION, i.STOCK, i.IMAGE, i.CATEGORY_ID, i.DELETE_FLAG, i.INSERT_DATE, sum(oi.quantity) \r\n"
@@ -36,12 +36,12 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 	public Item findByName(String itemName);
 
-	public Item findByNameLike(String string);
+	public Item findByNameLikeAndDeleteFlag(String string, Integer deleteFlag);
 	
 	public List<Item> findAllByName(String itemName);
 	
-	public List<Item> findAllByOrderByPriceDesc();
-	public List<Item> findAllByOrderByPriceAsc();
+	public List<Item> findByDeleteFlagOrderByPriceDesc(Integer deleteFlag);
+	public List<Item> findByDeleteFlagOrderByPriceAsc(Integer deleteFlag);
 
 	public char[] findByPrice(int itemPrice);
 }
