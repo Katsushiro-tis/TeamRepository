@@ -89,7 +89,7 @@ public class ItemShowCustomerController {
 
 		category.setId(categoryId);
 
-		List<Item> items = itemRepository.findByCategory(category);
+		List<Item> items = itemRepository.findByCategoryAndDeleteFlag(category,Constant.NOT_DELETED);
 
 		List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(items);
 
@@ -118,10 +118,10 @@ public class ItemShowCustomerController {
 			}
 			model.addAttribute("sort", 2);
 		} else if (sortType == 3) {
-			itemList = itemRepository.findAllByOrderByPriceDesc();
+			itemList = itemRepository.findByDeleteFlagOrderByPriceDesc(Constant.NOT_DELETED);
 			model.addAttribute("sort", 3);
 		} else if (sortType == 4) {
-			itemList = itemRepository.findAllByOrderByPriceAsc();
+			itemList = itemRepository.findByDeleteFlagOrderByPriceAsc(Constant.NOT_DELETED);
 			model.addAttribute("sort", 4);
 		}
 	
@@ -132,11 +132,15 @@ public class ItemShowCustomerController {
 		model.addAttribute("url", "/item/list/");
 		return "item/list/item_list";
 	}
-	
+
 	//キーワード検索
 	@PostMapping("/item/list/findByItemName")
 	public String showItemListByName(String itemName, Model model) {
-		List<Item> item = itemRepository.findByNameLike("%" + itemName + "%");
+		List<Item> item = itemRepository.findByNameLikeAndDeleteFlag("%" + itemName + "%", Constant.NOT_DELETED);
+		
+		for(Item i : item) {
+			System.out.print(i.getName());
+		}
 		
 		ItemBean itemBean = new ItemBean();
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
@@ -191,7 +195,7 @@ public class ItemShowCustomerController {
 	  System.out.println(pricearray);
 	  
 	  //安い順で全件検索
-	  List<Item> item = itemRepository.findAllByOrderByPriceAsc();
+	  List<Item> item = itemRepository.findByDeleteFlagOrderByPriceAsc(Constant.NOT_DELETED);
 	  List<ItemBean> itemBeanList = BeanCopy.copyEntityToItemBean(item);
 	  
 	  

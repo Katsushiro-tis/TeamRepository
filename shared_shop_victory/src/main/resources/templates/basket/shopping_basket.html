@@ -17,6 +17,9 @@
 
 	<p class="err" th:if="!${(#strings.isEmpty(notEnoughName))}"
 		th:text="${notEnoughName} + #{basketList.itemStockNone}">
+		
+	<p th:if="!${(#strings.isEmpty(notHandling))}" th:text="${notHandling}">
+	
 	<div th:if="!${#lists.isEmpty(session.basket)}">
 		<table class="list_table basket">
 			<tr>
@@ -32,7 +35,7 @@
 				<td>
 					<form th:action="@{/basket/add}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />
-						<input type="submit" class="add" value="＋" style="margin-left:10px"/>
+						<input type="submit" class="add" value="＋" />
 					</form>
 					<form th:action="@{/basket/delete}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />

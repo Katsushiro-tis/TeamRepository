@@ -46,9 +46,17 @@ public class BasketCustomerController {
 		if (basketList == null) {
 			basketList = new ArrayList<>();
 		}
-		// 追加対象商品の在庫数確認
-		Item item = itemRepository.getById(id);
 
+		Item item = itemRepository.findByIdAndDeleteFlag(id, 0);
+
+		// 商品自体がDBから削除されていた場合の処理
+		if (item == null) {
+			String notHandling = "現在お取り扱いのない商品です。";
+			model.addAttribute("notHandling", notHandling);
+			return "basket/shopping_basket";
+		}
+
+		// 追加対象商品の在庫数確認
 		// 追加できる数ならば、買い物かごに追加(この時点では、在庫数が減らない為、買い物かご数は在庫数を超えてはいけない)
 
 		// 買い物かご個数
