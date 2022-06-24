@@ -83,12 +83,19 @@ public class FavoriteController {
 	@GetMapping("/favorite/list")
 	public String showFavoriteList(Model model) {
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
-
+		
+		for(int i=0;i < favoriteitems.size();i++) {
+			if(favoriteitems.get(i).getItem().getDeleteFlag() == 1) {
+				favoriteitems.remove(i);
+			}
+		}
+		
+		
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
 
-		for (FavoriteBean f : itemBeanList3) {
-			System.out.println(f.getName());
-		}
+		/*
+		 * for(FavoriteBean f: itemBeanList3) { System.out.println(f.getName()); }
+		 */
 
 		// カテゴリ情報を取得する
 		List<Category> categoryList = categoryRepository
