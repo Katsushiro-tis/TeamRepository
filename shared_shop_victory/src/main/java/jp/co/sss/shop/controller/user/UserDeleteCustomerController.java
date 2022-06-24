@@ -112,6 +112,9 @@ public class UserDeleteCustomerController {
 	
 	@GetMapping("/user/delete/complete")
 	public String userDeleteComplete() {
+		
+		session.invalidate();
+		
 		return "user/delete/user_delete_complete";
 	}
 }
