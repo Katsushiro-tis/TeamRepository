@@ -96,16 +96,15 @@ public class FavoriteController {
 		/*
 		 * for(FavoriteBean f: itemBeanList3) { System.out.println(f.getName()); }
 		 */
-		
+
 		// カテゴリ情報を取得する
 		List<Category> categoryList = categoryRepository
-		        .findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+				.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
 
 		// カテゴリ情報をViewへ渡す
 		model.addAttribute("categories", categoryList);
-		
+
 		model.addAttribute("items", itemBeanList3);
-		
 
 		return "favorite/item_favorite";
 	}
