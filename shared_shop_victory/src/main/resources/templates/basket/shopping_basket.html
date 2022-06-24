@@ -17,6 +17,9 @@
 
 	<p class="err" th:if="!${(#strings.isEmpty(notEnoughName))}"
 		th:text="${notEnoughName} + #{basketList.itemStockNone}">
+		
+	<p th:if="!${(#strings.isEmpty(notHandling))}" th:text="${notHandling}">
+	
 	<div th:if="!${#lists.isEmpty(session.basket)}">
 		<table class="list_table basket">
 			<tr>

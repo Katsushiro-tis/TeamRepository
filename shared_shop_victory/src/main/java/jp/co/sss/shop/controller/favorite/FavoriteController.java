@@ -32,7 +32,6 @@ import jp.co.sss.shop.util.Constant;
 @Controller
 public class FavoriteController {
 
-	
 	@Autowired
 	ItemRepository itemRepository;
 	@Autowired
@@ -43,18 +42,17 @@ public class FavoriteController {
 	UserRepository userRepository;
 	@Autowired
 	HttpSession session;
-	
-	
+
 	@PostMapping("/favorite/add")
-	public String addFavoriteList(Model model,FavoriteForm form) {
-		
+	public String addFavoriteList(Model model, FavoriteForm form) {
+
 		// 商品IDに該当する商品情報を取得
 		Item item = itemRepository.getById(Integer.valueOf(form.getId()));
-		
+
 		// userIDに該当する商品情報を取得
 		UserBean sessionUser = (UserBean) session.getAttribute("user");
 		User user = userRepository.getById(sessionUser.getId());
-		
+
 		// favoriteにセーブ
 		Favorite favorite = new Favorite();
 
@@ -64,45 +62,42 @@ public class FavoriteController {
 		List<Favorite> favoriteadd = favoriteRepository.findByItemAndUser(item, user);
 		List<FavoriteBean> itemBeanList4 = BeanCopy.copyEntityToFavoriteBean(favoriteadd);
 
-		for (FavoriteBean f : itemBeanList4) {		  
-			  //すでに保存されているItem/Userと今回addしたItem/Userが同じならsaveせずにリダイレクト
-			  if(item.getName() == f.getItem().getName() && user.getName() == f.getUser().getName()) {
-				  return "redirect:/favorite/list";
-			  }
-			 
+		for (FavoriteBean f : itemBeanList4) {
+			// すでに保存されているItem/Userと今回addしたItem/Userが同じならsaveせずにリダイレクト
+			if (item.getName() == f.getItem().getName() && user.getName() == f.getUser().getName()) {
+				return "redirect:/favorite/list";
+			}
+
 		}
 		favoriteRepository.save(favorite);
-	
+
 		return "redirect:/favorite/list";
 	}
-
 
 	@PostMapping("/favorite/delete")
 	public String deleteFavoriteItem(FavoriteForm favoriteForm) {
 		favoriteRepository.deleteById(Integer.valueOf(favoriteForm.getId()));
 		return "redirect:/favorite/list";
 	}
-	
-	
+
 	@GetMapping("/favorite/list")
 	public String showFavoriteList(Model model) {
 		List<Favorite> favoriteitems = favoriteRepository.findAll();
 
 		List<FavoriteBean> itemBeanList3 = BeanCopy.copyEntityToFavoriteBean(favoriteitems);
 
-		for(FavoriteBean f: itemBeanList3) {
+		for (FavoriteBean f : itemBeanList3) {
 			System.out.println(f.getName());
 		}
-		
+
 		// カテゴリ情報を取得する
 		List<Category> categoryList = categoryRepository
-		        .findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
+				.findByDeleteFlagOrderByInsertDateDescIdAsc(Constant.NOT_DELETED);
 
 		// カテゴリ情報をViewへ渡す
 		model.addAttribute("categories", categoryList);
-		
+
 		model.addAttribute("items", itemBeanList3);
-		
 
 		return "favorite/item_favorite";
 	}
