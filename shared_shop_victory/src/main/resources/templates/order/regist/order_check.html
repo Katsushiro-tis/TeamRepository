@@ -8,6 +8,7 @@
 <body>
 
 	<!--    　 ---------　注文登録確認画面　---------　　　　 -->
+	<div class="user_info_form_area">
 	<h1 class="order_title">注文内容最終確認</h1>
 	<br>
 
@@ -76,9 +77,9 @@
 			</tr>
 		</table>
 		
-		<div class="user_info_form_area">
+		
 		<form method="post" action="/shared_shop/order/complete"
-		th:object="${register}" th:if="${total != 0}" class="order_form">
+		th:object="${register}" th:if="${total != 0}" class="order_form" >
 		<input type="hidden" name="postalCode" th:value="*{postalCode}" />
 		<input type="hidden" name="address" th:value="*{address}" /> 
 		<input type="hidden" name="name" th:value="*{name}" /> 
@@ -97,8 +98,9 @@
 		<input type="hidden"name="payMethod" th:value="*{payMethod}" /> 
 		<input type="submit"value="戻る" class="back_button" />
 	</form>
-	</div>
 	
+	
+	</div>
 
 </body>
 </html>

@@ -35,7 +35,7 @@
 				<td>
 					<form th:action="@{/basket/add}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />
-						<input type="submit" class="add" value="＋" style="margin-left:10px"/>
+						<input type="submit" class="add" value="＋" />
 					</form>
 					<form th:action="@{/basket/delete}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" />
