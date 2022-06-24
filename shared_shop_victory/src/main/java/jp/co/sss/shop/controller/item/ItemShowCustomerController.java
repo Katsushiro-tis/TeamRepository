@@ -144,19 +144,19 @@ public class ItemShowCustomerController {
 			return "item/list/item_list";
 		}
 		
-		System.out.println(likeform.getName());
-		Item item = itemRepository.findByNameLike("%" + likeform.getName() + "%");
 		
+		System.out.println(likeform.getName());
+		Item item = itemRepository.findByNameLike("%" + likeform.getName() + "%");	
 		ItemBean itemBean = new ItemBean();
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
 		BeanUtils.copyProperties(item, itemBean);
 		itemBean.setName(item.getName());
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBean);
-	
 		return "item/list/item_list";
-
 	}
+		
+	
 
 //値段検索
 	@GetMapping(path = "/item/list/findByItemPrice")
