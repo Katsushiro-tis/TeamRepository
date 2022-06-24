@@ -132,23 +132,23 @@ public class ItemShowCustomerController {
 		model.addAttribute("url", "/item/list/");
 		return "item/list/item_list";
 	}
+	
 	//キーワード検索
 	@PostMapping("/item/list/findByItemName")
 	public String showItemListByName(String itemName, Model model) {
 		List<Item> item = itemRepository.findByNameLike("%" + itemName + "%");
+		
 		ItemBean itemBean = new ItemBean();
 		// Itemエンティティの各フィールドの値をItemBeanにコピー
 		BeanUtils.copyProperties(item, itemBean);
 		List<ItemBean> itemBeanList;
 		// エンティティ内の検索結果をJavaBeansにコピー
 		itemBeanList = BeanCopy.copyEntityToItemBean(item);
-		// itemBean.setName(item.getName());
 		// 商品情報をViewへ渡す
 		model.addAttribute("items", itemBeanList);
 		return "/item/list/item_list";
 	}
 		
-	
 
 //値段検索
 	@GetMapping(path = "/item/list/findByItemPrice")
